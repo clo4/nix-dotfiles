@@ -17,6 +17,15 @@
     "nixos-config=${../.}"
   ];
 
+  # I always want the latest version of Helix. They do their best to
+  # keep it building, and I've only ever had trouble with it twice.
+  # Even then, that's exactly the problem that Nix solves, so I'm not
+  # concerned at all about stability.
+  nixpkgs.overlays = [
+    inputs.helix.overlays.default
+    inputs.nixd.overlays.default
+  ];
+
   nixpkgs.config = {
     allowUnfree = true;
   };
@@ -30,12 +39,5 @@
   # the $PATH doesn't include all the entries it should by default.
   programs.fish.enable = true;
 
-  # I always want the latest version of Helix. They do their best to
-  # keep it building, and I've only ever had trouble with it twice.
-  # Even then, that's exactly the problem that Nix solves, so I'm not
-  # concerned at all about stability.
-  nixpkgs.overlays = [
-    inputs.helix.overlays.default
-    inputs.nixd.overlays.default
-  ];
+  services.tailscale.enable = true;
 }

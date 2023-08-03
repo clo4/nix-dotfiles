@@ -44,19 +44,7 @@ in
         # Disables the greeting message
         fish_greeting = "";
 
-        # This function is automatically executed at startup to define the bindings that
-        # Fish will use.
-        # fish_hybrid_key_bindings enables Vi keybindings but enables emacs keybindings in all modes,
-        # allowing arrow keys, C-f/b, etc. to still work.
-        # It also includes M-e which will open the commandline in your editor, granting the full power
-        # of Helix for writing commands if necessary.
         fish_user_key_bindings = ''
-          # fish_hybrid_key_bindings
-
-          # for mode in normal insert select
-              # bind -M $mode \cz 'fg 2>/dev/null; commandline -f repaint'
-          # end
-
           bind \cz 'fg 2>/dev/null; commandline -f repaint'
         '';
 
@@ -127,7 +115,7 @@ in
 
         # Using , instead of 'g' for git because g is annoying to reach
         "," = "git";
-        ",a" = "git add";
+        ",a" = "git add --patch";
         ",ad" = "git add ."; # git-add-dot
         ",c" = "git commit";
         ",cp" = "git commit; and git push"; # git-commit-push

@@ -1,0 +1,5 @@
+{ ... }:
+
+{
+  homebrew.enable = true;
+}

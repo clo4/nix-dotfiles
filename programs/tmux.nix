@@ -3,13 +3,14 @@ with lib;
 
 let
   cfg = config.my.programs.tmux;
-in {
+in
+{
   options.my.programs.tmux = {
     enable = mkEnableOption "my tmux configuration";
   };
 
   config = mkIf cfg.enable {
-    programs.tmux =  {
+    programs.tmux = {
       enable = true;
       escapeTime = 50;
       historyLimit = 10000;

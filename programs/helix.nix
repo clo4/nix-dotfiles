@@ -7,7 +7,8 @@ let
 
   myTheme = "gruvbox_clo4";
 
-in {
+in
+{
   options.my.programs.helix.enable = mkEnableOption "my helix configuration";
 
   config = mkIf cfg.enable {
@@ -145,7 +146,7 @@ in {
         rust-analyzer.command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
       };
 
-      languages.language =  [
+      languages.language = [
         {
           name = "nix";
           language-servers = [ "nixd" ];

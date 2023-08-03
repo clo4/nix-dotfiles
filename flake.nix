@@ -56,7 +56,8 @@
           inherit inputs;
         };
       };
-    in {
+    in
+    {
       darwinConfigurations = {
         # Using nix-darwin, configuring the Mac mini itself
         macmini = darwin.lib.darwinSystem {
@@ -100,16 +101,17 @@
           };
         };
       };
-  }
-  // flake-utils.lib.eachDefaultSystem (system: 
-    let
-      pkgs = import nixpkgs { inherit system; };
-    in {
-      devShell = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
-          nixpkgs-fmt
-          nixd
-        ];
-      };
-    });
+    }
+    // flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        devShell = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            nixpkgs-fmt
+            # nixd
+          ];
+        };
+      });
 }

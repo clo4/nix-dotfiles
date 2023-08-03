@@ -24,7 +24,8 @@
       # very, very wrong.
       dquote = str: "\"" + str + "\"";
       makeBinPathList = map (path: path + "/bin");
-    in ''
+    in
+    ''
       fish_add_path --move --prepend --path ${lib.concatMapStringsSep " " dquote (makeBinPathList config.environment.profiles)}
       set fish_user_paths $fish_user_paths
     '';

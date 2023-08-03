@@ -16,7 +16,7 @@
     "nixpkgs=${inputs.nixpkgs}"
     "nixos-config=${../.}"
   ];
-  
+
   nixpkgs.config = {
     allowUnfree = true;
   };

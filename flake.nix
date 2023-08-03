@@ -28,6 +28,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixd.url = "github:nix-community/nixd";
+
     # ---
 
     # Fish plugins -- ultimately I don't really use a lot of them because
@@ -104,13 +106,16 @@
     }
     // flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [ inputs.nixd.overlays.default ];
+        };
       in
       {
         devShell = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
             nixpkgs-fmt
-            # nixd
+            nixd
           ];
         };
       });

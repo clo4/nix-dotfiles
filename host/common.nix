@@ -34,5 +34,8 @@
   # keep it building, and I've only ever had trouble with it twice.
   # Even then, that's exactly the problem that Nix solves, so I'm not
   # concerned at all about stability.
-  nixpkgs.overlays = [ inputs.helix.overlays.default ];
+  nixpkgs.overlays = [
+    inputs.helix.overlays.default
+    inputs.nixd.overlays.default
+  ];
 }

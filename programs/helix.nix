@@ -141,7 +141,7 @@ in
         };
 
         # nil.command = "${nil}/bin/nil";
-        # nixd.command = "${nixd}/bin/nixd";
+        nixd.command = "${nixd}/bin/nixd";
 
         rust-analyzer.command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
       };

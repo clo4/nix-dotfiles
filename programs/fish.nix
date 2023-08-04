@@ -1,11 +1,13 @@
-{ pkgs, lib, config, inputs, ... }:
-
-with lib;
-
-let
-  cfg = config.my.programs.fish;
-in
 {
+  pkgs,
+  lib,
+  config,
+  inputs,
+  ...
+}:
+with lib; let
+  cfg = config.my.programs.fish;
+in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
   };

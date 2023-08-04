@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ../common.nix
   ];
@@ -13,7 +12,7 @@
   };
 
   users.users.robert = {
-    extraGroups = [ "wheel" ];
+    extraGroups = ["wheel"];
     isNormalUser = true;
     hashedPassword = "$y$j9T$/DELHBb5Gc.uI/Cyr6KGo1$AgxXRZnEcH74IJnaN.L4VOXLllAMeNrX4IhJCsNYu86";
   };

@@ -8,10 +8,11 @@
 # This file isn't responsible for importing the home-manager module, that's
 # assumed to already be imported. The reason for this is sharing the same
 # common home configuration between NixOS and macOS (with nix-darwin).
-
-{ pkgs, inputs, ... }:
-
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ../programs
   ];

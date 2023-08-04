@@ -1,12 +1,15 @@
-{ pkgs, inputs, ... }:
 {
+  pkgs,
+  inputs,
+  ...
+}: {
   time.timeZone = "Australia/Sydney";
 
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
   # Enables flakes and the nix command
   # nix.package = pkgs.nixFlakes;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Disabling automatic GC will increase cache hits at the cost of disk storage, but
   # I've got enough storage that it's a worthwhile tradeoff for me.

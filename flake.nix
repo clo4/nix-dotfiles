@@ -42,23 +42,30 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixos-wsl, home-manager, darwin, flake-utils, ... }:
-    # Currently this config makes the assumption that I only want to set up
-    # one user and that user's username is "robert". This will be hardcoded
-    # but when I eventually need to address this I'll need to grep for "robert"
-    let
-      # Defines the home-manager module that will import the correct configuration
-      # for that host, by using the provided path. Cool fact: home-manager.users.<name>
-      # accepts a module definition, not just an attribute set like the docs show.
-      home-manager-robert = path: {
-        home-manager.useUserPackages = true;
-        home-manager.useGlobalPkgs = true;
-        home-manager.users.robert = path;
-        home-manager.extraSpecialArgs = {
-          inherit inputs;
-        };
+  outputs = inputs @ {
+    nixpkgs,
+    nixos-wsl,
+    home-manager,
+    darwin,
+    flake-utils,
+    ...
+  }:
+  # Currently this config makes the assumption that I only want to set up
+  # one user and that user's username is "robert". This will be hardcoded
+  # but when I eventually need to address this I'll need to grep for "robert"
+  let
+    # Defines the home-manager module that will import the correct configuration
+    # for that host, by using the provided path. Cool fact: home-manager.users.<name>
+    # accepts a module definition, not just an attribute set like the docs show.
+    home-manager-robert = path: {
+      home-manager.useUserPackages = true;
+      home-manager.useGlobalPkgs = true;
+      home-manager.users.robert = path;
+      home-manager.extraSpecialArgs = {
+        inherit inputs;
       };
-    in
+    };
+  in
     {
       darwinConfigurations = {
         # Using nix-darwin, configuring the Mac mini itself
@@ -104,19 +111,18 @@
         };
       };
     }
-    // flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [ inputs.nixd.overlays.default ];
-        };
-      in
-      {
-        devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            nixpkgs-fmt
-            nixd
-          ];
-        };
-      });
+    // flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [inputs.nixd.overlays.default];
+      };
+    in {
+      formatter = pkgs.alejandra;
+      devShell = pkgs.mkShell {
+        nativeBuildInputs = with pkgs; [
+          alejandra
+          nixd
+        ];
+      };
+    });
 }

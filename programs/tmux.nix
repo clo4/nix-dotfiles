@@ -1,10 +1,12 @@
-{ pkgs, config, lib, ... }:
-with lib;
-
-let
-  cfg = config.my.programs.tmux;
-in
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.my.programs.tmux;
+in {
   options.my.programs.tmux = {
     enable = mkEnableOption "my tmux configuration";
   };

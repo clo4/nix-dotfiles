@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   imports = [
     ../common.nix
   ];
@@ -12,7 +11,7 @@
   programs.kitty = {
     enable = true;
     theme = "Gruvbox Dark";
-    font.package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+    font.package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
     font.name = "JetBrainsMono Nerd Font Mono";
     settings = {
       macos_option_as_alt = true;

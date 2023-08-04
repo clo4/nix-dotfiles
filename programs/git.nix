@@ -1,10 +1,12 @@
-{ pkgs, config, lib, ... }:
-with lib;
-
-let
-  cfg = config.my.programs.git;
-in
 {
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.my.programs.git;
+in {
   options.my.programs.git = {
     enable = mkEnableOption "my git configuration";
   };

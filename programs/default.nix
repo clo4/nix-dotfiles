@@ -1,5 +1,4 @@
-{ ... }:
-{
+{...}: {
   imports = [
     ./helix.nix
     ./tmux.nix

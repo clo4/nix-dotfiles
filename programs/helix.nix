@@ -1,21 +1,22 @@
-{ pkgs, config, lib, inputs, ... }:
-
-with lib;
-
-let
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}:
+with lib; let
   cfg = config.my.programs.helix;
 
   myTheme = "gruvbox_clo4";
-
-in
-{
+in {
   options.my.programs.helix.enable = mkEnableOption "my helix configuration";
 
   config = mkIf cfg.enable {
     # Sets EDITOR in the environment, once I'm back to home-manager master
     # I can switch to using the Helix module's porcelain over this -
     # programs.helix.defaultEditor = true;
-    home.sessionVariables = { EDITOR = "hx"; };
+    home.sessionVariables = {EDITOR = "hx";};
 
     programs.helix = {
       enable = true;
@@ -85,8 +86,8 @@ in
         };
 
         keys.normal.space.w = {
-          V = [ "vsplit_new" "file_picker" ];
-          S = [ "hsplit_new" "file_picker" ];
+          V = ["vsplit_new" "file_picker"];
+          S = ["hsplit_new" "file_picker"];
         };
 
         # Minor mode, perform operations on selection.
@@ -100,30 +101,30 @@ in
           x = "extend_line";
           # When I collapse a selection in select mode, the next thing I do
           # is *always* enter normal mode.
-          ";" = [ "collapse_selection" "normal_mode" ];
+          ";" = ["collapse_selection" "normal_mode"];
         };
 
         # This is a pretty standard shortcut in most editors
         keys.insert = {
           C-space = "completion";
         };
-
       };
 
       themes.${myTheme} = {
         inherits = "gruvbox";
-        comment = { fg = "gray1"; };
+        comment = {fg = "gray1";};
       };
 
-      languages.language-server = with pkgs; with pkgs.nodePackages; {
+      languages.language-server = with pkgs;
+      with pkgs.nodePackages; {
         typescript-language-server = {
           command = "${typescript-language-server}/bin/typescript-language-server";
-          args = [ "--stdio" "--tsserver-path=${typescript}/lib/node_modules/typescript/lib" ];
+          args = ["--stdio" "--tsserver-path=${typescript}/lib/node_modules/typescript/lib"];
         };
 
         denols = {
           command = "${deno}/bin/deno";
-          args = [ "lsp" ];
+          args = ["lsp"];
           config = {
             enable = true;
             unstable = true;
@@ -136,8 +137,8 @@ in
         tailwindcss = {
           command = "${nodePackages_latest."@tailwindcss/language-server"}/bin-tailwindcss-language-server";
           language-id = "tailwindcss";
-          args = [ "--stdio" ];
-          config = { };
+          args = ["--stdio"];
+          config = {};
         };
 
         # nil.command = "${nil}/bin/nil";
@@ -149,7 +150,7 @@ in
       languages.language = [
         {
           name = "nix";
-          language-servers = [ "nixd" ];
+          language-servers = ["nixd"];
         }
       ];
     };

@@ -11,7 +11,6 @@
 
   programs.kitty = {
     enable = true;
-    shellIntegration.mode = "enabled";
     theme = "Gruvbox Dark";
     font.package = pkgs.nerdfonts.override { fonts = ["JetBrainsMono"]; };
     font.name = "JetBrainsMono Nerd Font Mono";

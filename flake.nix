@@ -54,9 +54,6 @@
   # one user and that user's username is "robert". This will be hardcoded
   # but when I eventually need to address this I'll need to grep for "robert"
   let
-    # Defines the home-manager module that will import the correct configuration
-    # for that host, by using the provided path. Cool fact: home-manager.users.<name>
-    # accepts a module definition, not just an attribute set like the docs show.
     home-manager-robert = path: {
       home-manager.useUserPackages = true;
       home-manager.useGlobalPkgs = true;

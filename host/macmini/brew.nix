@@ -7,7 +7,6 @@
   homebrew.casks = [
     "rectangle"
     "obsidian"
-    "kitty"
     "zed"
     "1password"
     "raycast"

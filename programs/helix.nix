@@ -67,7 +67,10 @@ in {
         };
 
         keys.normal = {
+          # Extends based on which side of the selection the head is on,
+          # eg. if the head is on the left, the selection will extend up.
           x = "extend_line";
+
           G = "goto_last_line";
 
           # Easier movement, don't need to enter another minor mode, encourages
@@ -79,10 +82,6 @@ in {
           right = "jump_view_right";
           up = "jump_view_up";
           down = "jump_view_down";
-
-          # Instead of moving focus, move around the buffer history
-          C-right = "goto_next_buffer";
-          C-left = "goto_previous_buffer";
         };
 
         keys.normal.space.w = {
@@ -99,9 +98,16 @@ in {
 
         keys.select = {
           x = "extend_line";
+
           # When I collapse a selection in select mode, the next thing I do
           # is *always* enter normal mode.
           ";" = ["collapse_selection" "normal_mode"];
+
+          # When I select to the end of the line, it ensures that everything
+          # currently selected will be included in the selection. By default,
+          # only everything to the right of the anchor will be selected.
+          g.l = ["ensure_selections_forward" "extend_to_line_end"];
+          g.h = ["ensure_selections_forward" "flip_selections" "extend_to_line_start"];
         };
 
         # This is a pretty standard shortcut in most editors

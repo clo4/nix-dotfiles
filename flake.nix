@@ -2,9 +2,9 @@
   description = "clo4's simple NixOS & nix-darwin configuration";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils";
-
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    flake-utils.url = "github:numtide/flake-utils";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL/main";
@@ -21,21 +21,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # ---
-
     helix = {
       url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Language server for Nix, using the flake for latest builds because
+    # the nixpkgs release (1.2.0) doesn't pass its checkPhase on Ventura
     nixd.url = "github:nix-community/nixd";
 
-    # ---
-
-    # Fish plugins -- ultimately I don't really use a lot of them because
-    # for the most part the shell does everything I need it to out of the box.
-
-    # Tide is a minimal (or maximal if you prefer) prompt, but it's really fast.
     fish-tide = {
       url = "github:IlanCosman/tide";
       flake = false;
@@ -50,10 +44,10 @@
     flake-utils,
     ...
   }:
-  # Currently this config makes the assumption that I only want to set up
-  # one user and that user's username is "robert". This will be hardcoded
-  # but when I eventually need to address this I'll need to grep for "robert"
   let
+    # This defines the home-manager config module for a user called robert.
+    # My config structure assumes that this is the only user I'll want to set
+    # up, but I'll have to rethink this one day.
     home-manager-robert = path: {
       home-manager.useUserPackages = true;
       home-manager.useGlobalPkgs = true;

@@ -10,6 +10,7 @@ with lib; let
 in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
+    enableWslFunctions = mkEnableOption "fish wsl functions";
   };
 
   config = mkIf cfg.enable {
@@ -42,65 +43,70 @@ in {
       # Seriously, the worst bugs I've ever had to deal with were because of aliases.
       # Just use functions, they're real easy to define and way less buggy!
 
-      functions = {
-        # Disables the greeting message
-        fish_greeting = "";
+      functions = mkMerge [
+        {
+          # Disables the greeting message
+          fish_greeting = "";
 
-        fish_user_key_bindings = ''
-          bind \cz 'fg 2>/dev/null; commandline -f repaint'
-        '';
+          fish_user_key_bindings = ''
+            bind \cz 'fg 2>/dev/null; commandline -f repaint'
+          '';
 
-        # Displays every path in $PATH on new lines
-        paths = "echo \"$PATH\" | tr ':' '\\n'";
+          # Displays every path in $PATH on new lines
+          paths = "echo \"$PATH\" | tr ':' '\\n'";
 
-        # Better interactive output than `ls`
-        e = "${pkgs.exa}/bin/exa --sort=size --all --header --long --group-directories-first -- $argv";
+          # Better interactive output than `ls`
+          e = "${pkgs.exa}/bin/exa --sort=size --all --header --long --group-directories-first -- $argv";
 
-        # Print the root of the git repository, if there is one
-        git-root = "git rev-parse --git-dir | path dirname";
+          # Print the root of the git repository, if there is one
+          git-root = "git rev-parse --git-dir | path dirname";
 
-        # Renames the current working directory
-        mvcd = ''
-          set cwd $PWD
-          st newcwd $argv[1]
-          cd ..
-          mv $cwd $newcwd
-          cd $newcwd
-          pwd
-        '';
+          # Renames the current working directory
+          mvcd = ''
+            set cwd $PWD
+            set newcwd $argv[1]
+            cd ..
+            mv $cwd $newcwd
+            cd $newcwd
+            pwd
+          '';
 
-        # Moves items out of the given directories into the destination directory.
-        # This is useful for flattening nested directory structures.
-        flatten = ''
-          if test (count $argv) -lt 2
-              echo 'Requires 2 arguments.  Usage: flatten sources... dest' >&2
-              return 1
-          end
+          # Moves items out of the given directories into the destination directory.
+          # This is useful for flattening nested directory structures.
+          flatten = ''
+            if test (count $argv) -lt 2
+                echo 'Requires 2 arguments.  Usage: flatten sources... dest' >&2
+                return 1
+            end
 
-          set dest $argv[-1]
-          set dirs $argv[..-2]
+            set dest $argv[-1]
+            set dirs $argv[..-2]
 
-          for dir in $dirs
-              mv -i $dir/* $dest
-              rmdir $dir
-          end
-        '';
+            for dir in $dirs
+                mv -i $dir/* $dest
+                rmdir $dir
+            end
+          '';
 
-        # Add a suffix to one or more files
-        suff = ''
-          if test (count $argv) -lt 2
-              echo 'Requires 2 arguments.  Usage: suff files... suffix' >&2
-              return 1
-          end
+          # Add a suffix to one or more files
+          suff = ''
+            if test (count $argv) -lt 2
+                echo 'Requires 2 arguments.  Usage: suff files... suffix' >&2
+                return 1
+            end
 
-          set suffix $argv[-1]
-          set paths $argv[..-2]
+            set suffix $argv[-1]
+            set paths $argv[..-2]
 
-          for path in $paths
-              mv $path $path$suffix
-          end
-        '';
-      };
+            for path in $paths
+                mv $path $path$suffix
+            end
+          '';
+        }
+        (mkIf cfg.enableWslFunctions {
+          wsl = "wsl.exe";
+        })
+      ];
 
       shellAbbrs = {
         # Did you know `which` isn't a builtin?

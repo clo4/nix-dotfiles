@@ -43,8 +43,7 @@
     darwin,
     flake-utils,
     ...
-  }:
-  let
+  }: let
     # This defines the home-manager config module for a user called robert.
     # My config structure assumes that this is the only user I'll want to set
     # up, but I'll have to rethink this one day.

@@ -102,9 +102,10 @@ in {
               if status is-interactive
                 and test (count $argv) = 1
                 and test $argv[1] = develop
-                nix develop --command (status fish-path)
+                command nix develop --command (status fish-path)
+              else
+                command nix $argv
               end
-              command nix $argv
             '';
           };
         };

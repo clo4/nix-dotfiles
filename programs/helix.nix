@@ -157,6 +157,11 @@ in {
         {
           name = "nix";
           language-servers = ["nixd"];
+          auto-format = true;
+          formatter = {
+            command = "${pkgs.alejandra}/bin/alejandra";
+            args = ["-"];
+          };
         }
       ];
     };

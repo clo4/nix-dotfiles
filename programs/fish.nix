@@ -14,37 +14,29 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs.fishPlugins; [
-      # Tide can be configured to be quite minimal.
-      # tide
+    programs.fish = mkMerge [
+      {
+        enable = true;
 
-      # Mnemonic keybindings to use fzf.
-      # fzf-fish
-    ];
+        plugins = [
+          {
+            name = "tide";
+            src = inputs.fish-tide;
+          }
+        ];
 
-    programs.fish = {
-      enable = true;
+        # If this keeps growing, it might be better to move each function to its own file
+        # in a fish/functions directory and use home-manager's symlinking feature.
+        # I have documentation for this in my Obsidian notes.
 
-      plugins = [
-        {
-          name = "tide";
-          src = inputs.fish-tide;
-        }
-      ];
+        # In all cases, functions are a better choice than shell aliases.
+        # Fish automatically generates functions from the `alias` command anyway,
+        # so a function just gives you more control over it with no downside.
+        # In Bash/Zsh, shell aliases are *proper* cursed, and you should NEVER touch them.
+        # Seriously, the worst bugs I've ever had to deal with were because of aliases.
+        # Just use functions, they're real easy to define and way less buggy!
 
-      # If this keeps growing, it might be better to move each function to its own file
-      # in a fish/functions directory and use home-manager's symlinking feature.
-      # I have documentation for this in my Obsidian notes.
-
-      # In all cases, functions are a better choice than shell aliases.
-      # Fish automatically generates functions from the `alias` command anyway,
-      # so a function just gives you more control over it with no downside.
-      # In Bash/Zsh, shell aliases are *proper* cursed, and you should NEVER touch them.
-      # Seriously, the worst bugs I've ever had to deal with were because of aliases.
-      # Just use functions, they're real easy to define and way less buggy!
-
-      functions = mkMerge [
-        {
+        functions = {
           # Disables the greeting message
           fish_greeting = "";
 
@@ -75,71 +67,92 @@ in {
           # This is useful for flattening nested directory structures.
           flatten = ''
             if test (count $argv) -lt 2
-                echo 'Requires 2 arguments.  Usage: flatten sources... dest' >&2
-                return 1
+              echo 'Requires 2 arguments.  Usage: flatten sources... dest' >&2
+              return 1
             end
 
             set dest $argv[-1]
             set dirs $argv[..-2]
 
             for dir in $dirs
-                mv -i $dir/* $dest
-                rmdir $dir
+              mv -i $dir/* $dest
+              rmdir $dir
             end
           '';
 
           # Add a suffix to one or more files
           suff = ''
             if test (count $argv) -lt 2
-                echo 'Requires 2 arguments.  Usage: suff files... suffix' >&2
-                return 1
+              echo 'Requires 2 arguments.  Usage: suff <suffix> <files>...' >&2
+              return 1
             end
 
-            set suffix $argv[-1]
-            set paths $argv[..-2]
+            set suffix $argv[1]
+            set paths $argv[2..]
 
             for path in $paths
-                mv $path $path$suffix
+              mv $path $path$suffix
             end
           '';
-        }
-        (mkIf cfg.enableWslFunctions {
-          wsl = "wsl.exe";
-        })
-      ];
 
-      shellAbbrs = {
-        # Did you know `which` isn't a builtin?
-        cmv = "command -v";
+          nix = {
+            wraps = "nix";
+            description = "Wraps `nix develop` to run fish instead of bash";
+            body = ''
+              if status is-interactive
+                and test (count $argv) = 1
+                and test $argv[1] = develop
+                nix develop --command (status fish-path)
+              end
+              command nix $argv
+            '';
+          };
+        };
 
-        ndev = "nix develop --command fish";
+        shellAbbrs = {
+          # Did you know `which` isn't a builtin?
+          cmv = "command -v";
 
-        f = "fzf";
+          nd = "nix develop";
 
-        t = "tmux";
-        ta = "tmux attach; or tmux";
-        tk = "tmux kill-session";
-        tl = "tmux list-sessions";
+          f = "fzf";
 
-        # Using , instead of 'g' for git because g is annoying to reach
-        "," = "git";
-        ",a" = "git add --patch";
-        ",ad" = "git add ."; # git-add-dot
-        ",c" = "git commit";
-        ",cp" = "git commit; and git push"; # git-commit-push
-        ",cap" = "git commit -a; and git push"; # The YOLO option, git-commit-all-push
-        ",d" = "git diff";
-        ",m" = "git merge";
-        ",s" = "git status";
-        ",p" = "git push";
-        ",sw" = "git switch";
-        ",sc" = "git switch -c";
+          t = "tmux";
+          ta = "tmux attach; or tmux";
+          tk = "tmux kill-session";
+          tl = "tmux list-sessions";
 
-        "-" = "cd -";
-        ".." = "cd ..";
-        "..." = "cd ../..";
-        "...." = "cd ../../..";
-      };
-    };
+          "," = "git";
+          ",a" = "git add";
+          ",ap" = "git add --patch";
+          ",ad" = "git add .";
+          ",r" = "git restore";
+          ",c" = "git commit";
+          ",ca" = "git commit --amend";
+          ",cp" = "git commit; and git push";
+          ",d" = "git diff";
+          ",m" = "git merge";
+          ",s" = "git status";
+          ",p" = "git push";
+          ",pu" = "git pull";
+          ",f" = "git fetch";
+          ",fu" = "git fetch upstream";
+          ",sw" = "git switch";
+          ",sc" = "git switch -c";
+          ",b" = "git branch";
+
+          "-" = "cd -";
+          ".." = "cd ..";
+          "..." = "cd ../..";
+          "...." = "cd ../../..";
+        };
+      }
+      (mkIf cfg.enableWslFunctions {
+        functions.wsl = {
+          wraps = "wsl.exe";
+          body = "wsl.exe $argv";
+        };
+      })
+    ];
   };
 }

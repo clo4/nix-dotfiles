@@ -95,6 +95,7 @@ in {
             end
           '';
 
+          # Quick wrapper to make `nix develop` run Fish instead of Bash.
           nix = {
             wraps = "nix";
             description = "Wraps `nix develop` to run fish instead of bash";
@@ -107,6 +108,11 @@ in {
                 command nix $argv
               end
             '';
+          };
+
+          md = {
+            wraps = "frogmouth";
+            body = "${pkgs.frogmouth}/bin/frogmouth $argv";
           };
         };
 

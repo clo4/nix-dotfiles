@@ -40,6 +40,8 @@
     curl
     croc
     wget
+    frogmouth
+    glow
 
     # Other stuff
     git-open # surprisingly this is supposed to work with WSL?

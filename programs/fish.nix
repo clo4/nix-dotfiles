@@ -37,6 +37,7 @@ in {
           fish_user_key_bindings = ''
             fish_default_key_bindings
             bind \cz 'fg 2>/dev/null; commandline -f repaint'
+            bind \ez 'zi; commandline -f repaint'
           '';
 
           # Displays every path in $PATH on new lines.
@@ -158,6 +159,8 @@ in {
           tl = "tmux list-sessions";
 
           tree = "exa --tree";
+
+          rsf = "rebuild-switch-flake";
 
           "," = "git";
           ",a" = "git add";

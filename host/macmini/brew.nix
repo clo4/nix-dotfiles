@@ -8,5 +8,7 @@
     "zed"
     "1password"
     "raycast"
+    "rio"
+    "elgato-camera-hub"
   ];
 }

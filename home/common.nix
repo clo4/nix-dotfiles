@@ -35,14 +35,13 @@
     exa
     jq
     bat
-    broot
+    frogmouth
+    glow
 
     # File transfer stuff
     curl
     croc
     wget
-    frogmouth
-    glow
 
     # Other stuff
     git-open # surprisingly this is supposed to work with WSL?
@@ -60,13 +59,9 @@
   # Enables programs that I don't have a more complicated config for.
   # Programs in this section should be limited to a few lines of config at most.
   programs = {
+    broot.enable = true;
     zoxide.enable = true;
     home-manager.enable = true;
+    zellij.enable = true;
   };
-
-  # I should look into configuring:
-  # - nushell
-  # - zellij
-  # - wget
-  # - zoxide
 }

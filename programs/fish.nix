@@ -134,9 +134,9 @@ in {
           ",ap" = "git add --patch";
           ",ad" = "git add .";
           ",r" = "git restore";
+          ",rs" = "git restore --staged";
           ",c" = "git commit";
           ",ca" = "git commit --amend";
-          ",cp" = "git commit; and git push";
           ",d" = "git diff";
           ",m" = "git merge";
           ",s" = "git status";

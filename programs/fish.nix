@@ -7,6 +7,10 @@
 }:
 with lib; let
   cfg = config.my.programs.fish;
+  alias = name: {
+    wraps = name;
+    body = "${name} $argv";
+  };
 in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
@@ -25,30 +29,26 @@ in {
           }
         ];
 
-        # If this keeps growing, it might be better to move each function to its own file
-        # in a fish/functions directory and use home-manager's symlinking feature.
-        # I have documentation for this in my Obsidian notes.
-
-        # In all cases, functions are a better choice than shell aliases.
-        # Fish automatically generates functions from the `alias` command anyway,
-        # so a function just gives you more control over it with no downside.
-        # In Bash/Zsh, shell aliases are *proper* cursed, and you should NEVER touch them.
-        # Seriously, the worst bugs I've ever had to deal with were because of aliases.
-        # Just use functions, they're real easy to define and way less buggy!
-
         functions = {
           # Disables the greeting message
           fish_greeting = "";
 
+          # This function is sourced every time the shell starts up
           fish_user_key_bindings = ''
+            fish_default_key_bindings
             bind \cz 'fg 2>/dev/null; commandline -f repaint'
           '';
 
-          # Displays every path in $PATH on new lines
-          paths = "echo \"$PATH\" | tr ':' '\\n'";
+          # Displays every path in $PATH on new lines.
+          # This is similar to
+          paths = ''
+            for path in $PATH
+              echo $path
+            end
+          '';
 
-          # Better interactive output than `ls`
-          e = "${pkgs.exa}/bin/exa --sort=size --all --header --long --group-directories-first -- $argv";
+          # Better interactive output than `ls`, and it's on my home row (faster to type).
+          e = "exa --sort=size --all --header --long --group-directories-first -- $argv";
 
           # Print the root of the git repository, if there is one
           git-root = "git rev-parse --git-dir | path dirname";
@@ -63,20 +63,38 @@ in {
             pwd
           '';
 
-          # Moves items out of the given directories into the destination directory.
+          # Sucks items out of the given directories into the destination directory.
           # This is useful for flattening nested directory structures.
-          flatten = ''
+          suck = ''
             if test (count $argv) -lt 2
-              echo 'Requires 2 arguments.  Usage: flatten sources... dest' >&2
+              echo 'usage: suck sources... dest' >&2
               return 1
             end
 
             set dest $argv[-1]
             set dirs $argv[..-2]
 
+            if not test -d $dest
+              echo 'error: destination needs to be a directory'
+            end
+
             for dir in $dirs
-              mv -i $dir/* $dest
-              rmdir $dir
+              set keep_dir 0
+
+              for file in $dir/*
+                set name (path basename $file)
+
+                if test -e $dest/$name
+                  echo "skipping $file"
+                  set keep_dir 1
+                else
+                  mv $file $dest
+                end
+              end
+
+              if test $keep_dir = 0
+                rmdir $dir
+              end
             end
           '';
 
@@ -95,7 +113,8 @@ in {
             end
           '';
 
-          # Quick wrapper to make `nix develop` run Fish instead of Bash.
+          # Quick wrapper to make running `nix develop` without any arguments
+          # run Fish instead of Bash.
           nix = {
             wraps = "nix";
             description = "Wraps `nix develop` to run fish instead of bash";
@@ -110,14 +129,23 @@ in {
             '';
           };
 
-          md = {
-            wraps = "frogmouth";
-            body = "${pkgs.frogmouth}/bin/frogmouth $argv";
-          };
+          md = alias "frogmouth";
+
+          announce = ''
+            echo $argv
+            $argv
+          '';
+
+          rebuild-switch-flake = ''
+            if test (uname) = Darwin
+              announce darwin-rebuild switch --flake .#
+            else
+              announce sudo nixos-rebuild switch --flake .#
+            end
+          '';
         };
 
         shellAbbrs = {
-          # Did you know `which` isn't a builtin?
           cmv = "command -v";
 
           nd = "nix develop";
@@ -128,6 +156,8 @@ in {
           ta = "tmux attach; or tmux";
           tk = "tmux kill-session";
           tl = "tmux list-sessions";
+
+          tree = "exa --tree";
 
           "," = "git";
           ",a" = "git add";
@@ -155,10 +185,7 @@ in {
         };
       }
       (mkIf cfg.enableWslFunctions {
-        functions.wsl = {
-          wraps = "wsl.exe";
-          body = "wsl.exe $argv";
-        };
+        functions.wsl = alias "wsl.exe";
       })
     ];
   };

@@ -9,6 +9,7 @@
     "1password"
     "raycast"
     "rio"
+    "obs"
     "elgato-camera-hub"
   ];
 }

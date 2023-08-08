@@ -35,6 +35,7 @@
     exa
     jq
     bat
+    broot
 
     # File transfer stuff
     curl

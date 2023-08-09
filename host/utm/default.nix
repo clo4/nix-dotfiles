@@ -5,16 +5,15 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../common.nix
   ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "utm-nixos-vm"; # Define your hostname.
+  networking.hostName = "robert-nixos-utm"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -60,6 +59,7 @@
   # Enable sound with pipewire.
   sound.enable = true;
   hardware.pulseaudio.enable = false;
+  security.polkit.enable = true; # required for sway
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -77,8 +77,13 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.robert.extraGroups = ["networkmanager"];
+  users.users.robert = {
+    isNormalUser = true;
+    extraGroups = ["wheel" "networkmanager"];
+    hashedPassword = "$y$j9T$/DELHBb5Gc.uI/Cyr6KGo1$AgxXRZnEcH74IJnaN.L4VOXLllAMeNrX4IhJCsNYu86";
+  };
+
+  users.mutableUsers = false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

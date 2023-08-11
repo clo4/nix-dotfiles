@@ -170,7 +170,7 @@ in {
           language-servers = ["ltex-ls"];
           auto-format = false;
           formatter = {
-            command = "${deno}/bin/deno";
+            command = "${pkgs.deno}/bin/deno";
             args = ["--ext" "md" "-"];
           };
         }

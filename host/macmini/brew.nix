@@ -11,5 +11,6 @@
     "rio"
     "obs"
     "elgato-camera-hub"
+    "iina"
   ];
 }

@@ -16,9 +16,11 @@
   nix.gc.automatic = false;
 
   nix.nixPath = [
-    "nixpkgs=${inputs.nixpkgs}"
+    "nixpkgs=${inputs.nixpkgs.outPath}"
     "nixos-config=${../.}"
   ];
+
+  nix.registry.nixpkgs.flake = inputs.nixpkgs;
 
   # I always want the latest version of Helix. They do their best to
   # keep it building, and I've only ever had trouble with it twice.

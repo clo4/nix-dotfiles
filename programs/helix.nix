@@ -151,6 +151,8 @@ in {
         nixd.command = "${nixd}/bin/nixd";
 
         rust-analyzer.command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
+
+        ltex-ls.command = "${ltex-ls}/bin/ltex-ls";
       };
 
       languages.language = [
@@ -162,6 +164,19 @@ in {
             command = "${pkgs.alejandra}/bin/alejandra";
             args = ["-"];
           };
+        }
+        {
+          name = "markdown";
+          language-servers = ["ltex-ls"];
+          auto-format = false;
+          formatter = {
+            command = "${deno}/bin/deno";
+            args = ["--ext" "md" "-"];
+          };
+        }
+        {
+          name = "git-commit";
+          language-servers = ["ltex-ls"];
         }
       ];
     };

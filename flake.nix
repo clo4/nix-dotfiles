@@ -26,10 +26,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Language server for Nix, using the flake for latest builds because
-    # the nixpkgs release (1.2.0) doesn't pass its checkPhase on Ventura
-    nixd.url = "github:nix-community/nixd";
-
     fish-tide = {
       url = "github:IlanCosman/tide";
       flake = false;
@@ -102,16 +98,13 @@
       };
     }
     // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = import nixpkgs {
-        inherit system;
-        overlays = [inputs.nixd.overlays.default];
-      };
+      pkgs = nixpkgs.legacyPackages.${system};
     in {
       formatter = pkgs.alejandra;
       devShell = pkgs.mkShell {
         nativeBuildInputs = with pkgs; [
+          nil
           alejandra
-          nixd
         ];
       };
     });

@@ -28,7 +28,6 @@
   # concerned at all about stability.
   nixpkgs.overlays = [
     inputs.helix.overlays.default
-    inputs.nixd.overlays.default
   ];
 
   nixpkgs.config = {

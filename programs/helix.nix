@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  inputs,
   ...
 }:
 with lib; let
@@ -147,7 +146,7 @@ in {
           config = {};
         };
 
-        # nil.command = "${nil}/bin/nil";
+        nil.command = "${nil}/bin/nil";
         nixd.command = "${nixd}/bin/nixd";
 
         rust-analyzer.command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
@@ -158,7 +157,7 @@ in {
       languages.language = [
         {
           name = "nix";
-          language-servers = ["nixd"];
+          language-servers = ["nil"];
           auto-format = true;
           formatter = {
             command = "${pkgs.alejandra}/bin/alejandra";

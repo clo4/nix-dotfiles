@@ -7,13 +7,8 @@
 
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
-  # Enables flakes and the nix command
-  # nix.package = pkgs.nixFlakes;
   nix.settings.experimental-features = ["nix-command" "flakes"];
-
-  # Disabling automatic GC will increase cache hits at the cost of disk storage, but
-  # I've got enough storage that it's a worthwhile tradeoff for me.
-  nix.gc.automatic = false;
+  nix.settings.auto-optimise-store = true;
 
   nix.nixPath = [
     "nixpkgs=${inputs.nixpkgs.outPath}"

@@ -8,17 +8,15 @@
 # This file isn't responsible for importing the home-manager module, that's
 # assumed to already be imported. The reason for this is sharing the same
 # common home configuration between NixOS and macOS (with nix-darwin).
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   imports = [
     ../programs
   ];
 
   home.stateVersion = "23.05";
-  # The homeDirectory is configured by each host's configuration
+
+  # The homeDirectory is configured by each host's configuration because it's
+  # not constant between linux and macos
   home.username = "robert";
 
   home.packages = with pkgs; [
@@ -44,7 +42,7 @@
     wget
 
     # Other stuff
-    git-open # surprisingly this is supposed to work with WSL?
+    git-open
   ];
 
   # Enables the programs and uses my configuration for them.

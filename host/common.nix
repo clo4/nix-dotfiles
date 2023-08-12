@@ -11,8 +11,8 @@
   nix.settings.auto-optimise-store = true;
 
   nix.nixPath = [
-    "nixpkgs=${inputs.nixpkgs.outPath}"
-    "nixos-config=${../.}"
+    "nixpkgs=${inputs.nixpkgs}"
+    "home-manager=${inputs.home-manager}"
   ];
 
   nix.registry.nixpkgs.flake = inputs.nixpkgs;

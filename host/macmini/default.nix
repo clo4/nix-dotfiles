@@ -17,6 +17,9 @@
 
   networking.hostName = "macmini";
 
+  # Hides desktop icons (but they're still accessible through Finder)
+  system.defaults.finder.CreateDesktop = false;
+
   # TODO: Should this be moved to the common config?
   services.nix-daemon.enable = true;
 

@@ -49,7 +49,7 @@ in {
           '';
 
           # Better interactive output than `ls`, and it's on my home row (faster to type).
-          e = "exa --sort=size --all --header --long --group-directories-first -- $argv";
+          e = "exa --sort=size --all --header --long --group-directories-first --git -- $argv";
 
           # Print the root of the git repository, if there is one
           git-root = "git rev-parse --git-dir | path dirname";

@@ -133,7 +133,7 @@ in {
           md = alias "frogmouth";
 
           announce = ''
-            echo $argv
+            echo "$argv"
             $argv
           '';
 

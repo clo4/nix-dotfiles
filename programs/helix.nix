@@ -127,7 +127,7 @@ in {
           args = ["--stdio" "--tsserver-path=${typescript}/lib/node_modules/typescript/lib"];
         };
 
-        denols = {
+        deno = {
           command = "${deno}/bin/deno";
           args = ["lsp"];
           config = {

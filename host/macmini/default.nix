@@ -18,6 +18,9 @@
     shell = pkgs.fish;
   };
 
+  # This needs to be reapplied after system updates
+  security.pam.enableSudoTouchIdAuth = true;
+
   networking.hostName = "macmini";
 
   # Hides desktop icons (but they're still accessible through Finder)

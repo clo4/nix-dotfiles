@@ -78,9 +78,11 @@
   # services.xserver.libinput.enable = true;
 
   users.users.robert = {
+    description = "Robert";
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager"];
     hashedPassword = "$y$j9T$/DELHBb5Gc.uI/Cyr6KGo1$AgxXRZnEcH74IJnaN.L4VOXLllAMeNrX4IhJCsNYu86";
+    shell = pkgs.fish;
   };
 
   users.mutableUsers = false;

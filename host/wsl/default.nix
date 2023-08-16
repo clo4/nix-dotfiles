@@ -12,8 +12,10 @@
   };
 
   users.users.robert = {
-    extraGroups = ["wheel"];
+    description = "Robert";
     isNormalUser = true;
+    shell = pkgs.fish;
+    extraGroups = ["wheel"];
     hashedPassword = "$y$j9T$/DELHBb5Gc.uI/Cyr6KGo1$AgxXRZnEcH74IJnaN.L4VOXLllAMeNrX4IhJCsNYu86";
   };
 

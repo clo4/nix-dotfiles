@@ -12,8 +12,11 @@
   # This has to be set on macOS to make fish a usable shell
   environment.shells = [pkgs.fish];
 
-  # This has to be set explicitly for nix-darwin
-  users.users.robert.home = "/Users/robert";
+  users.users.robert = {
+    description = "Robert";
+    home = "/Users/robert";
+    shell = pkgs.fish;
+  };
 
   networking.hostName = "macmini";
 

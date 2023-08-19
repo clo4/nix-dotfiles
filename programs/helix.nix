@@ -62,7 +62,8 @@ in {
         };
 
         editor.lsp = {
-          display-messages = false;
+          display-messages = true;
+          display-inlay-hints = true;
         };
 
         keys.normal = {
@@ -71,6 +72,9 @@ in {
           x = "extend_line";
 
           G = "goto_last_line";
+
+          # Mnemonic: control hints
+          C-h = ":toggle-option lsp.display-inlay-hints";
 
           # Easier movement, don't need to enter another minor mode, encourages
           # more split usage. Arrow keys are discouraged by Vim people but only
@@ -98,6 +102,8 @@ in {
         keys.select = {
           x = "extend_line";
 
+          C-h = ":toggle-option lsp.display-inlay-hints";
+
           # When I collapse a selection in select mode, the next thing I do
           # is *always* enter normal mode.
           ";" = ["collapse_selection" "normal_mode"];
@@ -109,8 +115,10 @@ in {
           g.h = ["ensure_selections_forward" "flip_selections" "extend_to_line_start"];
         };
 
-        # This is a pretty standard shortcut in most editors
         keys.insert = {
+          C-h = ":toggle-option lsp.display-inlay-hints";
+
+          # This is a pretty standard shortcut in most editors
           C-space = "completion";
         };
       };
@@ -163,6 +171,11 @@ in {
             command = "${pkgs.alejandra}/bin/alejandra";
             args = ["-"];
           };
+        }
+        {
+          name = "fish";
+          auto-format = true;
+          formatter.command = "${pkgs.fish}/bin/fish_indent";
         }
         {
           name = "markdown";

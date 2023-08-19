@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   inputs,
@@ -44,7 +43,7 @@ in {
           # This is similar to
           paths = ''
             for path in $PATH
-              echo $path
+              echo -- $path
             end
           '';
 
@@ -133,7 +132,7 @@ in {
           md = alias "frogmouth";
 
           announce = ''
-            echo "$argv"
+            echo -- "$argv"
             $argv
           '';
 
@@ -143,6 +142,33 @@ in {
             else
               announce sudo nixos-rebuild switch --flake .#
             end
+          '';
+
+          # Erase an item from an array by value rather than by index.
+          # The normal syntax is `set -e name[index]`, eg. `set -e PATH[2]`
+          # but this is bad for interactive use because you need to know
+          # the index of the item beforehand. Using the `erase_item` function,
+          # you can easily erase an item from an array if you know its value.
+          # For each value that isn't found in the array, the return value is
+          # incremented by 1.
+          #
+          #     $ set arr a b c d e
+          #     $ erase_item arr c e
+          #     $ echo $arr
+          #     a b d
+          erase_item = ''
+            set varname $argv[1]
+            set retval 0
+            for item in $argv[2..]
+              # Not optimal logically, but faster because `contains` is a builtin
+              set -l index (contains -i -- $item $$varname)
+              if set -q index[1]
+                set -e {$varname}[$index]
+              else
+                set retval (math $retval + 1)
+              end
+            end
+            return $retval
           '';
         };
 

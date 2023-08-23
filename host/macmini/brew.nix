@@ -12,5 +12,6 @@
     "obs"
     "elgato-camera-hub"
     "iina"
+    "grandperspective"
   ];
 }

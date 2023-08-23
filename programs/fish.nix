@@ -156,12 +156,15 @@ in {
           #     $ erase_item arr c e
           #     $ echo $arr
           #     a b d
+          #
+          # The function is named with underscores to make it look and feel more like
+          # a built-in fish function instead of something I wrote.
           erase_item = ''
             set varname $argv[1]
             set retval 0
+            # Big O isn't optimal, but executes faster because `contains` is a builtin
             for item in $argv[2..]
-              # Not optimal logically, but faster because `contains` is a builtin
-              set -l index (contains -i -- $item $$varname)
+              set -l index (contains --index -- $item $$varname)
               if set -q index[1]
                 set -e {$varname}[$index]
               else
@@ -176,6 +179,7 @@ in {
           cmv = "command -v";
 
           nd = "nix develop";
+          nfuc = "nix flake update --commit-lock-file";
 
           f = "fzf";
 

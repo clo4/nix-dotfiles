@@ -32,7 +32,8 @@
   # Context: https://github.com/LnL7/nix-darwin/issues/122#issuecomment-1659465635
   programs.fish.loginShellInit = let
     # If there's ever a double quote in a path, something has obviously gone
-    # very, very wrong.
+    # very, very wrong. Have to use double quotes because some entries include
+    # variables like $HOME and $USER that need to expand.
     dquote = str: "\"" + str + "\"";
     makeBinPathList = map (path: path + "/bin");
   in ''

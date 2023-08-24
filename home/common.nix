@@ -61,5 +61,6 @@
     zoxide.enable = true;
     home-manager.enable = true;
     zellij.enable = true;
+    nushell.enable = true;
   };
 }

@@ -1,5 +1,6 @@
 {
   lib,
+  pkgs,
   config,
   inputs,
   ...
@@ -27,6 +28,22 @@ in {
             src = inputs.fish-tide;
           }
         ];
+
+        interactiveShellInit = ''
+          # interactive cd that offers to create the directory when it does not exist
+          if builtin functions --query cd
+            builtin functions --copy cd _fish_cd
+            function cd --wraps cd
+              if not _fish_cd $argv
+                if ${pkgs.gum}/bin/gum confirm "Create the directory?"
+                  echo "Creating directory"
+                  mkdir -- $argv
+                  builtin cd -- $argv
+                end
+              end
+            end
+          end
+        '';
 
         functions = {
           # Disables the greeting message
@@ -140,6 +157,8 @@ in {
             '';
           };
 
+          # frogmouth is a fantastic markdown reader but it's a bit of a
+          # (frog)mouthful to type
           md = alias "frogmouth";
 
           announce = ''
@@ -147,12 +166,18 @@ in {
             $argv
           '';
 
+          # switch system flake correctly regardless of the operating system
           rebuild-switch-flake = ''
             if test (uname) = Darwin
               announce darwin-rebuild switch --flake .#
             else
               announce sudo nixos-rebuild switch --flake .#
             end
+          '';
+
+          # cd to a temporary directory
+          tcd = ''
+            cd (mktemp -d | tee)
           '';
 
           # Erase an item from an array by value rather than by index.

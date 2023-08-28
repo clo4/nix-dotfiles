@@ -1,8 +1,10 @@
-# My simple nix-darwin & NixOS configuration
+# My simple nix-darwin & NixOS (WSL) configuration
 
 This is my dead-simple configuration. Maybe something to take inspiration from
 if you're trying to get set up with your own cross-platform NixOS, WSL, and
 nix-darwin configuration!
+
+This repo entirely supersedes [clo4/dotfiles](https://github.com/clo4/dotfiles).
 
 ## Structure
 
@@ -20,9 +22,9 @@ nix-darwin configuration!
 When I eventually have to define my own modules for whatever reason, they'll go
 in either `modules/host` or `modules/home`.
 
-## To do
+## My PC situation
 
-- I use Alacritty on Windows (not because I want to, I just haven't bothered
-  setting up WezTerm properly). The configuration can be managed by home-manager
-  too, although I'm not 100% sure that's a good idea.
-- Need to configure my Mac's dock and Finder settings
+The GPU in my Intel machine has died entirely, so until I resolve that (which,
+to be clear, I don't have the money to do right now) I can't make any
+updates to my WSL config. So that's on pause. My Mac, which was already my
+main device, is now my only device... yay.

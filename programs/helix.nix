@@ -73,8 +73,18 @@ in {
 
           G = "goto_last_line";
 
+          # This goes against the Helix way of selection->action but it's a
+          # common-enough thing to warrant making it its own keybind.
+          D = ["goto_first_nonwhitespace" "extend_to_line_end" "change_selection"];
+
+          a = ["append_mode" "collapse_selection"];
+          i = ["insert_mode" "collapse_selection"];
+
           # Mnemonic: control hints
           C-h = ":toggle-option lsp.display-inlay-hints";
+
+          C-d = ["half_page_down" "goto_window_center"];
+          C-u = ["half_page_up" "goto_window_center"];
 
           # Easier movement, don't need to enter another minor mode, encourages
           # more split usage. Arrow keys are discouraged by Vim people but only
@@ -85,6 +95,16 @@ in {
           right = "jump_view_right";
           up = "jump_view_up";
           down = "jump_view_down";
+        };
+
+        keys.normal.Z = {
+          C-d = ["half_page_down" "goto_window_center"];
+          C-u = ["half_page_up" "goto_window_center"];
+
+          d = "scroll_down";
+          u = "scroll_up";
+          e = "scroll_down";
+          y = "scroll_up";
         };
 
         keys.normal.space.w = {
@@ -104,15 +124,12 @@ in {
 
           C-h = ":toggle-option lsp.display-inlay-hints";
 
+          C-d = ["half_page_down" "goto_window_center"];
+          C-u = ["half_page_up" "goto_window_center"];
+
           # When I collapse a selection in select mode, the next thing I do
           # is *always* enter normal mode.
           ";" = ["collapse_selection" "normal_mode"];
-
-          # When I select to the end of the line, it ensures that everything
-          # currently selected will be included in the selection. By default,
-          # only everything to the right of the anchor will be selected.
-          g.l = ["ensure_selections_forward" "extend_to_line_end"];
-          g.h = ["ensure_selections_forward" "flip_selections" "extend_to_line_start"];
         };
 
         keys.insert = {

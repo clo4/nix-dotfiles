@@ -43,6 +43,7 @@
 
     # Other stuff
     git-open
+    asciinema
   ];
 
   # Enables the programs and uses my configuration for them.

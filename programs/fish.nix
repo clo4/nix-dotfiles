@@ -29,22 +29,6 @@ in {
           }
         ];
 
-        interactiveShellInit = ''
-          # interactive cd that offers to create the directory when it does not exist
-          if builtin functions --query cd
-            builtin functions --copy cd _fish_cd
-            function cd --wraps cd
-              if not _fish_cd $argv
-                if ${pkgs.gum}/bin/gum confirm "Create the directory?"
-                  echo "Creating directory"
-                  mkdir -- $argv
-                  builtin cd -- $argv
-                end
-              end
-            end
-          end
-        '';
-
         functions = {
           # Disables the greeting message
           fish_greeting = "";
@@ -66,7 +50,6 @@ in {
             bind '<' expand-abbr self-insert
             bind ')' expand-abbr self-insert
           '';
-
           # Displays every path in $PATH on new lines.
           # This is similar to
           paths = ''
@@ -174,6 +157,25 @@ in {
               announce sudo nixos-rebuild switch --flake .#
             end
           '';
+
+          # Why's it called 'o'? It's on my home row. That's all!
+          o = {
+            wraps = "cd";
+            description = "Interactive cd that offers to create directories";
+            body = ''
+              cd $argv
+              set cd_status $status
+              if test $cd_status -ne 0
+                and ${pkgs.gum}/bin/gum confirm "Create the directory? ($argv[-1])"
+                echo "Creating directory"
+                command mkdir -p -- $argv[-1]
+                builtin cd $argv[-1]
+                return 0
+              else
+                return $cd_status
+              end
+            '';
+          };
 
           # cd to a temporary directory
           tcd = ''

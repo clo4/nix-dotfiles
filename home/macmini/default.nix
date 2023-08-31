@@ -23,4 +23,6 @@
       inactive_tab_font_style = "bold";
     };
   };
+
+  # TODO: add https://github.com/dbalatero/SkyRocket.spoon
 }

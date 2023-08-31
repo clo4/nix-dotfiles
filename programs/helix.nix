@@ -97,7 +97,12 @@ in {
           down = "jump_view_down";
         };
 
-        keys.normal.Z = {
+        keys.normal.Z = let
+          repeat = count: thing:
+            if count < 2
+            then [thing]
+            else [thing] ++ repeat (count - 1) thing;
+        in {
           C-d = ["half_page_down" "goto_window_center"];
           C-u = ["half_page_up" "goto_window_center"];
 
@@ -105,6 +110,14 @@ in {
           u = "scroll_up";
           e = "scroll_down";
           y = "scroll_up";
+
+          # upper case should move more than one line but less than a half page
+          J = repeat 5 "scroll_down";
+          K = repeat 5 "scroll_up";
+          D = repeat 5 "scroll_down";
+          U = repeat 5 "scroll_up";
+          E = repeat 5 "scroll_down";
+          Y = repeat 5 "scroll_up";
         };
 
         keys.normal.space.w = {

@@ -7,6 +7,10 @@
 
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
+  environment.systemPackages = with pkgs; [
+    mosh
+  ];
+
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.auto-optimise-store = true;
 

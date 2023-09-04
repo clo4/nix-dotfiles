@@ -244,7 +244,8 @@
         "helix": "helix",
         "home-manager": "home-manager",
         "nixos-wsl": "nixos-wsl",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "tldr-pages": "tldr-pages"
       }
     },
     "rust-overlay": {
@@ -314,6 +315,22 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tldr-pages": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1693664745,
+        "narHash": "sha256-HKcD/MMXkOP3eZelL793gSi3eyYY6Psn2tT9tQRWqCE=",
+        "owner": "tldr-pages",
+        "repo": "tldr",
+        "rev": "118d1f883b9c23e7af25399570480eced94cdca9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tldr-pages",
+        "repo": "tldr",
         "type": "github"
       }
     }

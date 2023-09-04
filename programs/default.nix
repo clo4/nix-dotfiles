@@ -1,8 +1,9 @@
 {...}: {
   imports = [
-    ./helix.nix
-    ./tmux.nix
-    ./git.nix
     ./fish.nix
+    ./git.nix
+    ./helix.nix
+    ./tealdeer
+    ./tmux.nix
   ];
 }

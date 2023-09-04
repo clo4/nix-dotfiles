@@ -53,6 +53,7 @@
     git.enable = true;
     tmux.enable = true;
     helix.enable = true;
+    tealdeer.enable = true;
   };
 
   # Enables programs that I don't have a more complicated config for.

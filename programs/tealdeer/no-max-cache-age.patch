@@ -1,0 +1,13 @@
+diff --git a/src/config.rs b/src/config.rs
+index 98d4e46..c036a3b 100644
+--- a/src/config.rs
++++ b/src/config.rs
+@@ -14,7 +14,7 @@ use yansi::{Color, Style};
+ use crate::types::PathSource;
+ 
+ pub const CONFIG_FILE_NAME: &str = "config.toml";
+-pub const MAX_CACHE_AGE: Duration = Duration::from_secs(2_592_000); // 30 days
++pub const MAX_CACHE_AGE: Duration = Duration::MAX; // Effectively forever
+ const DEFAULT_UPDATE_INTERVAL_HOURS: u64 = MAX_CACHE_AGE.as_secs() / 3600; // 30 days
+ 
+ fn default_underline() -> bool {

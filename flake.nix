@@ -30,6 +30,13 @@
       url = "github:IlanCosman/tide";
       flake = false;
     };
+
+    # I use tealdeer as a quick reference for some commands, but I want the
+    # tldr page cache to be managed by my Nix setup instead.
+    tldr-pages = {
+      url = "github:tldr-pages/tldr";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

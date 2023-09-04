@@ -158,11 +158,24 @@ in {
             end
           '';
 
-          # Why's it called 'o'? It's on my home row. That's all!
+          # Why's it called 'o'? Because it's really good ;)
+          # I'm joking, it's just because it's on my home row (Colemak layout)
           o = {
             wraps = "cd";
             description = "Interactive cd that offers to create directories";
             body = ''
+              # Some git trickery first. If the function is called with no arguments,
+              # typically that means to cd to $HOME, but we can be smarter - if you're
+              # in a git repo and not in its root, cd to the root.
+              if test (count $argv) -eq 0
+                set git_root (git rev-parse --git-dir 2>/dev/null | path dirname)
+                if test $status -eq 0 -a "$git_root" != .
+                  cd $git_root
+                  return 0
+                end
+              end
+
+              # Now that's out of the way
               cd $argv
               set cd_status $status
               if test $cd_status -ne 0

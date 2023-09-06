@@ -16,6 +16,11 @@ in {
     enable = mkEnableOption "my tealdeer configuration";
   };
   config = mkIf cfg.enable {
+    # Using a custom patch to override the default maximum cache age, because
+    # the tldr-pages cache is managed by Nix which sets the last modified date
+    # to 1970.
+    # For some reason I couldn't get this to work right with an overlay, so
+    # this may cause problems with conflicts in the future... we'll see.
     home.packages = [
       (pkgs.tealdeer.overrideAttrs (o: {
         patches =

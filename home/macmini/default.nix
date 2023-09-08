@@ -1,19 +1,35 @@
 {
   pkgs,
   osConfig,
+  inputs,
   ...
 }: {
   imports = [
     ../common.nix
   ];
 
-  home.file.".hushlogin".text = "";
-
   home.homeDirectory = "/Users/robert";
   home.stateVersion = "23.05";
 
+  home.file.".hushlogin".text = "";
+
+  # If I install more spoons or make my own I should make this a module.
+  # For now this is okay as a one-off thing.
+  home.file.".hammerspoon/init.lua".text = ''
+    local SkyRocket = hs.loadSpoon("SkyRocket")
+    sky = SkyRocket:new({
+      opacity = 0.4,
+      moveModifiers = {'cmd', 'ctrl'},
+      moveMouseButton = 'left',
+      resizeModifiers = {'cmd', 'ctrl'},
+      resizeMouseButton = 'other',
+    })
+  '';
+  home.file.".hammerspoon/Spoons/SkyRocket.spoon".source = inputs.skyrocket-spoon;
+
   # If the system should have Touch ID enabled for sudo, also enable the check
-  # in my fish config.
+  # in my fish config. It runs every time a new shell starts, but this is a
+  # pretty cheap check because the file it checks is small.
   my.programs.fish.enableGreetingTouchIdCheck = osConfig.security.pam.enableSudoTouchIdAuth;
 
   programs.kitty = {
@@ -31,6 +47,4 @@
       inactive_tab_font_style = "bold";
     };
   };
-
-  # TODO: add https://github.com/dbalatero/SkyRocket.spoon
 }

@@ -245,6 +245,7 @@
         "home-manager": "home-manager",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
+        "skyrocket-spoon": "skyrocket-spoon",
         "tldr-pages": "tldr-pages"
       }
     },
@@ -270,6 +271,22 @@
       "original": {
         "owner": "oxalica",
         "repo": "rust-overlay",
+        "type": "github"
+      }
+    },
+    "skyrocket-spoon": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1694178310,
+        "narHash": "sha256-Celqe3sZj90hAifI043BTNiUWSYWhEPtCWZHl0300IM=",
+        "owner": "clo4",
+        "repo": "SkyRocket.spoon",
+        "rev": "1b1232f0cf6b5ce5c3d5864fcb63d32315a829a9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clo4",
+        "repo": "SkyRocket.spoon",
         "type": "github"
       }
     },

@@ -37,6 +37,11 @@
       url = "github:tldr-pages/tldr";
       flake = false;
     };
+
+    skyrocket-spoon = {
+      url = "github:clo4/SkyRocket.spoon";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {

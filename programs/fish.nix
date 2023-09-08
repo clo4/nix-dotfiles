@@ -276,6 +276,7 @@ in {
           ",m" = "git merge";
           ",s" = "git status";
           ",p" = "git push";
+          ",pf" = "git push --force";
           ",pu" = "git pull";
           ",f" = "git fetch";
           ",fu" = "git fetch upstream";

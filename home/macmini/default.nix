@@ -19,8 +19,7 @@
     local SkyRocket = hs.loadSpoon("SkyRocket")
     sky = SkyRocket:new({
       opacity = 0.4,
-      moveModifiers = {'cmd', 'ctrl'},
-      moveMouseButton = 'left',
+      enableMove = false,
       resizeModifiers = {'cmd', 'ctrl'},
       resizeMouseButton = 'other',
     })

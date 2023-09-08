@@ -8,3 +8,11 @@ This directory contains definitions of the `my.programs` options. It:
 
 For a good example of this, see [fish.nix](./fish.nix), which defines my entire
 shell configuration.
+
+## Why modules?
+
+Using modules allows you to define all the configuration in one place and either
+enable or disable pieces of it depending on the system.
+
+This is only slightly more complicated but gives excellent flexibility for
+future modifications.

@@ -25,6 +25,6 @@ in either `modules/host` or `modules/home`.
 ## My PC situation
 
 The GPU in my Intel machine has died entirely, so until I resolve that (which,
-to be clear, I don't have the money to do right now) I can't make any
-updates to my WSL config. So that's on pause. My Mac, which was already my
-main device, is now my only device... yay.
+to be clear, I don't have the money to do right now) I can't make any updates to
+my WSL config. So that's on pause. My Mac, which was already my main device, is
+now my only device... yay.

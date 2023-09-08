@@ -23,6 +23,7 @@ in {
     # this may cause problems with conflicts in the future... we'll see.
     home.packages = [
       (pkgs.tealdeer.overrideAttrs (o: {
+        pname = "tealdeer-patched";
         patches =
           (o.patches or [])
           ++ [

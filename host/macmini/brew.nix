@@ -3,15 +3,16 @@
   homebrew.enable = true;
 
   homebrew.casks = [
-    "rectangle"
-    "obsidian"
-    "zed"
     "1password"
-    "raycast"
-    "rio"
-    "obs"
     "elgato-camera-hub"
-    "iina"
     "grandperspective"
+    "hammerspoon"
+    "iina"
+    "obs"
+    "obsidian"
+    "raycast"
+    "rectangle"
+    "rio"
+    "zed"
   ];
 }

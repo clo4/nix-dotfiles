@@ -15,6 +15,7 @@ in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
     enableWslFunctions = mkEnableOption "fish wsl functions";
+    enableGreetingTouchIdCheck = mkEnableOption "checking for pam_tid.so on startup";
   };
 
   config = mkIf cfg.enable {
@@ -30,8 +31,28 @@ in {
         ];
 
         functions = {
-          # Disables the greeting message
-          fish_greeting = "";
+          # Not sure if I should make this another item in the list,
+          # for now it's probably fine here but if I have to add another
+          # check this will have to get more complicated.
+          fish_greeting =
+            if cfg.enableGreetingTouchIdCheck
+            then ''
+              if not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo
+                set fg_red (set_color red)
+                set fg_red_bg_yellow (set_color red --background yellow)
+                set fg_yellow_bg_red (set_color yellow --background red)
+                set normal (set_color normal)
+                echo "
+                  $fg_red▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+                  $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
+                  $fg_red_bg_yellow▎ $(set_color --bold black)Touch ID will not work with sudo until $fg_yellow_bg_red▊$normal
+                  $fg_red_bg_yellow▎ $(set_color --bold black)the system configuration is reapplied. $fg_yellow_bg_red▊$normal
+                  $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
+                  $fg_red▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔$normal
+                "
+              end
+            ''
+            else "";
 
           # This function is sourced every time the shell starts up
           fish_user_key_bindings = ''

@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  osConfig,
+  ...
+}: {
   imports = [
     ../common.nix
   ];
@@ -7,6 +11,10 @@
 
   home.homeDirectory = "/Users/robert";
   home.stateVersion = "23.05";
+
+  # If the system should have Touch ID enabled for sudo, also enable the check
+  # in my fish config.
+  my.programs.fish.enableGreetingTouchIdCheck = osConfig.security.pam.enableSudoTouchIdAuth;
 
   programs.kitty = {
     enable = true;

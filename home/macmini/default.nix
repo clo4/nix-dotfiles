@@ -31,7 +31,8 @@
   # If the system should have Touch ID enabled for sudo, also enable the check
   # in my fish config. It runs every time a new shell starts, but this is a
   # pretty cheap check because the file it checks is small.
-  my.programs.fish.enableGreetingTouchIdCheck = osConfig.security.pam.enableSudoTouchIdAuth;
+  my.programs.fish.enableGreetingTouchIdCheck =
+    osConfig.security.pam.enableSudoTouchIdAuth;
 
   programs.kitty = {
     enable = true;

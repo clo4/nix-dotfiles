@@ -65,5 +65,6 @@
     home-manager.enable = true;
     zellij.enable = true;
     nushell.enable = true;
+    gh.enable = true;
   };
 }

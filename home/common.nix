@@ -11,6 +11,7 @@
 {pkgs, ...}: {
   imports = [
     ../programs
+    ../modules/home
   ];
 
   home.stateVersion = "23.05";

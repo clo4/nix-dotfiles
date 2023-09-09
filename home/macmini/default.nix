@@ -13,18 +13,20 @@
 
   home.file.".hushlogin".text = "";
 
-  # If I install more spoons or make my own I should make this a module.
-  # For now this is okay as a one-off thing.
-  home.file.".hammerspoon/init.lua".text = ''
-    local SkyRocket = hs.loadSpoon("SkyRocket")
-    sky = SkyRocket:new({
-      opacity = 0.4,
-      enableMove = false,
-      resizeModifiers = {'cmd', 'ctrl'},
-      resizeMouseButton = 'other',
-    })
-  '';
-  home.file.".hammerspoon/Spoons/SkyRocket.spoon".source = inputs.skyrocket-spoon;
+  # modules/home/hammerspoon.nix
+  programConfig.hammerspoon = {
+    enable = true;
+    init = ''
+      local SkyRocket = hs.loadSpoon("SkyRocket")
+      sky = SkyRocket:new({
+        opacity = 0.4,
+        enableMove = false,
+        resizeModifiers = {'cmd', 'ctrl'},
+        resizeMouseButton = 'right',
+      })
+    '';
+    spoons.SkyRocket = inputs.skyrocket-spoon;
+  };
 
   # If the system should have Touch ID enabled for sudo, also enable the check
   # in my fish config. It runs every time a new shell starts, but this is a

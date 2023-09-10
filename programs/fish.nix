@@ -80,7 +80,7 @@ in {
           '';
 
           # Better interactive output than `ls`, and it's on my home row (faster to type).
-          e = "exa --sort=size --all --header --long --group-directories-first --git -- $argv";
+          e = "eza --sort=size --all --header --long --group-directories-first --git -- $argv";
 
           # Print the root of the git repository, if there is one
           git-root = "git rev-parse --git-dir | path dirname";
@@ -260,7 +260,7 @@ in {
           tk = "tmux kill-session";
           tl = "tmux list-sessions";
 
-          tree = "exa --tree";
+          tree = "eza --tree";
 
           rsf = "rebuild-switch-flake";
 

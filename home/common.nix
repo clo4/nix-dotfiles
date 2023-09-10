@@ -31,7 +31,7 @@
     fzf
 
     # File stuff
-    exa
+    eza
     jq
     bat
     frogmouth

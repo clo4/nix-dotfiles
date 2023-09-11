@@ -38,5 +38,5 @@
   # the $PATH doesn't include all the entries it should by default.
   programs.fish.enable = true;
 
-  services.tailscale.enable = true;
+  # services.tailscale.enable = true;
 }

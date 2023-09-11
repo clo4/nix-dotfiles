@@ -36,3 +36,12 @@ The GPU in my Intel machine has died entirely, so until I resolve that (which,
 to be clear, I don't have the money to do right now) I can't make any updates to
 my WSL config. So that's on pause. My Mac, which was already my main device, is
 now my only device... yay.
+
+## Commit messages
+
+I prefer to use the format of conventional commits but with tags that make sense in this context.
+
+- For changes to host-specific configuration, use the label `<host>:`, e.g. `macmini:`
+- For changes to common configuration, use either `home:` or `host:` depending on what is changing.
+- For changes to program configuration, use the name of the program, e.g. `fish:`
+- For changes to modules, use the name of the module, e.g. `hammerspoon:`

@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ../common.nix
+    ../host.nix
     ./brew.nix
   ];
 

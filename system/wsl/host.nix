@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ../common.nix
+    ../host.nix
   ];
 
   wsl = {

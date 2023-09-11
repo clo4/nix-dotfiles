@@ -29,6 +29,7 @@
     fd
     ripgrep
     fzf
+    comma
 
     # File stuff
     eza
@@ -66,5 +67,6 @@
     zellij.enable = true;
     nushell.enable = true;
     gh.enable = true;
+    nix-index.enable = true;
   };
 }

@@ -264,12 +264,13 @@ in {
 
           rsf = "rebuild-switch-flake";
 
-          "," = "git";
+          # "," = "git";
           ",a" = "git add";
           ",ap" = "git add --patch";
           ",ad" = "git add .";
           ",r" = "git restore";
           ",rs" = "git restore --staged";
+          ",re" = "git reset";
           ",c" = "git commit";
           ",ca" = "git commit --amend";
           ",d" = "git diff";
@@ -283,6 +284,7 @@ in {
           ",sw" = "git switch";
           ",sc" = "git switch -c";
           ",b" = "git branch";
+          ",l" = "git log";
 
           "-" = "cd -";
           ".." = "cd ..";

@@ -14,13 +14,26 @@ with lib; let
 in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
+    enableCommandNotFound = mkEnableOption "command not found handler" // {default = true;};
     enableWslFunctions = mkEnableOption "fish wsl functions";
     enableGreetingTouchIdCheck = mkEnableOption "checking for pam_tid.so on startup";
   };
 
-  config = mkIf cfg.enable {
-    programs.fish = mkMerge [
-      {
+  config = mkIf cfg.enable (mkMerge [
+    (mkIf cfg.enableCommandNotFound {
+      programs.nix-index.enable = true;
+      programs.nix-index.enableFishIntegration = false;
+      programs.fish.functions.fish_command_not_found = ''
+        if ${pkgs.gum}/bin/gum confirm "Try using comma?"
+          ${pkgs.comma}/bin/comma -- $argv
+        end
+      '';
+    })
+    (mkIf cfg.enableWslFunctions {
+      programs.fish.functions.wsl = alias "wsl.exe";
+    })
+    {
+      programs.fish = {
         enable = true;
 
         plugins = [
@@ -29,6 +42,10 @@ in {
             src = inputs.fish-tide;
           }
         ];
+
+        interactiveShellInit = ''
+          set -g fish_error_color yellow
+        '';
 
         functions = {
           # Not sure if I should make this another item in the list,
@@ -71,6 +88,7 @@ in {
             bind '<' expand-abbr self-insert
             bind ')' expand-abbr self-insert
           '';
+
           # Displays every path in $PATH on new lines.
           # This is similar to
           paths = ''
@@ -291,10 +309,7 @@ in {
           "..." = "cd ../..";
           "...." = "cd ../../..";
         };
-      }
-      (mkIf cfg.enableWslFunctions {
-        functions.wsl = alias "wsl.exe";
-      })
-    ];
-  };
+      };
+    }
+  ]);
 }

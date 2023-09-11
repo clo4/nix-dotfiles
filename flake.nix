@@ -71,8 +71,8 @@
           system = "aarch64-darwin";
           modules = [
             home-manager.darwinModules.default
-            (home-manager-robert ./home/macmini)
-            ./host/macmini
+            (home-manager-robert ./systems/macmini/home.nix)
+            ./systems/macmini/host.nix
           ];
           specialArgs = {
             inherit inputs;
@@ -86,8 +86,8 @@
           system = "aarch64-linux";
           modules = [
             home-manager.nixosModules.default
-            (home-manager-robert ./home/utm)
-            ./host/utm
+            (home-manager-robert ./systems/utm/home.nix)
+            ./systems/utm/host.nix
           ];
           specialArgs = {
             inherit inputs;
@@ -100,8 +100,8 @@
           modules = [
             home-manager.nixosModules.default
             nixos-wsl.nixosModules.default
-            (home-manager-robert ./home/wsl)
-            ./host/wsl
+            (home-manager-robert ./systems/wsl/home.nix)
+            ./systems/wsl/host.nix
           ];
           specialArgs = {
             inherit inputs;

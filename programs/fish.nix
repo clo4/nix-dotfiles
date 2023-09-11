@@ -14,9 +14,14 @@ with lib; let
 in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
-    enableCommandNotFound = mkEnableOption "command not found handler" // {default = true;};
-    enableWslFunctions = mkEnableOption "fish wsl functions";
-    enableGreetingTouchIdCheck = mkEnableOption "checking for pam_tid.so on startup";
+
+    enableCommandNotFound =
+      mkEnableOption "my command not found handler using comma"
+      // {default = true;};
+
+    enableWslFunctions = mkEnableOption "my fish wsl alias functions";
+
+    enableGreetingTouchIdCheck = mkEnableOption "a check for pam_tid.so on startup";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -24,14 +29,47 @@ in {
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;
       programs.fish.functions.fish_command_not_found = ''
-        if ${pkgs.gum}/bin/gum confirm "Try using comma?"
+        if ${pkgs.gum}/bin/gum confirm "Run using comma?"
           ${pkgs.comma}/bin/comma -- $argv
+        else
+          __fish_default_command_not_found_handler $argv
         end
       '';
+      programs.fish.interactiveShellInit = ''
+        # It's not necessarily an error to type the wrong command because you can still try
+        # to execute it afterwards, so make the color of an unknown command less aggressive
+        set -g fish_error_color yellow
+      '';
     })
+
     (mkIf cfg.enableWslFunctions {
       programs.fish.functions.wsl = alias "wsl.exe";
     })
+
+    (mkIf cfg.enableGreetingTouchIdCheck {
+      programs.fish.functions.fish_greeting = mkForce ''
+        if not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo
+          set fg_red (set_color red)
+          set fg_red_bg_yellow (set_color red --background yellow)
+          set fg_yellow_bg_red (set_color yellow --background red)
+          set normal (set_color normal)
+
+          # This is the world's Most Manually Constructed McGugan Box(tm).
+          # The colors are assigned to variables except for the text colors
+          # because I ran into an issue where fish refused to play nice with
+          # parsing it. Don't remember why, not super relevant.
+          echo "
+            $fg_red▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+            $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
+            $fg_red_bg_yellow▎ $(set_color --bold black)Touch ID will not work with sudo until $fg_yellow_bg_red▊$normal
+            $fg_red_bg_yellow▎ $(set_color --bold black)the system configuration is reapplied. $fg_yellow_bg_red▊$normal
+            $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
+            $fg_red▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔$normal
+          "
+        end
+      '';
+    })
+
     {
       programs.fish = {
         enable = true;
@@ -44,32 +82,17 @@ in {
         ];
 
         interactiveShellInit = ''
-          set -g fish_error_color yellow
+          # 1Password SSH agent should only be used if not in an SSH session
+          if not set -q SSH_TTY
+            set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+          end
         '';
 
         functions = {
           # Not sure if I should make this another item in the list,
           # for now it's probably fine here but if I have to add another
           # check this will have to get more complicated.
-          fish_greeting =
-            if cfg.enableGreetingTouchIdCheck
-            then ''
-              if not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo
-                set fg_red (set_color red)
-                set fg_red_bg_yellow (set_color red --background yellow)
-                set fg_yellow_bg_red (set_color yellow --background red)
-                set normal (set_color normal)
-                echo "
-                  $fg_red▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-                  $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
-                  $fg_red_bg_yellow▎ $(set_color --bold black)Touch ID will not work with sudo until $fg_yellow_bg_red▊$normal
-                  $fg_red_bg_yellow▎ $(set_color --bold black)the system configuration is reapplied. $fg_yellow_bg_red▊$normal
-                  $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
-                  $fg_red▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔$normal
-                "
-              end
-            ''
-            else "";
+          fish_greeting = "";
 
           # This function is sourced every time the shell starts up
           fish_user_key_bindings = ''

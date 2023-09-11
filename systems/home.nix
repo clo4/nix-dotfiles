@@ -46,6 +46,7 @@
     # Other stuff
     git-open
     asciinema
+    _1password
   ];
 
   # Enables the programs and uses my configuration for them.

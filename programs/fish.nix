@@ -135,6 +135,29 @@ in {
           # Print the root of the git repository, if there is one
           git-root = "git rev-parse --git-dir | path dirname";
 
+          git-add-no-track = ''
+            set retval 0
+            for arg in $argv
+              if not ${pkgs.gum}/bin/gum confirm "Confirm: $arg"
+                set retval (math $retval + 1)
+                continue
+              end
+              git add --intent-to-add -- $arg
+              git update-index --assume-unchanged -- $arg
+            end
+            return $retval
+          '';
+
+          add-simple-shell = ''
+            if test -e flake.nix
+              echo "flake already exists in this directory, bailing"
+              return 1
+            end
+            nix flake init -t my#simple-shell
+            touch flake.lock # This isn't created by default but needs to be ignored
+            git-add-no-track flake.nix flake.lock
+          '';
+
           # Renames the current working directory
           mvcd = ''
             set cwd $PWD
@@ -263,7 +286,7 @@ in {
 
           # cd to a temporary directory
           tcd = ''
-            cd (mktemp -d | tee)
+            cd (mktemp -d)
           '';
 
           # Erase an item from an array by value rather than by index.

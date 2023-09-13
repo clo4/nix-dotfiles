@@ -108,6 +108,13 @@
           };
         };
       };
+
+      templates = {
+        simple-shell = {
+          path = ./templates/simple-shell;
+          description = "A simple shell for running with `nix develop`";
+        };
+      };
     }
     // flake-utils.lib.eachDefaultSystem (system: let
       pkgs = nixpkgs.legacyPackages.${system};

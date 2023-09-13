@@ -24,6 +24,7 @@
   ];
 
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
+  nix.registry.my.flake = inputs.self;
 
   # I always want the latest version of Helix. They do their best to
   # keep it building, and I've only ever had trouble with it twice.

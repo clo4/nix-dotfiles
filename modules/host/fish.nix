@@ -5,6 +5,7 @@
 }:
 with lib; let
   cfg = config.programs.fish;
+  language = name: text: text;
 in {
   # It makes more sense for this module to be defined for the system
   # than for the individual user because it's not a problem that just
@@ -22,14 +23,15 @@ in {
       # variables like $HOME and $USER that need to expand.
       dquote = str: "\"" + str + "\"";
       makeBinPathList = map (path: path + "/bin");
-    in ''
-      fish_add_path --move --prepend --path ${
-        lib.concatMapStringsSep " " dquote
-        (makeBinPathList config.environment.profiles)
-      }
-      # This line is only necessary for the side effect of updating the
-      # path ordering (see: `functions __fish_reconstruct_path`)
-      set fish_user_paths $fish_user_paths
-    '';
+    in
+      language "fish" ''
+        fish_add_path --move --prepend --path ${
+          lib.concatMapStringsSep " " dquote
+          (makeBinPathList config.environment.profiles)
+        }
+        # This line is only necessary for the side effect of updating the
+        # path ordering (see: `functions __fish_reconstruct_path`)
+        set fish_user_paths $fish_user_paths
+      '';
   };
 }

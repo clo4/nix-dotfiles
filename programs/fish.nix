@@ -7,6 +7,10 @@
 }:
 with lib; let
   cfg = config.my.programs.fish;
+  # This is a no-op function that is only used by Helix to highlight an indented
+  # string in the correct language. The highlight query is defined in the
+  # helix.nix module.
+  language = name: text: text;
   alias = name: {
     wraps = name;
     body = "${name} $argv";
@@ -28,7 +32,8 @@ in {
     (mkIf cfg.enableCommandNotFound {
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;
-      programs.fish.functions.fish_command_not_found = ''
+
+      programs.fish.functions.fish_command_not_found = language "fish" ''
         # If you run the command with comma, running the same command
         # will not prompt for confirmation for the rest of the session
         if contains $argv[1] $__fish_run_with_comma_commands
@@ -44,7 +49,8 @@ in {
           __fish_default_command_not_found_handler $argv
         end
       '';
-      programs.fish.interactiveShellInit = ''
+
+      programs.fish.interactiveShellInit = language "fish" ''
         # It's not necessarily an error to type the wrong command because you can still try
         # to execute it afterwards, so make the color of an unknown command less aggressive
         set -g fish_error_color yellow
@@ -56,7 +62,7 @@ in {
     })
 
     (mkIf cfg.enableGreetingTouchIdCheck {
-      programs.fish.functions.fish_greeting = mkForce ''
+      programs.fish.functions.fish_greeting = language "fish" ''
         if not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo
           set fg_red (set_color red)
           set fg_red_bg_yellow (set_color red --background yellow)
@@ -90,7 +96,7 @@ in {
           }
         ];
 
-        interactiveShellInit = ''
+        interactiveShellInit = language "fish" ''
           # 1Password SSH agent should only be used if not in an SSH session
           if not set -q SSH_TTY
             set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
@@ -98,13 +104,10 @@ in {
         '';
 
         functions = {
-          # Not sure if I should make this another item in the list,
-          # for now it's probably fine here but if I have to add another
-          # check this will have to get more complicated.
-          fish_greeting = "";
+          fish_greeting = mkDefault "";
 
           # This function is sourced every time the shell starts up
-          fish_user_key_bindings = ''
+          fish_user_key_bindings = language "fish" ''
             fish_default_key_bindings
             bind \cz 'fg 2>/dev/null; commandline -f repaint'
             bind \ez 'zi; commandline -f repaint'
@@ -123,19 +126,23 @@ in {
 
           # Displays every path in $PATH on new lines.
           # This is similar to
-          paths = ''
+          paths = language "fish" ''
             for path in $PATH
               echo -- $path
             end
           '';
 
           # Better interactive output than `ls`, and it's on my home row (faster to type).
-          e = "eza --sort=size --all --header --long --group-directories-first --git -- $argv";
+          e = language "fish" ''
+            eza --sort=size --all --header --long --group-directories-first --git -- $argv
+          '';
 
           # Print the root of the git repository, if there is one
-          git-root = "git rev-parse --git-dir | path dirname";
+          git-root = language "fish" ''
+            git rev-parse --git-dir | path dirname
+          '';
 
-          git-add-no-track = ''
+          git-add-no-track = language "fish" ''
             set retval 0
             for arg in $argv
               # not incrementing retval because changing your mind isn't an error
@@ -156,7 +163,7 @@ in {
             return $retval
           '';
 
-          add-simple-shell = ''
+          add-simple-shell = language "fish" ''
             if test -e flake.nix
               echo "flake already exists in this directory, bailing"
               return 1
@@ -167,7 +174,7 @@ in {
           '';
 
           # Renames the current working directory
-          mvcd = ''
+          mvcd = language "fish" ''
             set cwd $PWD
             set newcwd $argv[1]
             cd ..
@@ -178,7 +185,7 @@ in {
 
           # Sucks items out of the given directories into the destination directory.
           # This is useful for flattening nested directory structures.
-          suck = ''
+          suck = language "fish" ''
             if test (count $argv) -lt 2
               echo 'usage: suck sources... dest' >&2
               return 1
@@ -212,7 +219,7 @@ in {
           '';
 
           # Add a suffix to one or more files
-          suff = ''
+          suff = language "fish" ''
             if test (count $argv) -lt 2
               echo 'Requires 2 arguments.  Usage: suff <suffix> <files>...' >&2
               return 1
@@ -231,7 +238,7 @@ in {
           nix = {
             wraps = "nix";
             description = "Wraps `nix develop` to run fish instead of bash";
-            body = ''
+            body = language "fish" ''
               if status is-interactive
                 and test (count $argv) = 1
                 and test $argv[1] = develop
@@ -246,13 +253,13 @@ in {
           # (frog)mouthful to type
           md = alias "frogmouth";
 
-          announce = ''
+          announce = language "fish" ''
             echo -- "$argv"
             $argv
           '';
 
           # switch system flake correctly regardless of the operating system
-          rebuild-switch-flake = ''
+          rebuild-switch-flake = language "fish" ''
             if test (uname) = Darwin
               announce darwin-rebuild switch --flake .#
             else
@@ -265,7 +272,7 @@ in {
           o = {
             wraps = "cd";
             description = "Interactive cd that offers to create directories";
-            body = ''
+            body = language "fish" ''
               # Some git trickery first. If the function is called with no arguments,
               # typically that means to cd to $HOME, but we can be smarter - if you're
               # in a git repo and not in its root, cd to the root.
@@ -293,7 +300,7 @@ in {
           };
 
           # cd to a temporary directory
-          tcd = ''
+          tcd = language "fish" ''
             cd (mktemp -d)
           '';
 
@@ -312,7 +319,7 @@ in {
           #
           # The function is named with underscores to make it look and feel more like
           # a built-in fish function instead of something I wrote.
-          erase_item = ''
+          erase_item = language "fish" ''
             set varname $argv[1]
             set retval 0
             # Big O isn't optimal, but executes faster because `contains` is a builtin

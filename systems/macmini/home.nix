@@ -3,7 +3,9 @@
   osConfig,
   inputs,
   ...
-}: {
+}: let
+  language = name: text: text;
+in {
   imports = [
     ../home.nix
   ];
@@ -18,7 +20,7 @@
 
   programConfig.hammerspoon = {
     enable = true;
-    init = ''
+    init = language "lua" ''
       local SkyRocket = hs.loadSpoon("SkyRocket")
       sky = SkyRocket:new({
         opacity = 0.4,

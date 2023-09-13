@@ -6,19 +6,29 @@
 }:
 with lib; let
   cfg = config.my.programs.helix;
-
+  language = name: text: text;
   myTheme = "gruvbox_clo4";
 in {
-  options.my.programs.helix.enable = mkEnableOption "my helix configuration";
+  options = {
+    my.programs.helix.enable = mkEnableOption "my helix configuration";
+  };
 
   config = mkIf cfg.enable {
-    # Sets EDITOR in the environment, once I'm back to home-manager master
-    # I can switch to using the Helix module's porcelain over this -
-    # programs.helix.defaultEditor = true;
-    home.sessionVariables = {EDITOR = "hx";};
+    # Might have to refactor this into a module or upstream it if I add more queries!
+    # This is a simple one that allows you to define a function called "language" and
+    # highlight as whatever its first argument is.
+    xdg.configFile."helix/runtime/queries/nix/injections.scm".text = language "scheme" ''
+      ((apply_expression
+         function: (apply_expression function: (_) @_func
+           argument: (string_expression (string_fragment) @injection.language))
+         argument: (indented_string_expression (string_fragment) @injection.content))
+       (#match? @_func "language")
+       (#set! injection.combined))
+    '';
 
     programs.helix = {
       enable = true;
+      defaultEditor = true;
 
       settings = {
         theme = myTheme;

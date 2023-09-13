@@ -27,9 +27,6 @@ possible.
   The home modules are imported by `systems/home.nix`, which allows any file
   imported by the home configuration to use these modules.
 
-When I eventually have to define my own modules for whatever reason, they'll go
-in either `modules/host` or `modules/home`.
-
 ## My PC situation
 
 The GPU in my Intel machine has died entirely, so until I resolve that (which,

@@ -188,7 +188,7 @@ in {
         svelteserver.command = "${svelte-language-server}/bin/svelteserver";
 
         tailwindcss = {
-          command = "${nodePackages_latest."@tailwindcss/language-server"}/bin-tailwindcss-language-server";
+          command = "${nodePackages_latest."@tailwindcss/language-server"}/bin/tailwindcss-language-server";
           language-id = "tailwindcss";
           args = ["--stdio"];
           config = {};

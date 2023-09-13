@@ -138,10 +138,18 @@ in {
           git-add-no-track = ''
             set retval 0
             for arg in $argv
+              # not incrementing retval because changing your mind isn't an error
               if not ${pkgs.gum}/bin/gum confirm "Confirm: $arg"
+                continue
+              end
+
+              # subject to TOCTTOU but doesn't matter
+              if not test -e $arg
+                echo "file doesn't exist: $arg"
                 set retval (math $retval + 1)
                 continue
               end
+
               git add --intent-to-add -- $arg
               git update-index --assume-unchanged -- $arg
             end

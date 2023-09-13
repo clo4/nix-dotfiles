@@ -29,7 +29,16 @@ in {
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;
       programs.fish.functions.fish_command_not_found = ''
-        if ${pkgs.gum}/bin/gum confirm "Run using comma?"
+        # If you run the command with comma, running the same command
+        # will not prompt for confirmation for the rest of the session
+        if contains $argv[1] $__fish_run_with_comma_commands
+          or ${pkgs.gum}/bin/gum confirm --selected.background=2 "Run using comma?"
+
+          # Not bothering with capturing the status of the command, just run it again
+          if not contains $argv[1] $__fish_run_with_comma_commands
+            set -ga __fish_run_with_comma_commands $argv[1]
+          end
+
           ${pkgs.comma}/bin/comma -- $argv
         else
           __fish_default_command_not_found_handler $argv

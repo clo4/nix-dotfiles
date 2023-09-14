@@ -17,10 +17,10 @@ in {
       escapeTime = 50;
       historyLimit = 10000;
       mouse = true;
-      terminal = "xterm-256color";
+      terminal = "tmux-256color";
       baseIndex = 1;
       extraConfig = ''
-        set-option -sa terminal-overrides ",xterm-256color:RGB"
+        set-option -sa terminal-overrides ",tmux-256color:RGB"
       '';
     };
   };

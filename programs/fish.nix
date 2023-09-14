@@ -97,11 +97,6 @@ in {
         ];
 
         interactiveShellInit = language "fish" ''
-          # 1Password SSH agent should only be used if not in an SSH session
-          if not set -q SSH_TTY
-            set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-          end
-
           # This isn't set by default
           set -g fish_color_option blue
         '';

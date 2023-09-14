@@ -28,7 +28,7 @@ in {
            function: (apply_expression function: (_) @_func
              argument: (string_expression (string_fragment) @injection.language))
            argument: (indented_string_expression (string_fragment) @injection.content))
-         (#match? @_func "language")
+         (#eq? @_func "language")
          (#set! injection.language))
 
         ${originalNixInjections}

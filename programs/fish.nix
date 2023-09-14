@@ -101,6 +101,9 @@ in {
           if not set -q SSH_TTY
             set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
           end
+
+          # This isn't set by default
+          set -g fish_color_option blue
         '';
 
         functions = {
@@ -338,6 +341,8 @@ in {
         shellAbbrs = {
           cmv = "command -v";
 
+          n = "nix";
+          nxi = "nix";
           nd = "nix develop";
           nfuc = "nix flake update --commit-lock-file";
 
@@ -347,6 +352,9 @@ in {
           ta = "tmux attach; or tmux";
           tk = "tmux kill-session";
           tl = "tmux list-sessions";
+
+          ts = "tailscale";
+          tsd = "tailscaled";
 
           tree = "eza --tree";
 

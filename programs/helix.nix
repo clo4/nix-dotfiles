@@ -16,20 +16,19 @@ in {
 
   config = mkIf cfg.enable {
     # Might have to refactor this into a module or upstream it if I add more queries!
-    # This is a simple one that allows you to define a function called "language" and
-    # highlight as whatever its first argument is.
     xdg.configFile."helix/runtime/queries/nix/injections.scm".text = let
       # Helix will override whatever the builtin injection query is with your own
       # if you don't copy it and append your query to it.
       nixInjectionsSrc = builtins.readFile (inputs.helix + "/runtime/queries/nix/injections.scm");
       prependNixInjection = custom: ''
-        ${nixInjectionsSrc}
-
         ${custom}
+
+        ${nixInjectionsSrc}
       '';
     in
-      prependNixInjection
-      (language "scheme" ''
+      prependNixInjection (language "scheme" ''
+        ; This is a simple query that allows you to define a function called "language" and
+        ; highlight as whatever its first argument is. `language = name: str: str;`
         ((apply_expression
            function: (apply_expression function: (_) @_func
              argument: (string_expression (string_fragment) @injection.language))

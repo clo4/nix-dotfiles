@@ -238,8 +238,7 @@ in {
             description = "Wraps `nix develop` to run fish instead of bash";
             body = language "fish" ''
               if status is-interactive
-                and test (count $argv) = 1
-                and test $argv[1] = develop
+                and test (count $argv) = 1 -a $argv[1] = develop
                 command nix develop --command (status fish-path)
               else
                 command nix $argv

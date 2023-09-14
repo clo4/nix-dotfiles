@@ -252,7 +252,9 @@ in {
           md = alias "frogmouth";
 
           announce = language "fish" ''
-            echo -- "$argv"
+            set_color purple
+            echo -n "~> "
+            echo -- "$argv" | fish_indent --ansi
             $argv
           '';
 

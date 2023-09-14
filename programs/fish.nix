@@ -162,12 +162,14 @@ in {
           '';
 
           add-simple-shell = language "fish" ''
-            if test -e flake.nix
-              echo "flake already exists in this directory, bailing"
+            # For this command to be valid, we must be in a git repository
+            # that doesn't have a flake.nix in it already
+            if test -e flake.nix -o ! -e .git
+              echo "flake already exists or not in a git repository, bailing"
               return 1
             end
             nix flake init -t my#simple-shell
-            touch flake.lock # This isn't created by default but needs to be ignored
+            nix flake lock
             git-add-no-track flake.nix flake.lock
           '';
 

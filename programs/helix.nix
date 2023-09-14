@@ -19,14 +19,9 @@ in {
     xdg.configFile."helix/runtime/queries/nix/injections.scm".text = let
       # Helix will override whatever the builtin injection query is with your own
       # if you don't copy it and append your query to it.
-      nixInjectionsSrc = builtins.readFile (inputs.helix + "/runtime/queries/nix/injections.scm");
-      prependNixInjection = custom: ''
-        ${custom}
-
-        ${nixInjectionsSrc}
-      '';
+      originalNixInjections = builtins.readFile (inputs.helix + "/runtime/queries/nix/injections.scm");
     in
-      prependNixInjection (language "scheme" ''
+      language "scheme" ''
         ; This is a simple query that allows you to define a function called "language" and
         ; highlight as whatever its first argument is. `language = name: str: str;`
         ((apply_expression
@@ -35,7 +30,9 @@ in {
            argument: (indented_string_expression (string_fragment) @injection.content))
          (#match? @_func "language")
          (#set! injection.language))
-      '');
+
+        ${originalNixInjections}
+      '';
 
     programs.helix = {
       enable = true;

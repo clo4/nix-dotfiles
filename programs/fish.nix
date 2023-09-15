@@ -34,7 +34,7 @@ in {
       # For the sake of syntax highlighting I'm not referencing them directly
       # in the function, instead installing them in the environment. But it
       # also has the nice side effect that it's really nice for debugging.
-      home.programs = [pkgs.comma pkgs.gum];
+      home.packages = [pkgs.comma pkgs.gum];
 
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;

@@ -26,7 +26,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in {
       devShell = pkgs.mkShell {
-        dependencies = with pkgs; [
+        packages = with pkgs; [
           # Your dependencies here
         ];
       };

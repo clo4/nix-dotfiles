@@ -99,6 +99,62 @@ in {
         interactiveShellInit = language "fish" ''
           # This isn't set by default
           set -g fish_color_option blue
+
+          # Shell abbreviations
+          # Group: shell stuff
+          abbr -a cmv "command -v";
+          abbr -a !! --position anywhere --function last_history_item
+
+          # Group: Nix commands
+          abbr -a n "nix";
+          abbr -a nxi "nix";
+          abbr -a nd "nix develop";
+          abbr -a nfuc "nix flake update --commit-lock-file";
+          abbr -a rsf "rebuild-switch-flake";
+
+          # Group: Fuzzy finders
+          abbr -a f "fzf";
+
+          # Group: tmux
+          abbr -a t "tmux";
+          abbr -a ta "tmux attach; or tmux";
+          abbr -a tk "tmux kill-session";
+          abbr -a tl "tmux list-sessions";
+
+          # Group: tailscale (frequently used with sudo)
+          abbr -a --position anywhere ts "tailscale";
+          abbr -a --position anywhere tsd "tailscaled";
+
+          # Group: File stuff
+          abbr -a tree "eza --tree";
+
+          # Group: git
+          abbr -a ",a" "git add";
+          abbr -a ",ap" "git add --patch";
+          abbr -a ",ad" "git add .";
+          abbr -a ",r" "git restore";
+          abbr -a ",rs" "git restore --staged";
+          abbr -a ",re" "git reset";
+          abbr -a ",c" "git commit";
+          abbr -a ",ca" "git commit --amend";
+          abbr -a ",d" "git diff";
+          abbr -a ",m" "git merge";
+          abbr -a ",s" "git status";
+          abbr -a ",p" "git push";
+          abbr -a ",pf" "git push --force";
+          abbr -a ",pu" "git pull";
+          abbr -a ",f" "git fetch";
+          abbr -a ",fu" "git fetch upstream";
+          abbr -a ",sw" "git switch";
+          abbr -a ",sc" "git switch -c";
+          abbr -a ",b" "git branch";
+          abbr -a ",l" "git log";
+
+          # Group: directory traversal
+          abbr -a "-" "cd -";
+          abbr -a ".." "cd ..";
+          abbr -a "..." "cd ../..";
+          abbr -a "...." "cd ../../..";
         '';
 
         functions = {
@@ -120,6 +176,9 @@ in {
             bind '>' expand-abbr self-insert
             bind '<' expand-abbr self-insert
             bind ')' expand-abbr self-insert
+          '';
+
+          fish_user_abbreviations = ''
           '';
 
           # Displays every path in $PATH on new lines.
@@ -254,7 +313,7 @@ in {
 
           announce = language "fish" ''
             set_color purple
-            echo -n "~> "
+            echo -n "~~> "
             echo -- "$argv" | fish_indent --ansi
             $argv
           '';
@@ -334,56 +393,6 @@ in {
             end
             return $retval
           '';
-        };
-
-        shellAbbrs = {
-          cmv = "command -v";
-
-          n = "nix";
-          nxi = "nix";
-          nd = "nix develop";
-          nfuc = "nix flake update --commit-lock-file";
-
-          f = "fzf";
-
-          t = "tmux";
-          ta = "tmux attach; or tmux";
-          tk = "tmux kill-session";
-          tl = "tmux list-sessions";
-
-          ts = "tailscale";
-          tsd = "tailscaled";
-
-          tree = "eza --tree";
-
-          rsf = "rebuild-switch-flake";
-
-          # "," = "git";
-          ",a" = "git add";
-          ",ap" = "git add --patch";
-          ",ad" = "git add .";
-          ",r" = "git restore";
-          ",rs" = "git restore --staged";
-          ",re" = "git reset";
-          ",c" = "git commit";
-          ",ca" = "git commit --amend";
-          ",d" = "git diff";
-          ",m" = "git merge";
-          ",s" = "git status";
-          ",p" = "git push";
-          ",pf" = "git push --force";
-          ",pu" = "git pull";
-          ",f" = "git fetch";
-          ",fu" = "git fetch upstream";
-          ",sw" = "git switch";
-          ",sc" = "git switch -c";
-          ",b" = "git branch";
-          ",l" = "git log";
-
-          "-" = "cd -";
-          ".." = "cd ..";
-          "..." = "cd ../..";
-          "...." = "cd ../../..";
         };
       };
     }

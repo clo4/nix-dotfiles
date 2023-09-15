@@ -30,6 +30,7 @@
     "rectangle"
     "rio"
     "spotify"
+    "transmission"
     "wezterm"
     "zed"
     "zed"

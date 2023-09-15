@@ -22,7 +22,9 @@
 
   nix.settings = {
     experimental-features = ["nix-command" "flakes"];
-    auto-optimise-store = true;
+    # This seems to cause issues:
+    # https://github.com/NixOS/nix/issues/7273
+    #auto-optimise-store = true;
     substituters = [
       "https://helix.cachix.org"
     ];

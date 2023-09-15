@@ -103,7 +103,6 @@ in {
           # Shell abbreviations
           # Group: shell stuff
           abbr -a cmv "command -v";
-          abbr -a !! --position anywhere --function last_history_item
 
           # Group: Nix commands
           abbr -a n "nix";

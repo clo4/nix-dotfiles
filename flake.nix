@@ -121,7 +121,7 @@
     in {
       formatter = pkgs.alejandra;
       devShell = pkgs.mkShell {
-        nativeBuildInputs = with pkgs; [
+        packages = with pkgs; [
           nil
           alejandra
         ];

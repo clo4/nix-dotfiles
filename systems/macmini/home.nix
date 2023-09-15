@@ -61,6 +61,9 @@ in {
       tab_fade = 1;
       active_tab_font_style = "bold";
       inactive_tab_font_style = "bold";
+      cursor_blink_interval = -1;
+      mouse_hide_wait = 0;
+      strip_trailing_spaces = "always";
     };
   };
 }

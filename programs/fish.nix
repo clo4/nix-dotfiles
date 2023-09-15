@@ -19,7 +19,7 @@ in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
 
-    enableCommandNotFound =
+    enableCommaCommandNotFound =
       mkEnableOption "my command not found handler using comma"
       // {default = true;};
 
@@ -29,22 +29,29 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.enableCommandNotFound {
+    (mkIf cfg.enableCommaCommandNotFound {
+      # Both comma and gum are required for this.
+      # For the sake of syntax highlighting I'm not referencing them directly
+      # in the function, instead installing them in the environment. But it
+      # also has the nice side effect that it's really nice for debugging.
+      home.programs = [pkgs.comma pkgs.gum];
+
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;
 
       programs.fish.functions.fish_command_not_found = language "fish" ''
         # If you run the command with comma, running the same command
         # will not prompt for confirmation for the rest of the session
-        if contains $argv[1] $__fish_run_with_comma_commands
-          or ${pkgs.gum}/bin/gum confirm --selected.background=2 "Run using comma?"
+        if contains $argv[1] $__command_not_found_confirmed_commands
+          or gum confirm --selected.background=2 "Run using comma?"
 
           # Not bothering with capturing the status of the command, just run it again
-          if not contains $argv[1] $__fish_run_with_comma_commands
+          if not contains $argv[1] $__command_not_found_confirmed_commands
             set -ga __fish_run_with_comma_commands $argv[1]
           end
 
-          ${pkgs.comma}/bin/comma -- $argv
+          comma -- $argv
+          return 0
         else
           __fish_default_command_not_found_handler $argv
         end
@@ -86,6 +93,10 @@ in {
     })
 
     {
+      # This is used by so many functions that it's basically essential.
+      # I could reference it in each function, but annoyingly that breaks
+      # the syntax highlighting that I'm brutally forcing Helix to do.
+      home.packages = [pkgs.gum];
       programs.fish = {
         enable = true;
 
@@ -157,6 +168,9 @@ in {
         '';
 
         functions = {
+          # Does mkDefault actually do anything in this situation?
+          # I'm not sure! But this seems to work regardless, so I
+          # won't change it...
           fish_greeting = mkDefault "";
 
           # This function is sourced every time the shell starts up
@@ -175,9 +189,6 @@ in {
             bind '>' expand-abbr self-insert
             bind '<' expand-abbr self-insert
             bind ')' expand-abbr self-insert
-          '';
-
-          fish_user_abbreviations = ''
           '';
 
           # Displays every path in $PATH on new lines.
@@ -202,7 +213,7 @@ in {
             set retval 0
             for arg in $argv
               # not incrementing retval because changing your mind isn't an error
-              if not ${pkgs.gum}/bin/gum confirm "Confirm: $arg"
+              if not gum confirm "Confirm: $arg"
                 continue
               end
 
@@ -229,6 +240,15 @@ in {
             nix flake init -t my#simple-shell
             nix flake lock
             git-add-no-track flake.nix flake.lock
+
+            # This sleep helps to break up the confirmation prompts so I don't
+            # accidentally agree or disagree to editing the flake if I didn't
+            # want to.
+            gum spin --title "sleeping..." -- sleep 1
+
+            if gum confirm "Edit flake.nix?"
+              $EDITOR flake.nix
+            end
           '';
 
           # Renames the current working directory
@@ -347,7 +367,7 @@ in {
               cd $argv
               set cd_status $status
               if test $cd_status -ne 0
-                and ${pkgs.gum}/bin/gum confirm "Create the directory? ($argv[-1])"
+                and gum confirm "Create the directory? ($argv[-1])"
                 echo "Creating directory"
                 command mkdir -p -- $argv[-1]
                 builtin cd $argv[-1]

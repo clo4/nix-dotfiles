@@ -16,16 +16,17 @@ possible.
 - [`systems/`](./systems) stores the configuration for each machine.
   - `home.nix` contains the home configuration shared by each system
   - `host.nix` contains the system configuration shared by each system
-  - `<host>/home.nix` is the system-specific config
-  - `<host>/host.nix` is the system-specific config
+  - `<host>/home.nix` is the system-specific home config
+  - `<host>/host.nix` is the system-specific host config
 - [`programs/`](./programs) is where I move my program configuration when it
   gets too long to store in my home config. By default, programs are configured
   wherever is most appropriate, and when they start to take up too much room or
   require certain things enabled on particular systems, I move the configuration
   to a module and put it in this directory.
-- [`modules/home/`](./modules/home) is where home-manager modules are defined.
-  The home modules are imported by `systems/home.nix`, which allows any file
-  imported by the home configuration to use these modules.
+- [`modules/`](./modules) is where modules are defined. This is both system and
+  home-manager modules. These modules are imported by the respective `common`
+  files, which allows any file that uses the common settings to use the modules
+  too.
 
 ## My PC situation
 

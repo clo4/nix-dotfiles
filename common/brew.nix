@@ -35,6 +35,5 @@
     "transmission"
     "wezterm"
     "zed"
-    "zed"
   ];
 }

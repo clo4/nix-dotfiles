@@ -1,13 +1,3 @@
-# The home/<user>/default.nix file configures the user's home directory,
-# but only the stuff that's truly common between all systems. This may
-# not end up being that much stuff!
-#
-# All system-specific user configuration is done in the other files in
-# this directory.
-#
-# This file isn't responsible for importing the home-manager module, that's
-# assumed to already be imported. The reason for this is sharing the same
-# common home configuration between NixOS and macOS (with nix-darwin).
 {pkgs, ...}: {
   imports = [
     ../programs

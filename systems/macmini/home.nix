@@ -38,6 +38,8 @@ in {
   my.programs.fish.enableGreetingTouchIdCheck =
     osConfig.security.pam.enableSudoTouchIdAuth;
 
+  my.programs.kitty.enable = true;
+
   # Might move this to the fish module one day but for now it's specific to
   # this system. If there's another Mac or a NixOS system to care about, that
   # would be a good time to refactor into something that can be shared.
@@ -47,23 +49,4 @@ in {
       set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
     end
   '';
-
-  programs.kitty = {
-    enable = true;
-    theme = "Gruvbox Dark";
-    font.package = pkgs.nerdfonts.override {fonts = ["JetBrainsMono"];};
-    font.name = "JetBrainsMono Nerd Font Mono";
-    settings = {
-      macos_option_as_alt = true;
-      macos_titlebar_color = "dark";
-      font_family = "JetBrainsMono Nerd Font Mono";
-      tab_bar_style = "fade";
-      tab_fade = 1;
-      active_tab_font_style = "bold";
-      inactive_tab_font_style = "bold";
-      cursor_blink_interval = -1;
-      mouse_hide_wait = 0;
-      strip_trailing_spaces = "always";
-    };
-  };
 }

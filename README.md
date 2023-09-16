@@ -13,7 +13,7 @@ possible.
 
 - [`flake.nix`](./flake.nix) is where the systems are declared and the modules
   they need are defined.
-- [`common/`] defines the configuration shared between multiple hosts.
+- [`common/`](./common) defines the configuration shared between multiple hosts.
   - `home.nix` contains the home configuration shared by each system
   - `host.nix` contains the system configuration shared by each system
   - `brew.nix` defines homebrew-specific stuff for Macs that use nix-darwin.

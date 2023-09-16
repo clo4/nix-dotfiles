@@ -17,4 +17,3 @@ future modifications.
 For a good example of this, see [fish.nix](./fish.nix), which defines my entire
 shell configuration. There are multiple options that can be enabled which will
 enable other pieces of the configuration, such as Mac-specific startup checks.
-

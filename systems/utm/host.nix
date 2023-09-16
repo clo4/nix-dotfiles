@@ -5,7 +5,7 @@
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../common/host.nix
+    ../../shared/host.nix
   ];
 
   # Bootloader.

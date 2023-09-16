@@ -7,7 +7,7 @@
   language = name: text: text;
 in {
   imports = [
-    ../../common/home.nix
+    ../../shared/home.nix
   ];
 
   home.homeDirectory = "/Users/robert";

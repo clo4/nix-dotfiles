@@ -1,7 +1,7 @@
 {pkgs, ...}: {
   imports = [
-    ../../common/host.nix
-    ../../common/brew.nix
+    ../../shared/host.nix
+    ../../shared/brew.nix
   ];
 
   # This has to be set on macOS to make fish a usable shell

@@ -1,6 +1,6 @@
 {...}: {
   imports = [
-    ../../common/home.nix
+    ../../shared/home.nix
   ];
 
   home.homeDirectory = "/home/robert";

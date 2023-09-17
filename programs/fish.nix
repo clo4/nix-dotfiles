@@ -331,7 +331,7 @@ in {
           md = alias "frogmouth";
 
           announce = language "fish" ''
-            set_color brmagenta
+            set_color magenta
             echo -n "~~> "
             echo -- "$argv" | fish_indent --ansi
             $argv
@@ -411,6 +411,12 @@ in {
               end
             end
             return $retval
+          '';
+
+          clean-store = language "fish" ''
+            announce nix store gc --verbose
+            echo
+            announce nix store optimise --verbose
           '';
         };
       };

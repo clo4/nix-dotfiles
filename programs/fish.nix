@@ -97,6 +97,7 @@ in {
       # I could reference it in each function, but annoyingly that breaks
       # the syntax highlighting that I'm brutally forcing Helix to do.
       home.packages = [pkgs.gum];
+
       programs.fish = {
         enable = true;
 
@@ -241,10 +242,10 @@ in {
             nix flake lock
             git-add-no-track flake.nix flake.lock
 
-            # This sleep helps to break up the confirmation prompts so I don't
+            # This sleep helps to break up the confirmation prompts, so I don't
             # accidentally agree or disagree to editing the flake if I didn't
             # want to.
-            gum spin --title "sleeping..." -- sleep 1
+            gum spin --title "waiting..." -- sleep 1
 
             if gum confirm "Edit flake.nix?"
               $EDITOR flake.nix
@@ -330,10 +331,14 @@ in {
           # (frog)mouthful to type
           md = alias "frogmouth";
 
+          # Prints the command to the screen, colorized it would be when executed
+          # at the command line, then executes the command.
+          # This is meant to look like the user is executing the command, while
+          # also making it clear it's happening automatically. Useful for functions
+          # where it's just some simple commands being run in sequence.
           announce = language "fish" ''
-            set_color magenta
-            echo -n "~~> "
-            echo -- "$argv" | fish_indent --ansi
+            set colored_command (echo -- "$argv" | fish_indent --ansi)
+            echo "$(set_color magenta)~~>$(set_color normal) $colored_command"
             $argv
           '';
 

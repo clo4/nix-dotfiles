@@ -29,6 +29,7 @@ in {
         cursor_blink_interval = -1;
         mouse_hide_wait = 3;
         strip_trailing_spaces = "always";
+        visual_window_select_characters = "tnseriaogm";
       };
     };
   };

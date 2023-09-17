@@ -14,6 +14,7 @@
     "arc"
     "audio-hijack"
     "bartender"
+    "blender"
     "discord"
     "elgato-camera-hub"
     "figma"

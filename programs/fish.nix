@@ -47,7 +47,7 @@ in {
 
           # Not bothering with capturing the status of the command, just run it again
           if not contains $argv[1] $__command_not_found_confirmed_commands
-            set -ga __fish_run_with_comma_commands $argv[1]
+            set -ga __command_not_found_confirmed_commands $argv[1]
           end
 
           comma -- $argv

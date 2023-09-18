@@ -40,6 +40,8 @@ in {
 
   my.programs.kitty.enable = true;
 
+  my.programConfig.zed.enable = true;
+
   # Might move this to the fish module one day but for now it's specific to
   # this system. If there's another Mac or a NixOS system to care about, that
   # would be a good time to refactor into something that can be shared.

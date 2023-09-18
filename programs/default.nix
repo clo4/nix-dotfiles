@@ -6,5 +6,6 @@
     ./kitty.nix
     ./tealdeer
     ./tmux.nix
+    ./zed.nix
   ];
 }

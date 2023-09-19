@@ -1,4 +1,6 @@
-{pkgs, ...}: {
+{pkgs, ...}: let
+  language = _: t: t;
+in {
   imports = [
     ../../shared/host.nix
     ../../shared/brew.nix
@@ -25,28 +27,58 @@
 
   system.stateVersion = 4;
 
+  system.defaults.CustomUserPreferences = {
+    "com.dexterleng.homerow" = {
+      label-characters = "arstfmneoiuy";
+      launch-at-login = true;
+      is-experimental-support-enabled = true;
+      # The shortcut really is stored as the shift symbol and command symbol!
+      non-search-shortcut = "⇧⌘Space";
+    };
+  };
+
   system.defaults.NSGlobalDomain = {
+    # Automatic dark mode at night
     AppleInterfaceStyleSwitchesAutomatically = true;
+
+    # Disabling this means you can hold to repeat keys
     ApplePressAndHoldEnabled = false;
+
+    # I *always* want to know the file type
     AppleShowAllExtensions = true;
+
+    # I type fine anyway, stop getting in my way
     NSAutomaticCapitalizationEnabled = false;
     NSAutomaticPeriodSubstitutionEnabled = false;
     NSAutomaticSpellingCorrectionEnabled = false;
+
+    # 15 milliseconds until the key repeats, then 2 milliseconds
+    # between subsequent inputs. This can be achieved in the settings UI
     InitialKeyRepeat = 15;
     KeyRepeat = 2;
+
+    # Enables using the function keys as the F<number> key instead of OS controls
     "com.apple.keyboard.fnState" = true;
   };
 
+  # I don't change the speed because I think it's fine by default honestly.
+  # Most of the time I don't use the dock anyway, instead just navigating with
+  # Raycast and Homerow.
   system.defaults.dock.autohide = true;
 
+  # Pretty sure this doesn't do anything anymore :(
   system.defaults.LaunchServices.LSQuarantine = false;
 
   system.defaults.finder = {
+    # Shows a breadcrumb trail down the bottom of the Finder window
     ShowPathbar = true;
+
     # Hides desktop icons (but they're still accessible through Finder)
     CreateDesktop = false;
+
     # This magic string makes it search the current folder by default
     FXDefaultSearchScope = "SCcf";
+
     # Use the column view by default-- the obviously correct and best view
     FXPreferredViewStyle = "clmv";
   };

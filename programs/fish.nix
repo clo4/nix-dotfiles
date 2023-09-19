@@ -92,6 +92,12 @@ in {
       '';
     })
 
+    (mkIf pkgs.stdenv.isDarwin {
+      programs.fish.interactiveShellInit = language "fish" ''
+        abbr -a netq networkQuality
+      '';
+    })
+
     {
       # This is used by so many functions that it's basically essential.
       # I could reference it in each function, but annoyingly that breaks
@@ -133,8 +139,8 @@ in {
           abbr -a tl "tmux list-sessions";
 
           # Group: tailscale (frequently used with sudo)
-          abbr -a --position anywhere ts "tailscale";
-          abbr -a --position anywhere tsd "tailscaled";
+          abbr -a ts "tailscale";
+          abbr -a tsd "tailscaled";
 
           # Group: File stuff
           abbr -a tree "eza --tree";

@@ -42,5 +42,10 @@ in {
       soft_wrap = "none";
       buffer_font_family = "RobotoMono Nerd Font";
     };
+    programConfig.zed.keymap = [
+      {
+        bindings."cmd-," = null;
+      }
+    ];
   };
 }

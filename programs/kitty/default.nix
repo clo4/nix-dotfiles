@@ -13,15 +13,17 @@ in {
   config = mkIf cfg.enable {
     programs.kitty = {
       enable = true;
+      # Shell integration is enabled by default
       theme = "Gruvbox Dark";
       font.package = pkgs.nerdfonts.override {
         fonts = ["JetBrainsMono"];
       };
       font.name = "JetBrainsMono Nerd Font Mono";
+      keybindings = {
+      };
       settings = {
         macos_option_as_alt = true;
         macos_titlebar_color = "dark";
-        font_family = "JetBrainsMono Nerd Font Mono";
         tab_bar_style = "fade";
         tab_fade = 1;
         active_tab_font_style = "bold";
@@ -30,6 +32,8 @@ in {
         mouse_hide_wait = 3;
         strip_trailing_spaces = "always";
         visual_window_select_characters = "tnseriaogm";
+
+        enabled_layouts = "tall:bias=70;full_size=1";
       };
     };
   };

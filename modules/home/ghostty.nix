@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 with lib; let
@@ -9,7 +8,7 @@ with lib; let
 
   eitherStrBoolNum = with types; either str (either bool number);
 
-  # Either a (str | bool | int) or a list of (str | bool | int)
+  # Either a (str | bool | number) or a list of (str | bool | number)
   anyConfigType = with types;
     either (listOf eitherStrBoolNum) eitherStrBoolNum;
 
@@ -68,6 +67,12 @@ in {
         {file}`$XDG_CONFIG_HOME/ghostty/config`.
       '';
     };
+
+    # Want to support:
+    # - Automatic font installation and configuration
+    # - Automatic theme installation from mbadolato/iTerm2-Color-Schemes
+    # - Configuring the shell integration per shell
+    # - Easier way to configure the keymaps
 
     extraConfig = mkOption {
       default = "";

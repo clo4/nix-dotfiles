@@ -28,6 +28,9 @@ in {
   system.stateVersion = 4;
 
   system.defaults.CustomUserPreferences = {
+    NSGlobalDomain = {
+      NSWindowShouldDragOnGesture = true;
+    };
     "com.dexterleng.homerow" = {
       label-characters = "arstfmneoiuy";
       launch-at-login = true;

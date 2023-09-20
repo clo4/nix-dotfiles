@@ -38,9 +38,14 @@ in {
   my.programs.fish.enableGreetingTouchIdCheck =
     osConfig.security.pam.enableSudoTouchIdAuth;
 
+  # This is under programs because it does technically install kitty, but that's
+  # an implementation detail, I use the kitty installed with brew. I just didn't
+  # want to bother copying the module to my own modules folder just to remove
+  # one line from it.
   my.programs.kitty.enable = true;
 
   my.programConfig.zed.enable = true;
+  my.programConfig.ghostty.enable = true;
 
   # Might move this to the fish module one day but for now it's specific to
   # this system. If there's another Mac or a NixOS system to care about, that

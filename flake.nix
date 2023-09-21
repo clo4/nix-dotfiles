@@ -26,6 +26,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    iTerm2-color-schemes = {
+      url = "github:clo4/iTerm2-Color-Schemes/ghostty";
+      flake = false;
+    };
+
     fish-tide = {
       url = "github:IlanCosman/tide";
       flake = false;

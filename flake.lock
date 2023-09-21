@@ -197,6 +197,23 @@
         "type": "github"
       }
     },
+    "iTerm2-color-schemes": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1695224729,
+        "narHash": "sha256-+5TwCTiOAmzp+KhJzoBBrySNiCDF3SXIqYehC1PpRCA=",
+        "owner": "clo4",
+        "repo": "iTerm2-Color-Schemes",
+        "rev": "8604b90ed44f301fe6cd79280fb1db4576f4c6ad",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clo4",
+        "ref": "ghostty",
+        "repo": "iTerm2-Color-Schemes",
+        "type": "github"
+      }
+    },
     "nixos-wsl": {
       "inputs": {
         "flake-compat": "flake-compat_2",
@@ -243,6 +260,7 @@
         "flake-utils": "flake-utils",
         "helix": "helix",
         "home-manager": "home-manager",
+        "iTerm2-color-schemes": "iTerm2-color-schemes",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs",
         "skyrocket-spoon": "skyrocket-spoon",

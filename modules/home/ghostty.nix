@@ -4,7 +4,7 @@
   ...
 }:
 with lib; let
-  cfg = config.programConfig.ghostty;
+  cfg = config.programs.ghostty;
 
   eitherStrBoolNum = with types; either str (either bool number);
 
@@ -56,7 +56,7 @@ with lib; let
     '';
   };
 in {
-  options.programConfig.ghostty = {
+  options.programs.ghostty = {
     enable = mkEnableOption "Ghostty terminal emulator";
 
     settings = mkOption {
@@ -78,7 +78,7 @@ in {
       defaultShellIntegration = {
         default = cfg.shellIntegration.enabled;
         defaultText =
-          literalExpression "config.programConfig.ghostty.shellIntegration.enabled";
+          literalExpression "config.programs.ghostty.shellIntegration.enabled";
       };
     in {
       enabled =

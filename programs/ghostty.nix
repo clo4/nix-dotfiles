@@ -5,16 +5,16 @@
   ...
 }:
 with lib; let
-  cfg = config.my.programConfig.ghostty;
+  cfg = config.my.programs.ghostty;
 in {
   options = {
-    my.programConfig.ghostty.enable = mkEnableOption "my Ghostty config";
+    my.programs.ghostty.enable = mkEnableOption "my Ghostty config";
   };
 
   config = mkIf cfg.enable {
-    programConfig.ghostty.enable = true;
+    programs.ghostty.enable = true;
 
-    programConfig.ghostty.settings = {
+    programs.ghostty.settings = {
       unfocused-split-opacity = 0.96;
       cursor-style-blink = false;
       mouse-hide-while-typing = true;
@@ -29,7 +29,7 @@ in {
       ];
     };
 
-    programConfig.ghostty.keybindings = {
+    programs.ghostty.keybindings = {
       "super+left" = "goto_split:left";
       "super+right" = "goto_split:right";
       "super+up" = "goto_split:top";

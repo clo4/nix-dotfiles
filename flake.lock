@@ -153,6 +153,21 @@
         "type": "github"
       }
     },
+    "ghostty": {
+      "locked": {
+        "lastModified": 1695455006,
+        "narHash": "sha256-3POp0GSd4v6/HRhus5m+q4Rded3wDJAZB2vI7couFd0=",
+        "owner": "clo4",
+        "repo": "ghostty-hm-module",
+        "rev": "60a227800e57dc13b496c3306adaa11eff788100",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clo4",
+        "repo": "ghostty-hm-module",
+        "type": "github"
+      }
+    },
     "helix": {
       "inputs": {
         "crane": "crane",
@@ -258,6 +273,7 @@
         "darwin": "darwin",
         "fish-tide": "fish-tide",
         "flake-utils": "flake-utils",
+        "ghostty": "ghostty",
         "helix": "helix",
         "home-manager": "home-manager",
         "iTerm2-color-schemes": "iTerm2-color-schemes",

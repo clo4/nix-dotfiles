@@ -26,6 +26,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    ghostty.url = "github:clo4/ghostty-hm-module";
+
     iTerm2-color-schemes = {
       url = "github:clo4/iTerm2-Color-Schemes/ghostty";
       flake = false;

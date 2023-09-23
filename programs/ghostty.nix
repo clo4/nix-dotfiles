@@ -7,6 +7,10 @@
 with lib; let
   cfg = config.my.programs.ghostty;
 in {
+  imports = [
+    inputs.ghostty.homeModules.default
+  ];
+
   options = {
     my.programs.ghostty.enable = mkEnableOption "my Ghostty config";
   };
@@ -23,6 +27,7 @@ in {
       window-theme = "dark";
 
       font-family = "JetBrainsMono Nerd Font";
+      font-size = 11;
 
       config-file = [
         (inputs.iTerm2-color-schemes + "/ghostty/GruvboxDark")
@@ -30,14 +35,14 @@ in {
     };
 
     programs.ghostty.keybindings = {
-      "super+left" = "goto_split:left";
-      "super+right" = "goto_split:right";
-      "super+up" = "goto_split:top";
-      "super+down" = "goto_split:bottom";
-
-      # This is slightly more ergonomic for me, because on my keyboard layout,
-      # super is right next to control.
-      "super+ctrl+d" = "new_split:down";
+      # Bound to super+shift for consistency with "zoom split",
+      # because that can't be bound to super+enter (default macOS
+      # fullscreen keybind)
+      # super+shift+d is already vertical split, already consistent
+      "super+shift+left" = "goto_split:left";
+      "super+shift+right" = "goto_split:right";
+      "super+shift+up" = "goto_split:top";
+      "super+shift+down" = "goto_split:bottom";
     };
   };
 }

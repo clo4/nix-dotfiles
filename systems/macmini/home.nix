@@ -44,8 +44,8 @@ in {
   # one line from it.
   my.programs.kitty.enable = true;
 
+  my.programs.ghostty.enable = true;
   my.programConfig.zed.enable = true;
-  my.programConfig.ghostty.enable = true;
 
   # Might move this to the fish module one day but for now it's specific to
   # this system. If there's another Mac or a NixOS system to care about, that

@@ -20,8 +20,7 @@ in {
       mouse-hide-while-typing = true;
 
       macos-option-as-alt = true;
-      # Not supported just yet, implemented in next nightly
-      # window-theme = "dark";
+      window-theme = "dark";
 
       font-family = "JetBrainsMono Nerd Font";
 

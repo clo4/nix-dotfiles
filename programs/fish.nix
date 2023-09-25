@@ -172,6 +172,7 @@ in {
           abbr -a ".." "cd ..";
           abbr -a "..." "cd ../..";
           abbr -a "...." "cd ../../..";
+          abbr -a cd o # I want to use my custom `cd` wrapper instead
         '';
 
         functions = {

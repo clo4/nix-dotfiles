@@ -28,6 +28,9 @@
 
     ghostty.url = "github:clo4/ghostty-hm-module";
 
+    # This could easily be fetchFromGithub but I want to track every
+    # dependency in my flake, which includes things I only use for a
+    # one-off.
     iTerm2-color-schemes = {
       url = "github:clo4/iTerm2-Color-Schemes/ghostty";
       flake = false;
@@ -57,17 +60,23 @@
     home-manager,
     darwin,
     flake-utils,
+    ghostty,
     ...
   }: let
     # This defines the home-manager config module for a user called robert.
     # My config structure assumes that this is the only user I'll want to set
     # up, but I'll have to rethink this one day.
     home-manager-robert = path: {
-      home-manager.useUserPackages = true;
-      home-manager.useGlobalPkgs = true;
-      home-manager.users.robert = path;
-      home-manager.extraSpecialArgs = {
-        inherit inputs;
+      home-manager = {
+        useUserPackages = true;
+        useGlobalPkgs = true;
+        users.robert = path;
+        sharedModules = [
+          ghostty.homeModules.default
+        ];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
       };
     };
   in

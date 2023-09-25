@@ -7,10 +7,6 @@
 with lib; let
   cfg = config.my.programs.ghostty;
 in {
-  imports = [
-    inputs.ghostty.homeModules.default
-  ];
-
   options = {
     my.programs.ghostty.enable = mkEnableOption "my Ghostty config";
   };
@@ -27,7 +23,7 @@ in {
       window-theme = "dark";
 
       font-family = "JetBrainsMono Nerd Font";
-      font-size = 11;
+      font-size = 12;
 
       config-file = [
         (inputs.iTerm2-color-schemes + "/ghostty/GruvboxDark")

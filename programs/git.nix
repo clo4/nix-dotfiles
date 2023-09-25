@@ -22,6 +22,7 @@ in {
         "*.swp"
         "/result"
         ".DS_Store"
+        "/.helix"
       ];
       extraConfig = {
         init.defaultBranch = "main";

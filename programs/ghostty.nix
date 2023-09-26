@@ -22,8 +22,11 @@ in {
       macos-option-as-alt = true;
       window-theme = "dark";
 
-      font-family = "JetBrainsMono Nerd Font";
+      font-family = "JetBrainsMonoNL Nerd Font Mono";
       font-size = 12;
+
+      # Disables most ligatures entirely, keeping this around in case I ever change fonts
+      # font-feature = ["-liga" "-dlig" "-calt"];
 
       config-file = [
         (inputs.iTerm2-color-schemes + "/ghostty/GruvboxDark")

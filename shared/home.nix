@@ -24,7 +24,6 @@
     # File stuff
     eza
     jq
-    bat
     frogmouth
     glow
 
@@ -58,5 +57,9 @@
     zellij.enable = true;
     nushell.enable = true;
     gh.enable = true;
+    bat = {
+      enable = true;
+      config.theme = "gruvbox-dark";
+    };
   };
 }

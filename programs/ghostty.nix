@@ -34,14 +34,10 @@ in {
     };
 
     programs.ghostty.keybindings = {
-      # Bound to super+shift for consistency with "zoom split",
-      # because that can't be bound to super+enter (default macOS
-      # fullscreen keybind)
-      # super+shift+d is already vertical split, already consistent
-      "super+shift+left" = "goto_split:left";
-      "super+shift+right" = "goto_split:right";
-      "super+shift+up" = "goto_split:top";
-      "super+shift+down" = "goto_split:bottom";
+      "super+left" = "goto_split:left";
+      "super+right" = "goto_split:right";
+      "super+up" = "goto_split:top";
+      "super+down" = "goto_split:bottom";
     };
   };
 }

@@ -35,6 +35,7 @@
     # Other stuff
     git-open
     asciinema
+    parallel
     _1password
   ];
 

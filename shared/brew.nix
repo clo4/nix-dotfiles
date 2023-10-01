@@ -15,6 +15,7 @@
     "audio-hijack"
     "bartender"
     "blender"
+    "crossover"
     "discord"
     "elgato-camera-hub"
     "figma"

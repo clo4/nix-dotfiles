@@ -30,6 +30,9 @@ in {
   system.defaults.CustomUserPreferences = {
     NSGlobalDomain = {
       NSWindowShouldDragOnGesture = true;
+
+      # This should really be in the settings app
+      "com.apple.mouse.scaling" = "-1";
     };
     "com.dexterleng.homerow" = {
       label-characters = "arstfmneoiuy";

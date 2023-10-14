@@ -40,6 +40,10 @@ in {
       programs.nix-index.enableFishIntegration = false;
 
       programs.fish.functions.fish_command_not_found = language "fish" ''
+        if string match -q -- '*/*' $argv[1]
+          __fish_default_command_not_found_handler $argv
+        end
+
         # If you run the command with comma, running the same command
         # will not prompt for confirmation for the rest of the session
         if contains $argv[1] $__command_not_found_confirmed_commands

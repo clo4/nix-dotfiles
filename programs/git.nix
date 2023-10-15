@@ -23,6 +23,7 @@ in {
         "/result"
         ".DS_Store"
         "/.helix"
+        ".flake"
       ];
       extraConfig = {
         init.defaultBranch = "main";

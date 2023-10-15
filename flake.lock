@@ -54,11 +54,11 @@
     "fish-tide": {
       "flake": false,
       "locked": {
-        "lastModified": 1696641802,
-        "narHash": "sha256-bSqFyrCa72s1rfwGOzOj033VbonxOkVDm9eUePRCSmA=",
+        "lastModified": 1697305267,
+        "narHash": "sha256-WA+4JOcbQncy52iSe7Tp4KeFbrQKV+5nFJYRoQbfsvs=",
         "owner": "IlanCosman",
         "repo": "tide",
-        "rev": "7f9d24de000a5f8ad68f738207187a36ecbb87c9",
+        "rev": "96635fbfd3448ca2a7bead773537e91e86913614",
         "type": "github"
       },
       "original": {
@@ -198,11 +198,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1696940889,
-        "narHash": "sha256-p2Wic74A1tZpFcld1wSEbFQQbrZ/tPDuLieCnspamQo=",
+        "lastModified": 1697323135,
+        "narHash": "sha256-tlAv11c0NIRTk2IzpFxYknHrveeFXojVyCTAMg749Zg=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "6bba64781e4b7c1f91a733583defbd3e46b49408",
+        "rev": "d4a5076ea8c2c063c45e0165f9f75f69ef583e20",
         "type": "github"
       },
       "original": {
@@ -372,11 +372,11 @@
     "tldr-pages": {
       "flake": false,
       "locked": {
-        "lastModified": 1697271408,
-        "narHash": "sha256-c3Nnfbb8SEu9iv5+Ur5R8JgnL+Hihvv6lQ5OendxJOM=",
+        "lastModified": 1697292972,
+        "narHash": "sha256-o9TrkQ1WlR1WVtBQ2M/IkxmElfwTNnWssR9EhN3DgTs=",
         "owner": "tldr-pages",
         "repo": "tldr",
-        "rev": "e8e3f2c4fd362d0f0c65535a18b8806609fad622",
+        "rev": "2f4fb5699af141af0e5205b4d19e3ea60bcf5956",
         "type": "github"
       },
       "original": {

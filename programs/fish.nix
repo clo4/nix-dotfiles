@@ -124,48 +124,48 @@ in {
 
           abbr -a cmv "command -v"
 
-          abbr -a n nix
-          abbr -a nxi nix
-          abbr -a nd "nix develop"
+          abbr -a n    nix
+          abbr -a nxi  nix
+          abbr -a nd   "nix develop"
           abbr -a nfuc "nix flake update --commit-lock-file"
-          abbr -a rsf "rebuild-switch-flake"
+          abbr -a rsf  "rebuild-switch-flake"
 
-          abbr -a t tmux
+          abbr -a t  tmux
           abbr -a ta "tmux attach or tmux"
           abbr -a tk "tmux kill-session"
           abbr -a tl "tmux list-sessions"
 
-          abbr -a ts tailscale
-          abbr -a tsd tailscaled
-          abbr -a tf terraform
-          abbr -a f fzf
+          abbr -a ts   tailscale
+          abbr -a tsd  tailscaled
+          abbr -a tf   terraform # not installed globally, used in projects
+          abbr -a f    fzf
           abbr -a tree "eza --tree"
 
-          abbr -a ",a" "git add"
+          abbr -a ",a"  "git add"
           abbr -a ",ap" "git add --patch"
           abbr -a ",ad" "git add ."
-          abbr -a ",r" "git restore"
+          abbr -a ",r"  "git restore"
           abbr -a ",rs" "git restore --staged"
           abbr -a ",re" "git reset"
-          abbr -a ",c" "git commit"
+          abbr -a ",c"  "git commit"
           abbr -a ",ca" "git commit --amend"
-          abbr -a ",d" "git diff"
-          abbr -a ",m" "git merge"
-          abbr -a ",s" "git status"
-          abbr -a ",p" "git push"
+          abbr -a ",d"  "git diff"
+          abbr -a ",m"  "git merge"
+          abbr -a ",s"  "git status"
+          abbr -a ",p"  "git push"
           abbr -a ",pf" "git push --force"
           abbr -a ",pu" "git pull"
-          abbr -a ",f" "git fetch"
+          abbr -a ",f"  "git fetch"
           abbr -a ",fu" "git fetch upstream"
           abbr -a ",sw" "git switch"
           abbr -a ",sc" "git switch -c"
-          abbr -a ",b" "git branch"
-          abbr -a ",l" "git log"
+          abbr -a ",b"  "git branch"
+          abbr -a ",l"  "git log"
 
-          abbr -a cd o # I want to use my custom `cd` wrapper instead
-          abbr -a "-" "cd -"
-          abbr -a ".." "cd .."
-          abbr -a "..." "cd ../.."
+          abbr -a cd     o # I want to use my custom `cd` wrapper instead
+          abbr -a "-"    "cd -"
+          abbr -a ".."   "cd .."
+          abbr -a "..."  "cd ../.."
           abbr -a "...." "cd ../../.."
         '';
 

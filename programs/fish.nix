@@ -367,6 +367,7 @@ in {
               nix flake lock
 
               # 3. Add a link to the project that created this directory
+              mkdir links
               ln -s $project links/0
 
               popd

@@ -392,7 +392,7 @@ in {
             # The default behaviour isn't gated behind a subcommand,
             # just print the directory containing the flake.nix
             set flake_dir (search_parents $PWD .flake)
-            if test -d "$flake_dir" -a -L $flake_dir/.flake
+            if test -d "$flake_dir" -a -L "$flake_dir/.flake"
               path resolve $flake_dir/.flake
             else
               pwd

@@ -39,15 +39,7 @@ now my only device... yay.
 
 ## Templates
 
-This flake can be referenced using the `my` registry entry, for example
-`nix develop my`. I might rename this to `self` in the future.
-
-This flake provides a simple template of a flake that only has a `devShell`
-output. There is a fish function (`add-simple-shell`) to that uses this template
-to create a flake in any git project that doesn't use nix, allowing you to
-define a dev environment without having to make the project use nix too. The
-flake.nix and flake.lock that it adds are tracked by git but won't ever be
-committed.
+> I'm going to rewrite this section once my workflow is a little more stable!
 
 ## Commit messages
 

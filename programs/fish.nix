@@ -320,98 +320,41 @@ in {
             description = "Wraps `nix develop` to run fish instead of bash";
             body = language "fish" ''
               if status is-interactive
-                and test (count $argv) = 1 -a $argv[1] = develop
-                command nix develop --command (status fish-path) (flake)
+                and test (count $argv) = 1 -a "$argv[1]" = develop
+
+                # Special case: if there's an initialized .flake directory, use that.
+                if test -d .flake -a -f .flake/flake.nix
+                  command nix develop .flake --command (status fish-path)
+                else
+                  command nix develop --command (status fish-path)
+                end
+
               else
                 command nix $argv
               end
             '';
           };
 
-          # Find the flake!
-          flake = language "fish" ''
-            # TODO: should eventually be refactored to use a switch statement
-            # with various internal functions, but it's fine for now.
-            if test "$argv[1]" = init
-              if test -L .flake
-                echo "flake pointer already exists in this directory"
-                return 1
-              end
-
-              set project $PWD
-              set hex (printf "%0X" (random 1048576 16777215))
-              set name (basename $PWD)
-              set dir ~/.local/share/flakes/$hex-$name
-
-              mkdir -p $dir
-              ln -s $dir .flake
-
-              pushd $dir
-
-              # The git fuckery is done in a few stages. There are resons
-              # for doing it this way, but they're not important. The main
-              # one is that I do want the files to be tracked by version
-              # control, but I want the initial commit to contain basically
-              # nothing.
-              git init
-
-              # 1. Create the empty files (and add a gitignore)
-              touch flake.nix flake.lock
-              echo "links" > .gitignore
-              git add .
-              git commit -m "Create out-of-tree flake"
-
-              # 2. Remove the empty files, recreate using the template
-              rm flake.nix flake.lock
-              nix flake init -t my#simple-shell
-              nix flake lock
-
-              # 3. Add a link to the project that created this directory
-              mkdir links
-              ln -s $project links/0
-
-              popd
-              return
+          mkflake = language "fish" ''
+            if test -e .flake
+              echo "'.flake' exists in this directory"
+              return 1
             end
 
-            if test "$argv[1]" = rm
-              if not test -L .flake
-                echo "no flake pointer exists in this directory"
-                return 1
-              end
+            mkdir .flake
+            pushd .flake
 
-              if not gum confirm "Are you sure you want to delete the flake pointer directory?"
-                return
-              end
+            git init
 
-              set dir (path resolve .flake)
-              rm -rf $dir
-              rm .flake
-              return
+            nix flake init -t my#untracked-flake
+            nix flake lock
+            git add .
+
+            if gum confirm "Edit the flake?"
+              $EDITOR .
             end
 
-            # The default behaviour isn't gated behind a subcommand,
-            # just print the directory containing the flake.nix
-            set flake_dir (search_parents $PWD .flake)
-            if test -d "$flake_dir" -a -L "$flake_dir/.flake"
-              path resolve $flake_dir/.flake
-            else
-              pwd
-            end
-          '';
-
-          # recursively_check_directories (pwd) flake.nix .flake
-          search_parents = language "fish" ''
-            set dir (path resolve $argv[1])
-            set files $argv[2..]
-            while test $dir != /
-              if path is $dir/$files
-                echo $dir
-                return
-              end
-              set dir (path dirname $dir)
-            end
-            return 1
+            popd
           '';
 
           # frogmouth is a fantastic markdown reader but it's a bit of a

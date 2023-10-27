@@ -127,6 +127,9 @@ in {
           abbr -a n    nix
           abbr -a nxi  nix
           abbr -a nd   "nix develop"
+          abbr -a nb   "nix build"
+          abbr -a nr   "nix run"
+          abbr -a nfl   "nix flake lock"
           abbr -a nfuc "nix flake update --commit-lock-file"
           abbr -a rsf  "rebuild-switch-flake"
 
@@ -211,48 +214,6 @@ in {
             git rev-parse --git-dir | path dirname
           '';
 
-          git-add-no-track = language "fish" ''
-            set retval 0
-            for arg in $argv
-              # not incrementing retval because changing your mind isn't an error
-              if not gum confirm "Confirm: $arg"
-                continue
-              end
-
-              # subject to TOCTTOU but doesn't matter
-              if not test -e $arg
-                echo "file doesn't exist: $arg"
-                set retval (math $retval + 1)
-                continue
-              end
-
-              git add --intent-to-add -- $arg
-              git update-index --assume-unchanged -- $arg
-            end
-            return $retval
-          '';
-
-          add-simple-shell = language "fish" ''
-            # For this command to be valid, we must be in a git repository
-            # that doesn't have a flake.nix in it already
-            if test -e flake.nix -o ! -e .git
-              echo "flake already exists or not in a git repository, bailing"
-              return 1
-            end
-            nix flake init -t my#simple-shell
-            nix flake lock
-            git-add-no-track flake.nix flake.lock
-
-            # This sleep helps to break up the confirmation prompts, so I don't
-            # accidentally agree or disagree to editing the flake if I didn't
-            # want to.
-            gum spin --title "waiting..." -- sleep 1
-
-            if gum confirm "Edit flake.nix?"
-              $EDITOR flake.nix
-            end
-          '';
-
           # Renames the current working directory
           mvcd = language "fish" ''
             set cwd $PWD
@@ -324,9 +285,9 @@ in {
 
                 # Special case: if there's an initialized .flake directory, use that.
                 if test -d .flake -a -f .flake/flake.nix
-                  command nix develop .flake --command (status fish-path)
+                  announce nix develop $PWD/.flake --command (status fish-path)
                 else
-                  command nix develop --command (status fish-path)
+                  announce nix develop --command (status fish-path)
                 end
 
               else
@@ -351,7 +312,8 @@ in {
             git add .
 
             if gum confirm "Edit the flake?"
-              $EDITOR .
+              $EDITOR flake.nix
+              nix flake lock
             end
 
             popd

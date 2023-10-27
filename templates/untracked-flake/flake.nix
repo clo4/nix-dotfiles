@@ -18,7 +18,9 @@
       };
     in {
       devShell = pkgs.mkShell {
-        packages = import ./pkgs.nix pkgs;
+        packages = with pkgs; [
+          # Your packages here!
+        ];
       };
     });
 }

@@ -126,14 +126,9 @@
       };
 
       templates = {
-        simple-shell = {
-          path = ./templates/simple-shell;
-          description = "A simple shell for running with `nix develop`";
-        };
-
         untracked-flake = {
           path = ./templates/untracked-flake;
-          description = "Flake definition to be used outside of the git tree, for non-Nix projects";
+          description = "Flake to be used with my `mkflake` shell function";
         };
       };
     }

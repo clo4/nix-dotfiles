@@ -25,6 +25,9 @@ in {
       font-family = "JetBrainsMonoNL Nerd Font Mono";
       font-size = 12;
 
+      window-height = 50;
+      window-width = 160;
+
       # Disables most ligatures entirely, keeping this around in case I ever change fonts
       # font-feature = ["-liga" "-dlig" "-calt"];
 

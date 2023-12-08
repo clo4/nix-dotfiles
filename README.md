@@ -6,6 +6,18 @@ nix-darwin configuration!
 
 This repo entirely supersedes [clo4/dotfiles](https://github.com/clo4/dotfiles).
 
+## License
+
+This repository is public domain. You can copy/paste any code from it that you
+want. I don't believe that something as small and inconsequential as my
+computer's configuration should have any protections applied to it - this is
+stuff we should be sharing freely to improve everyone's setups! If you find
+anything in this repo that you like, feel free to take it and use it anywhere.
+
+Any code in this repository that is under another license (at time of writing,
+there is none) will have the appropriate license above it and the section of
+code that the license applies to will be clearly delineated.
+
 ## Structure
 
 The goal of the directory structure is to be as simple and consistent as
@@ -30,16 +42,23 @@ possible.
   files, which allows any file that uses the common settings to use the modules
   too.
 
-## My PC situation
+## My Nix Workflow
 
-The GPU in my Intel machine has died entirely, so until I resolve that (which,
-to be clear, I don't have the money to do right now) I can't make any updates to
-my WSL config. So that's on pause. My Mac, which was already my main device, is
-now my only device... yay.
+There are projects I want to contribute to that don't use Nix, but I want to
+keep all the tools local to the project so I don't pollute my global
+configuration. I _could_ do this using `shell.nix` or something like that, but
+flakes are a much better solution. Unfortunately, flakes need to be checked into
+the repository, so that's inconvenient.
 
-## Templates
+The solution I came up with is to create a `.flake/` directory. This is a self
+contained git repository, in the root of the project's repo. This is globally
+ignored by Git so it will never be checked in. Using this, you can simply `cd`
+into it, make any changes you like, and run a shell from it with
+`nix shell .flake`. It's a really simple workflow!
 
-> I'm going to rewrite this section once my workflow is a little more stable!
+To make this work, this repo contains a template (`templates/untracked-flake`)
+and a fish function (`mkflake`). Those are the only additional things required,
+because you can use the tooling you already know for the rest.
 
 ## Commit messages
 

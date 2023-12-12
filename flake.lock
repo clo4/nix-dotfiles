@@ -165,11 +165,11 @@
     },
     "ghostty": {
       "locked": {
-        "lastModified": 1695482156,
-        "narHash": "sha256-PFyViLT7eCi/jN6fZ9kFUZF4mYye9Mplm/SEwhUvCDM=",
+        "lastModified": 1702368251,
+        "narHash": "sha256-hafrDmzGplzm+vdIo+LkOjRfA4qRcy5JmpGGksnht5c=",
         "owner": "clo4",
         "repo": "ghostty-hm-module",
-        "rev": "3ccb4b02eb84316e7ccbf007a6e29495f7e6bee4",
+        "rev": "887e13a6e7acf5ffaab0119d96e476d84db90904",
         "type": "github"
       },
       "original": {
@@ -188,11 +188,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1702058649,
-        "narHash": "sha256-qn9Une0ynLVE8Y2XkMD7mDzwsbSuxnkQg1rt9jPGPZE=",
+        "lastModified": 1702346720,
+        "narHash": "sha256-EsnIShaW+x7pdaDdtrYxdfgyGNvE3T2GJs4bB48gkwk=",
         "owner": "helix-editor",
         "repo": "helix",
-        "rev": "510928618dfcddcd6d3086b278332fa93ee32998",
+        "rev": "3e249829ee67b7fbe41b23a4b0cfca729360c8d6",
         "type": "github"
       },
       "original": {
@@ -241,11 +241,11 @@
     "homebrew-cask": {
       "flake": false,
       "locked": {
-        "lastModified": 1702342460,
-        "narHash": "sha256-D6rn/P4ALhMpkt/mlKp0mxJSCxtxg7gXmJHBVDFVMXU=",
+        "lastModified": 1702363754,
+        "narHash": "sha256-cL57BytHp3FuMGh+C+VBBAfyUULYGZC8tZC3Ddx4Kbc=",
         "owner": "homebrew",
         "repo": "homebrew-cask",
-        "rev": "b6b7d75d0dcf4dd53ed8589e2b59ed370d72d9bc",
+        "rev": "064494d792833205670eb8daa001e1b210efa685",
         "type": "github"
       },
       "original": {
@@ -257,11 +257,11 @@
     "homebrew-core": {
       "flake": false,
       "locked": {
-        "lastModified": 1702335754,
-        "narHash": "sha256-X/EYg36hkhEf85WnPvAMhb9c0yga533/Prkr4UTlTAM=",
+        "lastModified": 1702361763,
+        "narHash": "sha256-wTJZ/Ey8gKZGYZI5rrx84tLGS5xFUvi5MpnRNW3/eWU=",
         "owner": "homebrew",
         "repo": "homebrew-core",
-        "rev": "2422b22d0988d1d310bd98091cbb4f8863b46cf3",
+        "rev": "6117e08afb14b96bac77af5645972b200d54bbfd",
         "type": "github"
       },
       "original": {
@@ -503,11 +503,11 @@
     "tldr-pages": {
       "flake": false,
       "locked": {
-        "lastModified": 1702291794,
-        "narHash": "sha256-P8SNY4FxZXlRAHCMkybTpuC2lRsyha3nJSbJSrdbc8Q=",
+        "lastModified": 1702355615,
+        "narHash": "sha256-e7YHqTg3RTGsH1B+qn7F358gTdFjDkq8AiDbzoJVjXg=",
         "owner": "tldr-pages",
         "repo": "tldr",
-        "rev": "cc4907814e2f63ffe5e2805ff8789bbe952488f3",
+        "rev": "f9606bbcc5b2794504f6457e259263b4dd23ab05",
         "type": "github"
       },
       "original": {

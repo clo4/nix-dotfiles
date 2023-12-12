@@ -1,5 +1,30 @@
-{...}: {
+{inputs, ...}: {
+  imports = [
+    inputs.nix-homebrew.darwinModules.nix-homebrew
+  ];
+
   environment.systemPath = ["/opt/homebrew/bin"];
+
+  nix-homebrew = {
+    enable = true;
+    enableRosetta = false;
+
+    # TODO(clo4): make another user to own the homebrew prefix
+    # because things get annoying when you add another user to
+    # the machine that also wants to use brew.
+    # This isn't a problem *yet*, but it's not a matter of 'if'
+    # it will be, just when.
+    user = "robert";
+
+    # All taps must be declared below.
+    mutableTaps = false;
+    taps = {
+      "homebrew/homebrew-core" = inputs.homebrew-core;
+      "homebrew/homebrew-cask" = inputs.homebrew-cask;
+      "homebrew/homebrew-bundle" = inputs.homebrew-bundle;
+    };
+  };
+
   homebrew.enable = true;
 
   # Applications are installed through Homebrew because there's a wider selection available

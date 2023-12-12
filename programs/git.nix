@@ -20,7 +20,7 @@ in {
       ignores = [
         "*~"
         "*.swp"
-        "/result"
+        "result"
         ".DS_Store"
         "/.helix"
         ".flake"

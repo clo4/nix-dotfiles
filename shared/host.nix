@@ -52,6 +52,7 @@
   # as completions for Nix and related tools. This is also required because on macOS
   # the $PATH doesn't include all the entries it should by default.
   programs.fish.enable = true;
+  programs.fish.useBabelfish = true;
 
   services.tailscale.enable = true;
 }

@@ -5,36 +5,41 @@
   # Applications are installed through Homebrew because there's a wider selection available
   # on macOS and the applications tend to be more up-to-date.
   homebrew.casks = [
-    # homerow isn't available as a cask yet
+    # NOTE: Homerow isn't available as a cask yet
+
     "1password"
+
+    # Media tools
+    "audio-hijack"
+    "loopback"
+    "blender"
     "affinity-designer"
     "affinity-photo"
     "affinity-publisher"
+
+    # Loosely, productivity
+    "raycast"
     "appcleaner"
-    "arc"
-    "audio-hijack"
-    "bartender"
-    "blender"
-    "crossover"
-    "docker"
+
+    # Loosely, social platforms
+    "signal"
     "discord"
+
+    "crossover"
+    "steam"
+    "keymapp"
+
+    "docker"
     "elgato-camera-hub"
-    "eloston-chromium"
-    "figma"
+    "firefox"
     "grandperspective"
-    "hammerspoon"
     "iina"
-    "karabiner-elements"
     "linearmouse"
     "little-snitch"
-    "loopback"
     "monitorcontrol"
     "obs"
     "obsidian"
-    "plover"
-    "raycast"
     "rectangle"
-    "rio"
     "spotify"
     "transmission"
     "wezterm"

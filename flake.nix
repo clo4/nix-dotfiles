@@ -52,6 +52,26 @@
       url = "github:clo4/SkyRocket.spoon";
       flake = false;
     };
+
+    # nix-homebrew allows you to configure homebrew declaratively, so the taps
+    # can be managed by nix as well. Keeps all versions predictable!
+    nix-homebrew = {
+      url = "github:zhaofengli/nix-homebrew";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    homebrew-core = {
+      url = "github:homebrew/homebrew-core";
+      flake = false;
+    };
+    homebrew-cask = {
+      url = "github:homebrew/homebrew-cask";
+      flake = false;
+    };
+    homebrew-bundle = {
+      url = "github:homebrew/homebrew-bundle";
+      flake = false;
+    };
   };
 
   outputs = inputs @ {
@@ -61,6 +81,10 @@
     darwin,
     flake-utils,
     ghostty,
+    nix-homebrew,
+    homebrew-core,
+    homebrew-cask,
+    homebrew-bundle,
     ...
   }: let
     # This defines the home-manager config module for a user called robert.
@@ -89,6 +113,31 @@
             home-manager.darwinModules.default
             (home-manager-robert ./systems/macmini/home.nix)
             ./systems/macmini/host.nix
+            nix-homebrew.darwinModules.nix-homebrew
+            {
+              nix-homebrew = {
+                # Install Homebrew under the default prefix
+                enable = true;
+
+                # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+                enableRosetta = false;
+
+                # User owning the Homebrew prefix
+                user = "robert";
+
+                # Optional: Declarative tap management
+                taps = {
+                  "homebrew/homebrew-core" = homebrew-core;
+                  "homebrew/homebrew-cask" = homebrew-cask;
+                  "homebrew/homebrew-bundle" = homebrew-bundle;
+                };
+
+                # Optional: Enable fully-declarative tap management
+                #
+                # With mutableTaps disabled, taps can no longer be added imperatively with `brew tap`.
+                mutableTaps = false;
+              };
+            }
           ];
           specialArgs = {
             inherit inputs;

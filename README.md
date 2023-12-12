@@ -54,7 +54,7 @@ The solution I came up with is to create a `.flake/` directory. This is a self
 contained git repository, in the root of the project's repo. This is globally
 ignored by Git so it will never be checked in. Using this, you can simply `cd`
 into it, make any changes you like, and run a shell from it with
-`nix shell .flake`. It's a really simple workflow!
+`nix develop .flake`. It's a really simple workflow!
 
 To make this work, this repo contains a template (`templates/untracked-flake`)
 and a fish function (`mkflake`). Those are the only additional things required,

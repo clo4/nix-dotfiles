@@ -1,9 +1,4 @@
-{
-  pkgs,
-  osConfig,
-  inputs,
-  ...
-}: let
+{osConfig, ...}: let
   language = name: text: text;
 in {
   imports = [
@@ -17,20 +12,6 @@ in {
   # and eventually found that the Zed team has run into this issue as well.
   # https://github.com/zed-industries/community/issues/1373#issuecomment-1499033975
   home.file.".hushlogin".text = "";
-
-  programConfig.hammerspoon = {
-    enable = true;
-    init = language "lua" ''
-      local SkyRocket = hs.loadSpoon("SkyRocket")
-      sky = SkyRocket:new({
-        opacity = 0.4,
-        enableMove = false,
-        resizeModifiers = {'cmd', 'ctrl'},
-        resizeMouseButton = 'right',
-      })
-    '';
-    spoons.SkyRocket = inputs.skyrocket-spoon;
-  };
 
   # If the system should have Touch ID enabled for sudo, also enable the check
   # in my fish config. It runs every time a new shell starts, but this is a

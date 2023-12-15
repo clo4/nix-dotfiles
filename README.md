@@ -71,4 +71,4 @@ in this context.
   on what is changing.
 - For changes to program configuration, use the name of the program, e.g.
   `fish:`
-- For changes to modules, use the name of the module, e.g. `hammerspoon:`
+- For changes to modules, use the name of the module, e.g. `zed:`

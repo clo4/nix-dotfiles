@@ -9,7 +9,7 @@ with lib; let
   jsonFormat = pkgs.formats.json {};
 in {
   options = {
-    programConfig.zed.enable = mkEnableOption "hammerspoon configuration";
+    programConfig.zed.enable = mkEnableOption "zed configuration";
     programConfig.zed.settings = mkOption {
       type = jsonFormat.type;
       default = {};

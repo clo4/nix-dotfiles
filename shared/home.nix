@@ -57,7 +57,10 @@
     home-manager.enable = true;
     zellij.enable = true;
     nushell.enable = true;
-    gh.enable = true;
+    gh = {
+      settings = {version = 1;};
+      enable = true;
+    };
     bat = {
       enable = true;
       config.theme = "gruvbox-dark";

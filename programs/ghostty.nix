@@ -14,9 +14,11 @@ in {
     programs.ghostty.enable = true;
 
     programs.ghostty.settings = {
-      unfocused-split-opacity = 0.96;
+      # unfocused-split-opacity = 0.85;
       cursor-style-blink = false;
       mouse-hide-while-typing = true;
+
+      quit-after-last-window-closed = true;
 
       macos-option-as-alt = true;
       window-theme = "dark";

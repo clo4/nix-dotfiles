@@ -28,14 +28,6 @@
 
     ghostty.url = "github:clo4/ghostty-hm-module";
 
-    # This could easily be fetchFromGithub but I want to track every
-    # dependency in my flake, which includes things I only use for a
-    # one-off.
-    iTerm2-color-schemes = {
-      url = "github:clo4/iTerm2-Color-Schemes/ghostty";
-      flake = false;
-    };
-
     fish-tide = {
       url = "github:IlanCosman/tide";
       flake = false;

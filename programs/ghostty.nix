@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  inputs,
   ...
 }:
 with lib; let
@@ -28,12 +27,10 @@ in {
       window-height = 50;
       window-width = 160;
 
+      theme = "GruvboxDark";
+
       # Disables most ligatures entirely, keeping this around in case I ever change fonts
       # font-feature = ["-liga" "-dlig" "-calt"];
-
-      config-file = [
-        (inputs.iTerm2-color-schemes + "/ghostty/GruvboxDark")
-      ];
     };
 
     programs.ghostty.keybindings = {

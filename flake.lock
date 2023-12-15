@@ -270,23 +270,6 @@
         "type": "github"
       }
     },
-    "iTerm2-color-schemes": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1695224729,
-        "narHash": "sha256-+5TwCTiOAmzp+KhJzoBBrySNiCDF3SXIqYehC1PpRCA=",
-        "owner": "clo4",
-        "repo": "iTerm2-Color-Schemes",
-        "rev": "8604b90ed44f301fe6cd79280fb1db4576f4c6ad",
-        "type": "github"
-      },
-      "original": {
-        "owner": "clo4",
-        "ref": "ghostty",
-        "repo": "iTerm2-Color-Schemes",
-        "type": "github"
-      }
-    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": "nixpkgs"
@@ -391,7 +374,6 @@
         "homebrew-bundle": "homebrew-bundle",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
-        "iTerm2-color-schemes": "iTerm2-color-schemes",
         "nix-homebrew": "nix-homebrew",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",

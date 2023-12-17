@@ -86,34 +86,28 @@ in {
         };
 
         keys.normal = {
-          # Extends based on which side of the selection the head is on,
-          # eg. if the head is on the left, the selection will extend up.
-          x = "extend_line";
-
           G = "goto_last_line";
 
           # This goes against the Helix way of selection->action but it's a
-          # common-enough thing to warrant making it its own keybind.
+          # common enough thing to warrant making it its own keybind.
           D = ["goto_first_nonwhitespace" "extend_to_line_end" "change_selection"];
 
+          # Mode switching always happens at the end of the list of commands, so
+          # the order that these are in doesn't matter because collapsing the selection
+          # will always happen first.
           a = ["append_mode" "collapse_selection"];
           i = ["insert_mode" "collapse_selection"];
 
           # Mnemonic: control hints
           C-h = ":toggle-option lsp.display-inlay-hints";
 
+          # By default, Helix tries to leave the cursor where it was when scrolling
           C-d = ["half_page_down" "goto_window_center"];
           C-u = ["half_page_up" "goto_window_center"];
 
-          # Easier movement, don't need to enter another minor mode, encourages
-          # more split usage. Arrow keys are discouraged by Vim people but only
-          # because they use normal keyboards where the arrows take time to get
-          # to. On my current layout, the arrows are basically home-row on my
-          # right hand, so there's no speed penalty to using them.
-          left = "jump_view_left";
-          right = "jump_view_right";
-          up = "jump_view_up";
-          down = "jump_view_down";
+          # Searching for a selection probably shouldn't have whitespace included.
+          # Makes sense to keep the default keybind in select mode though?
+          "*" = ["trim_selections" "search_selection"];
         };
 
         keys.normal.Z = let
@@ -152,7 +146,11 @@ in {
         };
 
         keys.select = {
-          x = "extend_line";
+          # Mode switching always happens at the end of the list of commands, so
+          # the order that these are in doesn't matter because collapsing the selection
+          # will always happen first.
+          a = ["append_mode" "collapse_selection"];
+          i = ["insert_mode" "collapse_selection"];
 
           C-h = ":toggle-option lsp.display-inlay-hints";
 

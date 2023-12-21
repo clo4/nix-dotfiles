@@ -415,15 +415,6 @@ in {
             echo
             announce nix store optimise --verbose
           '';
-
-          get-ghostty = language "fish" ''
-            gh release download tip \
-              --repo mitchellh/ghostty \
-              --pattern ghostty-macos-universal.zip \
-              --clobber \
-              --dir ~/Downloads
-            open ~/Downloads/ghostty-macos-universal.zip
-          '';
         };
       };
     }

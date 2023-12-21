@@ -52,7 +52,7 @@
   # Enables programs that I don't have a more complicated config for.
   # Programs in this section should be limited to a few lines of config at most.
   programs = {
-    broot.enable = true;
+    # broot.enable = true;
     zoxide.enable = true;
     home-manager.enable = true;
     zellij.enable = true;

@@ -175,15 +175,9 @@ in {
         comment = {fg = "gray1";};
       };
 
-      languages.language-server = with pkgs;
-      with pkgs.nodePackages; {
-        typescript-language-server = {
-          command = "${typescript-language-server}/bin/typescript-language-server";
-          args = ["--stdio" "--tsserver-path=${typescript}/lib/node_modules/typescript/lib"];
-        };
-
+      languages.language-server = {
         deno = {
-          command = "${deno}/bin/deno";
+          command = "deno";
           args = ["lsp"];
           config = {
             enable = true;
@@ -192,21 +186,21 @@ in {
           };
         };
 
-        svelteserver.command = "${svelte-language-server}/bin/svelteserver";
+        svelteserver.command = "svelteserver";
 
         tailwindcss = {
-          command = "${nodePackages_latest."@tailwindcss/language-server"}/bin/tailwindcss-language-server";
+          command = "tailwindcss-language-server";
           language-id = "tailwindcss";
           args = ["--stdio"];
           config = {};
         };
 
-        nil.command = "${nil}/bin/nil";
-        nixd.command = "${nixd}/bin/nixd";
+        nil.command = "nil";
+        nixd.command = "nixd";
 
-        rust-analyzer.command = "${rust-analyzer-unwrapped}/bin/rust-analyzer";
+        rust-analyzer.command = "rust-analyzer";
 
-        ltex-ls.command = "${ltex-ls}/bin/ltex-ls";
+        ltex-ls.command = "ltex-ls";
       };
 
       languages.language = [
@@ -229,7 +223,7 @@ in {
           language-servers = ["ltex-ls"];
           auto-format = false;
           formatter = {
-            command = "${pkgs.deno}/bin/deno";
+            command = "deno";
             args = ["--ext" "md" "-"];
           };
         }

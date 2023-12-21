@@ -14,7 +14,8 @@ in {
     programs.ghostty.enable = true;
 
     programs.ghostty.settings = {
-      # unfocused-split-opacity = 0.85;
+      unfocused-split-opacity = 0.85;
+      unfocused-split-fill = "#000000";
       cursor-style-blink = false;
       mouse-hide-while-typing = true;
 
@@ -26,8 +27,8 @@ in {
       font-family = "JetBrainsMonoNL Nerd Font Mono";
       font-size = 12;
 
-      window-height = 50;
-      window-width = 160;
+      window-height = 60;
+      window-width = 170;
 
       theme = "GruvboxDark";
 
@@ -40,6 +41,8 @@ in {
       "super+right" = "goto_split:right";
       "super+up" = "goto_split:top";
       "super+down" = "goto_split:bottom";
+      "page_up" = "scroll_page_fractional:-0.95";
+      "page_down" = "scroll_page_fractional:0.95";
     };
   };
 }

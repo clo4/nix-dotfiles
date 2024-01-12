@@ -133,6 +133,10 @@ in {
           abbr -a nfuc "nix flake update --commit-lock-file"
           abbr -a rsf  "rebuild-switch-flake"
 
+          # These are easier for me to type on my layout
+          abbr -a nv nvim
+          abbr -a he hx
+
           abbr -a t  tmux
           abbr -a ta "tmux attach or tmux"
           abbr -a tk "tmux kill-session"

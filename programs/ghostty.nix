@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   ...
 }:
@@ -15,6 +16,17 @@ in {
       enable = true;
 
       settings = {
+        # on macOS, if your login shell is installed with Nix, it's possible for
+        # the terminal to start before the partition containing the shell is mounted.
+        # This basically guarantees a failure when launching. But there is a tool
+        # built in for this use case -- wait4path. It waits for the mount table to
+        # change and checks again. It doesn't execute the path, though, so to execute
+        # it we need to look at the success of the command and `exec` our $SHELL.
+        # Launching is marginally slower, but is guaranteed to work on system startup.
+        command = mkIf pkgs.stdenv.isDarwin ''
+          /bin/bash --noprofile --norc -c "/bin/wait4path $SHELL && exec -l $SHELL"
+        '';
+
         unfocused-split-opacity = 0.85;
         unfocused-split-fill = "#000000";
         cursor-style-blink = false;

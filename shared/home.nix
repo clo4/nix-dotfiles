@@ -24,7 +24,6 @@
     # File stuff
     eza
     jq
-    frogmouth
     glow
 
     # File transfer stuff
@@ -52,15 +51,30 @@
   # Enables programs that I don't have a more complicated config for.
   # Programs in this section should be limited to a few lines of config at most.
   programs = {
-    # broot.enable = true;
-    zoxide.enable = true;
-    home-manager.enable = true;
-    zellij.enable = true;
-    nushell.enable = true;
-    gh = {
-      settings = {version = 1;};
+    # TODO: figure out why this is breaking in nushell
+    zoxide = {
       enable = true;
+      enableNushellIntegration = false;
     };
+
+    home-manager.enable = true;
+
+    zellij.enable = true;
+
+    nushell = {
+      enable = true;
+
+      # nushellFull adds support for dataframes
+      package = pkgs.nushellFull;
+    };
+
+    gh = {
+      enable = true;
+
+      # Required because of a settings migration
+      settings.version = 1;
+    };
+
     bat = {
       enable = true;
       config.theme = "gruvbox-dark";

@@ -1,5 +1,6 @@
 {
   pkgs,
+  lib,
   inputs,
   ...
 }: {
@@ -15,7 +16,7 @@
     mosh
   ];
 
-  nix.nixPath = [
+  nix.nixPath = lib.mkForce [
     "nixpkgs=${inputs.nixpkgs}"
     "home-manager=${inputs.home-manager}"
   ];

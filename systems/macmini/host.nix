@@ -35,7 +35,9 @@ in {
       "com.apple.mouse.scaling" = "-1";
     };
     "com.dexterleng.homerow" = {
-      label-characters = "arstfmneoiuy";
+      label-characters = "nrtsldaiehuo";
+      scroll-keys = "yhei";
+      map-arrow-keys-to-scroll = false;
       launch-at-login = true;
       is-experimental-support-enabled = true;
       # The shortcut really is stored as the shift symbol and command symbol!

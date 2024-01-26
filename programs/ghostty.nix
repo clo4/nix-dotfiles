@@ -24,7 +24,7 @@ in {
         in
           if pkgs.stdenv.isDarwin
           then ''
-            /bin/bash --noprofile --norc -c "/bin/wait4path /nix && exec -l ${shell}"
+            /bin/bash --noprofile --norc -c "/bin/wait4path ${builtins.head (splitString " " shell)} && exec -l ${shell}"
           ''
           else shell;
 

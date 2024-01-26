@@ -37,7 +37,16 @@ in {
     programs.helix = {
       enable = true;
       defaultEditor = true;
-      package = inputs.helix.packages.${pkgs.stdenv.system}.default;
+      # nu syntax has been updated a fair bit since the last update to the default language file
+      package = inputs.helix.packages.${pkgs.stdenv.system}.default.override {
+        grammarOverlays = [
+          (final: prev: {
+            nu = prev.nu.overrideAttrs {
+              rev = "2d0dd587dbfc3363d2af4e4141833e718647a67e";
+            };
+          })
+        ];
+      };
 
       settings = {
         theme = myTheme;

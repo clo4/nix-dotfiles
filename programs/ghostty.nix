@@ -16,16 +16,17 @@ in {
       enable = true;
 
       settings = {
-        # on macOS, if your login shell is installed with Nix, it's possible for
-        # the terminal to start before the partition containing the shell is mounted.
-        # This basically guarantees a failure when launching. But there is a tool
-        # built in for this use case -- wait4path. It waits for the mount table to
-        # change and checks again. It doesn't execute the path, though, so to execute
-        # it we need to look at the success of the command and `exec` our $SHELL.
-        # Launching is marginally slower, but is guaranteed to work on system startup.
-        command = mkIf pkgs.stdenv.isDarwin ''
-          /bin/bash --noprofile --norc -c "/bin/wait4path $SHELL && exec -l $SHELL"
-        '';
+        # Fixes an issue on macOS where if the terminal launches before the
+        # Nix partition is mounted then the shell will fail to start.
+        command = let
+          # shell = "$SHELL -c 'exec nu'";
+          shell = "$SHELL";
+        in
+          if pkgs.stdenv.isDarwin
+          then ''
+            /bin/bash --noprofile --norc -c "/bin/wait4path /nix && exec -l ${shell}"
+          ''
+          else shell;
 
         unfocused-split-opacity = 0.85;
         unfocused-split-fill = "#000000";
@@ -42,6 +43,12 @@ in {
 
         window-height = 60;
         window-width = 170;
+
+        # The default window padding is 2, which is mostly fine, but on my monitor
+        # it's a little hard to see the characters right at the edge. It's a simple
+        # solution to just double the padding when it's so small already.
+        window-padding-x = 4;
+        window-padding-y = 4;
 
         theme = "GruvboxDark";
 

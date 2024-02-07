@@ -18,7 +18,6 @@
     # Find me stuff
     fd
     ripgrep
-    # fzf
     comma
 
     # File stuff
@@ -66,6 +65,13 @@
 
       # nushellFull adds support for dataframes
       package = pkgs.nushellFull;
+    };
+
+    fzf = {
+      enable = true;
+      defaultOptions = [
+        "--height ~40%"
+      ];
     };
 
     gh = {

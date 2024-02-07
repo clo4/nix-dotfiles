@@ -207,7 +207,10 @@ in {
         nil.command = "nil";
         nixd.command = "nixd";
 
-        rust-analyzer.command = "rust-analyzer";
+        rust-analyzer = {
+          command = "rust-analyzer";
+          config.check.command = "clippy";
+        };
 
         ltex-ls.command = "ltex-ls";
       };

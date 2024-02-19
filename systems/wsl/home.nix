@@ -5,7 +5,7 @@
 
   home.homeDirectory = "/home/robert";
 
-  home.stateVersion = "23.05";
+  home.stateVersion = "23.11";
 
   my.programs.fish.enableWslFunctions = true;
 }

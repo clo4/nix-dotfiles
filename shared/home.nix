@@ -4,8 +4,6 @@
     ../modules/home
   ];
 
-  home.stateVersion = "23.05";
-
   # The homeDirectory is configured by each host's configuration because it's
   # not constant between linux and macos
   home.username = "robert";

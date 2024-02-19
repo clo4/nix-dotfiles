@@ -132,6 +132,7 @@ in {
           abbr -a nfl   "nix flake lock"
           abbr -a nfuc "nix flake update --commit-lock-file"
           abbr -a rsf  "rebuild-switch-flake"
+          abbr -a rbf  "rebuild-build-flake"
 
           # These are easier for me to type on my layout
           abbr -a nv nvim
@@ -169,7 +170,7 @@ in {
           abbr -a ",b"  "git branch"
           abbr -a ",l"  "git log"
 
-          abbr -a cd     o # I want to use my custom `cd` wrapper instead
+          abbr -a cd     "to" # I want to use my custom `cd` wrapper instead
           abbr -a "-"    "cd -"
           abbr -a ".."   "cd .."
           abbr -a "..."  "cd ../.."
@@ -347,9 +348,22 @@ in {
             end
           '';
 
-          # Why's it called 'o'? Because it's really good ;)
-          # I'm joking, it's just because it's on my home row (Colemak layout)
-          o = {
+          # build system flake correctly regardless of the operating system
+          rebuild-build-flake = language "fish" ''
+            if test (uname) = Darwin
+              announce darwin-rebuild build --flake .#
+            else
+              announce sudo nixos-rebuild build --flake .#
+            end
+          '';
+
+          # `to` wraps `cd`. It's a little bit smarter, but doesn't try to be `z`,
+          # because I find `z` can be quite annoying when it doesn't get it right.
+          # I try to keep everything pretty flat so it's not super hard to get to
+          # where I need to go from $HOME. `to` also combines `mkdir`/`cd`, and
+          # knows to take you to the repository root if you run `to` with no directory
+          # and you're in a git repository.
+          to = {
             wraps = "cd";
             description = "Interactive cd that offers to create directories";
             body = language "fish" ''

@@ -149,6 +149,12 @@ in {
           abbr -a f    fzf
           abbr -a tree "eza --tree"
 
+          abbr -a co  "cargo"
+          abbr -a cob "cargo build"
+          abbr -a cor "cargo run"
+          abbr -a cot "cargo test"
+          abbr -a coa "cargo add"
+
           abbr -a ",a"  "git add"
           abbr -a ",ap" "git add --patch"
           abbr -a ",ad" "git add ."

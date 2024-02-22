@@ -27,6 +27,11 @@
 
   homebrew.enable = true;
 
+  homebrew.brews = [
+    # Using the java managed by homebrew for compatibility with Mincecraft launchers
+    "java"
+  ];
+
   # Applications are installed through Homebrew because there's a wider selection available
   # on macOS and the applications tend to be more up-to-date.
   # The other reason is that applications installed via Nix tend to break in the dock because

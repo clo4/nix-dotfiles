@@ -119,6 +119,17 @@ in {
           "*" = ["trim_selections" "search_selection"];
         };
 
+        # These are unbound by default, probably because there's not really a good reason
+        # to use them. But because I use the arrow keys on the home row of my keyboard (hjkl
+        # are in other locations because I use an alternate keyboard layout) I need to
+        # add the bindings for them.
+        keys.normal.g = {
+          left = "goto_line_start";
+          right = "goto_line_end";
+          up = "move_line_up";
+          down = "move_line_down";
+        };
+
         keys.normal.Z = let
           repeat = count: thing:
             if count < 2

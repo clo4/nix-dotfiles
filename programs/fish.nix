@@ -167,7 +167,7 @@ in {
           abbr -a ",m"  "git merge"
           abbr -a ",s"  "git status"
           abbr -a ",p"  "git push"
-          abbr -a ",pf" "git push --force"
+          abbr -a ",pf" "git push --force-with-lease"
           abbr -a ",pu" "git pull"
           abbr -a ",f"  "git fetch"
           abbr -a ",fu" "git fetch upstream"

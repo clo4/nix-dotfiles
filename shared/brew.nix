@@ -70,7 +70,6 @@
     "firefox"
     "grandperspective"
     "iina"
-    "linearmouse"
     "little-snitch"
     "monitorcontrol"
     "obs"

@@ -129,14 +129,16 @@ in {
           abbr -a nd   "nix develop"
           abbr -a nb   "nix build"
           abbr -a nr   "nix run"
-          abbr -a nfl   "nix flake lock"
+          abbr -a nfl  "nix flake lock"
           abbr -a nfuc "nix flake update --commit-lock-file"
           abbr -a rsf  "rebuild-switch-flake"
           abbr -a rbf  "rebuild-build-flake"
 
-          # These are easier for me to type on my layout
+          # Random abbreviations that are easier to type on some layouts, because I hop
+          # around a lot.
           abbr -a nv nvim
           abbr -a he hx
+          abbr -a pmu permutations
 
           abbr -a t  tmux
           abbr -a ta "tmux attach or tmux"
@@ -175,6 +177,15 @@ in {
           abbr -a ",sc" "git switch -c"
           abbr -a ",b"  "git branch"
           abbr -a ",l"  "git log"
+
+          abbr -a gi  "gh issue"
+          abbr -a gil "gh issue list"
+          abbr -a giv "gh issue view"
+          abbr -a gr  "gh pr"
+          abbr -a grl "gh pr list"
+          abbr -a grv "gh pr view"
+          abbr -a grc "gh pr checkout"
+          abbr -a gb  "gh browse"
 
           abbr -a cd     "to" # I want to use my custom `cd` wrapper instead
           abbr -a "-"    "cd -"
@@ -438,6 +449,80 @@ in {
             announce nix store gc --verbose
             echo
             announce nix store optimise --verbose
+          '';
+
+          words = language "fish" ''
+            set wordfile $TMPDIR/words.txt
+            if test ! -e $wordfile
+              echo "Downloading Monkeytype's english10k list" >&2
+              curl -s 'https://raw.githubusercontent.com/monkeytypegame/monkeytype/master/frontend/static/languages/english_10k.json' \
+              | jq -r '.words[]' > $TMPDIR/words.txt
+            end
+
+            if isatty stdin
+              set letters $argv
+            else
+              while read -l line
+                set -a letters $line
+              end
+            end
+
+            if not count $letters >/dev/null
+              echo "`words` requires at least one pattern to check for as an argument" >&2
+            end
+            # ripgrep is fast enough that doing this twice is *fine*, not great obviously but
+            # there's no point being stingy over a few CPU cycles here. If I really cared I'd
+            # do this in Rust instead of making it a hacky shell script. The reason I'm not
+            # storing the output and reusing it is because ripgrep detects whether the stdout
+            # is a tty and colors the output if it is, and there's no super easy way to get
+            # that styling back.
+            string join \n -- $letters | rg --file=- $wordfile
+            set lines (string join \n -- $letters | rg --file=- $wordfile | count)
+            echo "Matches occur in $lines words in english10k"
+          '';
+
+          bigrams = language "fish" ''
+            set bigramsfile $TMPDIR/bigrams.txt
+            if test ! -e $bigramsfile
+              echo "Downloading Project Gutenberg bigram data" >&2
+              curl -s 'https://gist.githubusercontent.com/lydell/c439049abac2c9226e53/raw/4cfe39fd90d6ad25c4e683b6371009f574e1177f/bigrams.json' \
+              | jq -r '.[] | .[0] + " " + (.[1] | tostring)' > $bigramsfile
+            end
+
+            if isatty stdin
+              set bigrams $argv
+            else
+              while read -l line
+                set -a bigrams $line
+              end
+            end
+
+            if not count $bigrams >/dev/null
+              echo "`bigrams` requires at least one pattern to check for as an argument" >&2
+            end
+            string join \n -- $bigrams | rg --file=- $bigramsfile
+          '';
+
+          # once again, if I cared about this being fast, I'd just use Rust
+          permutations = language "fish" ''
+            ${pkgs.python3}/bin/python -c '
+            import sys
+
+            if len(sys.argv) < 2:
+              sys.exit(1)
+
+            from functools import reduce
+            from itertools import permutations
+            from operator import add
+
+            if len(sys.argv) > 2:
+              items = sys.argv[1:]
+            else:
+              items = sys.argv[1]
+
+            for a in permutations(items):
+              print(reduce(add, a))
+            ' $argv
           '';
         };
       };

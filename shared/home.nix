@@ -17,6 +17,7 @@
     fd
     ripgrep
     comma
+    amber
 
     # File stuff
     eza

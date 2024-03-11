@@ -129,6 +129,12 @@ in {
           up = "move_line_up";
           down = "move_line_down";
         };
+        keys.select.g = {
+          left = "goto_line_start";
+          right = "goto_line_end";
+          up = "move_line_up";
+          down = "move_line_down";
+        };
 
         keys.normal.Z = let
           repeat = count: thing:

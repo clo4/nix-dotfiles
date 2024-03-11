@@ -31,8 +31,11 @@ in {
     NSGlobalDomain = {
       NSWindowShouldDragOnGesture = true;
 
+      # NOTE: Disabling for now because RSI is making a pretty good case for
+      # non-linear inputs...
+      #
       # This should really be in the settings app
-      "com.apple.mouse.scaling" = "-1";
+      # "com.apple.mouse.scaling" = "-1";
     };
     "com.dexterleng.homerow" = {
       label-characters = "nrtsldaiehuo";

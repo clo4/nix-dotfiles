@@ -503,6 +503,28 @@ in {
             string join \n -- $bigrams | rg --file=- $bigramsfile
           '';
 
+          # Run the program using a different executable on your $PATH instead of the
+          # first one the shell finds
+          pick = language "fish" ''
+            if test (count $argv) = 0
+              return 1
+            end
+            set paths (path filter -fx $PATH/$argv[1])
+            set total (count $paths)
+            if test $total = 0
+              fish_command_not_found $argv
+              return 1
+            else if test $total = 1
+              $paths $argv[2..]
+            else
+              set picked (printf "%s\n" $paths | fzf)
+              if test $status != 0
+                return 1
+              end
+              $picked $argv[2..]
+            end
+          '';
+
           # once again, if I cared about this being fast, I'd just use Rust
           permutations = language "fish" ''
             ${pkgs.python3}/bin/python -c '

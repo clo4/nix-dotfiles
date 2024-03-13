@@ -28,8 +28,8 @@ in {
           ''
           else shell;
 
-        unfocused-split-opacity = 0.85;
-        unfocused-split-fill = "#000000";
+        unfocused-split-opacity = 0.80;
+        # unfocused-split-fill = "#000000";
         cursor-style-blink = false;
         mouse-hide-while-typing = true;
 

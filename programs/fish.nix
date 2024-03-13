@@ -512,7 +512,8 @@ in {
             set paths (path filter -fx $PATH/$argv[1])
             set total (count $paths)
             if test $total = 0
-              fish_command_not_found $argv
+              # Allow it to get handled by the user's command not found handler
+              $argv
               return 1
             else if test $total = 1
               $paths $argv[2..]

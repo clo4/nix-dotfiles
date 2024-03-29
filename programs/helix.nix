@@ -95,8 +95,6 @@ in {
         };
 
         keys.normal = {
-          G = "goto_last_line";
-
           # This goes against the Helix way of selection->action but it's a
           # common enough thing to warrant making it its own keybind.
           D = ["goto_first_nonwhitespace" "extend_to_line_end" "change_selection"];
@@ -118,6 +116,9 @@ in {
           # Makes sense to keep the default keybind in select mode though?
           "*" = ["trim_selections" "search_selection"];
         };
+
+        keys.normal.G = "goto_word";
+        keys.select.G = "extend_to_word";
 
         # These are unbound by default, probably because there's not really a good reason
         # to use them. But because I use the arrow keys on the home row of my keyboard (hjkl

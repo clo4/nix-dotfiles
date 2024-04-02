@@ -19,7 +19,7 @@ in {
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
 
-    enableCommaCommandNotFound =
+    enableInteractiveCommandNotFound =
       mkEnableOption "my command not found handler using comma"
       // {default = true;};
 
@@ -29,7 +29,7 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.enableCommaCommandNotFound {
+    (mkIf cfg.enableInteractiveCommandNotFound {
       # Both comma and gum are required for this.
       # For the sake of syntax highlighting I'm not referencing them directly
       # in the function, instead installing them in the environment. But it
@@ -44,21 +44,25 @@ in {
           __fish_default_command_not_found_handler $argv
         end
 
-        # If you run the command with comma, running the same command
-        # will not prompt for confirmation for the rest of the session
-        if contains $argv[1] $__command_not_found_confirmed_commands
-          or gum confirm --selected.background=2 "Run using comma?"
-
-          # Not bothering with capturing the status of the command, just run it again
-          if not contains $argv[1] $__command_not_found_confirmed_commands
-            set -ga __command_not_found_confirmed_commands $argv[1]
-          end
-
-          comma -- $argv
-          return 0
-        else
+        if not gum confirm --selected.background=2 "Run with Nix?"
           __fish_default_command_not_found_handler $argv
+          return
         end
+
+        # When you're in the command not found handler, you can't
+        # set the exit status, but you *can* force it to run another command.
+
+        set choices (nix-locate --whole-name --minimal -- bin/$argv[1])
+        set chosen (gum choose --select-if-one -- $choices)
+
+        if test $status != 0
+          return
+        end
+
+        alias "$argv[1]" "nix shell nixpkgs#$chosen -c $argv[1]"
+        echo -s -- (set_color green) "Success!" (set_color reset) " You can now run `" (set_color -i) $argv[1] (set_color reset) "` in this session."
+        commandline -r "$argv"
+        commandline -f execute
       '';
 
       programs.fish.interactiveShellInit = language "fish" ''

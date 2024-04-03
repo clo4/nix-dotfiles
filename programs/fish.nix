@@ -30,30 +30,28 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.enableInteractiveCommandNotFound {
-      # Both comma and gum are required for this.
-      # For the sake of syntax highlighting I'm not referencing them directly
-      # in the function, instead installing them in the environment. But it
-      # also has the nice side effect that it's really nice for debugging.
-      home.packages = [pkgs.comma pkgs.gum];
+      home.packages = [pkgs.gum];
 
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;
 
       programs.fish.functions.fish_command_not_found = language "fish" ''
+        # Bail if the user is trying to run an executable file or doesn't want
+        # to run the command with Nix
         if string match -q -- '*/*' $argv[1]
-          __fish_default_command_not_found_handler $argv
-        end
-
-        if not gum confirm --selected.background=2 "Run with Nix?"
+          or not gum confirm --selected.background=2 "Run with Nix?"
           __fish_default_command_not_found_handler $argv
           return
         end
 
-        # When you're in the command not found handler, you can't
-        # set the exit status, but you *can* force it to run another command.
+        set choices (nix-locate --whole-name --minimal --at-root --top-level -- /bin/$argv[1] | sed 's/\\\\.out$//')
 
-        set choices (nix-locate --whole-name --minimal -- bin/$argv[1])
-        set chosen (gum choose --select-if-one -- $choices)
+        if test (count $choices) = 0
+          echo "Failed to find a match. You might need to run `nix-index` again :)"
+          return
+        end
+
+        set chosen (gum filter --select-if-one --height 20 --fuzzy --sort -- $choices)
 
         if test $status != 0
           return
@@ -61,6 +59,8 @@ in {
 
         alias "$argv[1]" "nix shell nixpkgs#$chosen -c $argv[1]"
         echo -s -- (set_color green) "Success!" (set_color reset) " You can now run `" (set_color -i) $argv[1] (set_color reset) "` in this session."
+        echo "Now, let's try that again..."
+        sleep 0.3
         commandline -r "$argv"
         commandline -f execute
       '';
@@ -68,7 +68,7 @@ in {
       programs.fish.interactiveShellInit = language "fish" ''
         # It's not necessarily an error to type the wrong command because you can still try
         # to execute it afterwards, so make the color of an unknown command less aggressive
-        set -g fish_error_color yellow
+        set -g fish_color_error brblue
       '';
     })
 

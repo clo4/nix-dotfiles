@@ -22,6 +22,7 @@
     # File stuff
     eza
     jq
+    jnv
     glow
 
     # File transfer stuff

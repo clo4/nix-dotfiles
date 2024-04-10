@@ -77,25 +77,21 @@ in {
     })
 
     (mkIf cfg.enableGreetingTouchIdCheck {
+      home.packages = [pkgs.gum];
+
       programs.fish.functions.fish_greeting = language "fish" ''
         if not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo
-          set fg_red (set_color red)
-          set fg_red_bg_yellow (set_color red --background yellow)
-          set fg_yellow_bg_red (set_color yellow --background red)
-          set normal (set_color normal)
-
-          # This is the world's Most Manually Constructed McGugan Box(tm).
-          # The colors are assigned to variables except for the text colors
-          # because I ran into an issue where fish refused to play nice with
-          # parsing it. Don't remember why, not super relevant.
-          echo "
-            $fg_red▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
-            $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
-            $fg_red_bg_yellow▎ $(set_color --bold black)Touch ID will not work with sudo until $fg_yellow_bg_red▊$normal
-            $fg_red_bg_yellow▎ $(set_color --bold black)the system configuration is reapplied. $fg_yellow_bg_red▊$normal
-            $fg_red_bg_yellow▎                                        $fg_yellow_bg_red▊$normal
-            $fg_red▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔▔$normal
-          "
+          echo
+          gum style \
+            --foreground 3 \
+            --border-foreground 1 \
+            --bold \
+            --border rounded \
+            --align center \
+            --width 50 \
+            --margin "1 3" \
+            --padding "1 4" \
+            'Touch ID will not work with sudo until the system configuration has been reapplied.'
         end
       '';
     })
@@ -263,6 +259,7 @@ in {
 
             if not test -d $dest
               echo 'error: destination needs to be a directory'
+              return 1
             end
 
             for dir in $dirs
@@ -519,8 +516,6 @@ in {
               # Allow it to get handled by the user's command not found handler
               $argv
               return 1
-            else if test $total = 1
-              $paths $argv[2..]
             else
               set picked (printf "%s\n" $paths | fzf)
               if test $status != 0
@@ -531,26 +526,32 @@ in {
           '';
 
           # once again, if I cared about this being fast, I'd just use Rust
-          permutations = language "fish" ''
-            ${pkgs.python3}/bin/python -c '
-            import sys
+          permutations = let
+            # pkgs has a trivial builder I can use for this if I need it again
+            pythonFunction = string: ''
+              ${pkgs.python3}/bin/python -c '
+              ${string}
+              ' $argv
+            '';
+          in
+            pythonFunction (language "python" ''
+              import sys
 
-            if len(sys.argv) < 2:
-              sys.exit(1)
+              if len(sys.argv) < 2:
+                sys.exit(1)
 
-            from functools import reduce
-            from itertools import permutations
-            from operator import add
+              from functools import reduce
+              from itertools import permutations
+              from operator import add
 
-            if len(sys.argv) > 2:
-              items = sys.argv[1:]
-            else:
-              items = sys.argv[1]
+              if len(sys.argv) > 2:
+                items = sys.argv[1:]
+              else:
+                items = sys.argv[1]
 
-            for a in permutations(items):
-              print(reduce(add, a))
-            ' $argv
-          '';
+              for a in permutations(items):
+                print(reduce(add, a))
+            '');
         };
       };
     }

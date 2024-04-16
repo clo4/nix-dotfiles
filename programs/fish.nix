@@ -188,6 +188,8 @@ in {
           abbr -a ".."   "cd .."
           abbr -a "..."  "cd ../.."
           abbr -a "...." "cd ../../.."
+
+          abbr -a "+" pkg
         '';
 
         functions = {

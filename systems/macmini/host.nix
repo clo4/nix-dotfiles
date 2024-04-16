@@ -39,7 +39,7 @@ in {
     };
     "com.dexterleng.homerow" = {
       label-characters = "nrtsldaiehuo";
-      scroll-keys = "yhei";
+      scroll-keys = "mnei";
       map-arrow-keys-to-scroll = false;
       launch-at-login = true;
       is-experimental-support-enabled = true;

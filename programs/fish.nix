@@ -446,6 +446,29 @@ in {
             return $retval
           '';
 
+          # Similar to just running `nix shell` but it replaces the current shell session
+          # instead of going one deeper. Originally, I was going to make it just modify
+          # your current shell's $PATH but that's a bad idea because it means you don't
+          # inherit any other changes to the environment, and while it would be possible
+          # to work around that, it's a pain in the ass. I don't use shell-local variables
+          # often enough to care about that being a drawback.
+          "with" = language "fish" ''
+            set -l packages
+            for package in $argv
+              # If there's no hash in the package, assume it's nixpkgs
+              if not string match -q '*#*' -- $package
+                set --append packages "nixpkgs#$package"
+              else
+                set --append packages $package
+              end
+            end
+
+            # Fail if the derivation doesn't exist before exec, needs to run a noop command
+            nix shell $packages --command true; or return
+
+            exec command nix shell $packages --command (status fish-path)
+          '';
+
           clean-store = language "fish" ''
             announce nix store gc --verbose
             echo

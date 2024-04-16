@@ -24,6 +24,7 @@ in {
         ".DS_Store"
         "/.helix"
         ".flake"
+        ".pkgs"
       ];
       extraConfig = {
         init.defaultBranch = "main";

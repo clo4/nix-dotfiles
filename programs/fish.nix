@@ -57,12 +57,8 @@ in {
           return
         end
 
-        alias "$argv[1]" "nix shell nixpkgs#$chosen -c $argv[1]"
         echo -s -- (set_color green) "Success!" (set_color reset) " You can now run `" (set_color -i) $argv[1] (set_color reset) "` in this session."
-        echo "Now, let's try that again..."
-        sleep 0.3
-        commandline -r "$argv"
-        commandline -f execute
+        pkg $chosen
       '';
 
       programs.fish.interactiveShellInit = language "fish" ''
@@ -452,9 +448,16 @@ in {
           # inherit any other changes to the environment, and while it would be possible
           # to work around that, it's a pain in the ass. I don't use shell-local variables
           # often enough to care about that being a drawback.
-          "with" = language "fish" ''
+          pkg = language "fish" ''
             set -l packages
-            for package in $argv
+            if not count $argv >/dev/null
+              and test -f .pkgs
+              set unfixed_packages (cat .pkgs)
+            else
+              set unfixed_packages $argv
+            end
+
+            for package in $unfixed_packages
               # If there's no hash in the package, assume it's nixpkgs
               if not string match -q '*#*' -- $package
                 set --append packages "nixpkgs#$package"
@@ -463,10 +466,23 @@ in {
               end
             end
 
-            # Fail if the derivation doesn't exist before exec, needs to run a noop command
-            nix shell $packages --command true; or return
+            for pkg in $packages
+              echo -s -- "+ " (set_color green) $pkg (set_color reset)
+            end
 
-            exec command nix shell $packages --command (status fish-path)
+            set nix (command -v nix)
+
+            # Fail if the derivation doesn't exist before exec, needs to run a noop command
+            $nix shell $packages --command true; or return
+
+            # Because the shell isn't being nested, there's no need to increment the SHLVL
+            # variable. But holy shit does fish want to increment this variable. This is the
+            # only way I've found that works consistenly with various levels.
+            # Trying to use `command` seems to break this too. Genuinely no idea why.
+            exec \
+              env SHLVL=(math "$SHLVL - 1") \
+                $nix shell $packages \
+                  --command (status fish-path)
           '';
 
           clean-store = language "fish" ''

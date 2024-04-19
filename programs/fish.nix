@@ -46,7 +46,7 @@ in {
 
         set choices (nix-locate --whole-name --minimal --at-root --top-level -- /bin/$argv[1] | sed 's/\\\\.out$//')
 
-        if test (count $choices) = 0
+        if is_empty $choices
           echo "Failed to find a match. You might need to run `nix-index` again :)"
           return
         end
@@ -188,8 +188,6 @@ in {
           abbr -a ".."   "cd .."
           abbr -a "..."  "cd ../.."
           abbr -a "...." "cd ../../.."
-
-          abbr -a "+" pkg
         '';
 
         functions = {
@@ -386,7 +384,7 @@ in {
               # Some git trickery first. If the function is called with no arguments,
               # typically that means to cd to $HOME, but we can be smarter - if you're
               # in a git repo and not in its root, cd to the root.
-              if test (count $argv) -eq 0
+              if is_empty $argv
                 set git_root (git rev-parse --git-dir 2>/dev/null | path dirname)
                 if test $status -eq 0 -a "$git_root" != .
                   cd $git_root
@@ -444,45 +442,95 @@ in {
             return $retval
           '';
 
-          # Similar to just running `nix shell` but it replaces the current shell session
-          # instead of going one deeper. Originally, I was going to make it just modify
-          # your current shell's $PATH but that's a bad idea because it means you don't
-          # inherit any other changes to the environment, and while it would be possible
-          # to work around that, it's a pain in the ass. I don't use shell-local variables
-          # often enough to care about that being a drawback.
-          pkg = language "fish" ''
+          is_empty = language "fish" ''
+            not count $argv >/dev/null
+            return
+          '';
+
+          # Where `nix shell` is for creating an ephemeral shell with access to a program, `use`
+          # modifies your current environment and allows you to read in a list of installables
+          # from a file named .pkgs automatically. This allows it to fill the role of `nix develop`
+          # for projects that don't use Nix as their build system, and it allows you to add more
+          # tools to your environment without spawning a new subshell.
+          use = language "fish" ''
+            # Stores the list of resolved package names
             set -l packages
-            if not count $argv >/dev/null
-              and test -f .pkgs
-              set unfixed_packages (cat .pkgs)
+
+            if is_empty $argv
+              and path is --type file --perm read .pkgs
+              # Quad-escaping the \ because Nix needs to escape it and it needs to be escaped
+              # again in fish.
+              # This pipeline supports adding comments, leading whitespace, and blank lines.
+              set unfixed_packages (cat .pkgs | sed 's/^[[:space:]]*//;/^[[:space:]]*$/d' | grep -v '^#')
             else
               set unfixed_packages $argv
             end
 
+            set active_packages (string split -- ' ' "$USING_PACKAGES")
+
             for package in $unfixed_packages
-              # If there's no hash in the package, assume it's nixpkgs
-              if not string match -q '*#*' -- $package
-                set --append packages "nixpkgs#$package"
-              else
-                set --append packages $package
+              if test "$package" = ""
+                continue
               end
+
+              # A hash or colon will be interpreted as a flakeref, everything
+              # else is assumed to be nixpkgs
+              if string match -qr '#|:' -- $package
+                set fixed_name $package
+              else
+                set fixed_name "nixpkgs#$package"
+              end
+
+              if contains -- $fixed_name $active_packages
+                continue
+              end
+
+              set --append packages $fixed_name
             end
 
+            # No packages to add, so skip all the work and
+            if is_empty $packages
+              echo "All packages specified are currently being used :)"
+              return
+            end
+
+            echo -s "Attempting to activate " (string join ", " (set_color --bold)$packages(set_color reset)) "..."
+
+            # Using a fixed path to nix because I have a function wrapper than I don't want
+            # to use in this case, and using `command nix` breaks the exec mess below
+            set nix (command -v nix)
+
+            if jobs -q
+              echo
+              echo -s (set_color red) "Failed to activate packages: " (set_color reset) "shell still has active jobs"
+              jobs
+              return 1
+            end
+
+            # Running a no-op command to test if activating the shell would work. Because
+            # an exec is used below, there's only one shot to get it right -- if the exec
+            # fails, the user's shell will die, causing their terminal window/pane to close
+            if not $nix shell $packages --command true
+              echo
+              echo -s (set_color red) "Failed to activate packages" (set_color reset)
+              return 1
+            end
+
+            # Checks are complete, print the packages to make it clear what's being added.
             for pkg in $packages
               echo -s -- "+ " (set_color green) $pkg (set_color reset)
             end
 
-            set nix (command -v nix)
-
-            # Fail if the derivation doesn't exist before exec, needs to run a noop command
-            $nix shell $packages --command true; or return
+            # Using a semicolon to split the packages because it's guaranteed (?) to never
+            # appear in a package specifier. Or at least, it's very unlikely.
+            set joined_new_active_packages (string join -- ' ' $packages $USING_PACKAGES)
 
             # Because the shell isn't being nested, there's no need to increment the SHLVL
             # variable. But holy shit does fish want to increment this variable. This is the
             # only way I've found that works consistenly with various levels.
             # Trying to use `command` seems to break this too. Genuinely no idea why.
             exec \
-              env SHLVL=(math "$SHLVL - 1") \
+              env SHLVL=(math "$SHLVL - 1") USING_PACKAGES=$joined_new_active_packages \
                 $nix shell $packages \
                   --command (status fish-path)
           '';
@@ -509,7 +557,7 @@ in {
               end
             end
 
-            if not count $letters >/dev/null
+            if not is_empty $letters
               echo "`words` requires at least one pattern to check for as an argument" >&2
             end
             # ripgrep is fast enough that doing this twice is *fine*, not great obviously but
@@ -539,7 +587,7 @@ in {
               end
             end
 
-            if not count $bigrams >/dev/null
+            if not is_empty $bigrams
               echo "`bigrams` requires at least one pattern to check for as an argument" >&2
             end
             string join \n -- $bigrams | rg --file=- $bigramsfile
@@ -548,7 +596,7 @@ in {
           # Run the program using a different executable on your $PATH instead of the
           # first one the shell finds
           pick = language "fish" ''
-            if test (count $argv) = 0
+            if is_empty $argv
               return 1
             end
             set paths (path filter -fx $PATH/$argv[1])

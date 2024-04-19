@@ -557,7 +557,7 @@ in {
               end
             end
 
-            if not is_empty $letters
+            if is_empty $letters
               echo "`words` requires at least one pattern to check for as an argument" >&2
             end
             # ripgrep is fast enough that doing this twice is *fine*, not great obviously but
@@ -587,7 +587,7 @@ in {
               end
             end
 
-            if not is_empty $bigrams
+            if is_empty $bigrams
               echo "`bigrams` requires at least one pattern to check for as an argument" >&2
             end
             string join \n -- $bigrams | rg --file=- $bigramsfile

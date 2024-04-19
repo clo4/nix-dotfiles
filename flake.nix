@@ -29,7 +29,7 @@
     ghostty.url = "github:clo4/ghostty-hm-module";
 
     fish-tide = {
-      url = "github:IlanCosman/tide";
+      url = "github:IlanCosman/tide/v6.1.1";
       flake = false;
     };
 

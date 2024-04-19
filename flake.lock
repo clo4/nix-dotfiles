@@ -62,15 +62,16 @@
     "fish-tide": {
       "flake": false,
       "locked": {
-        "lastModified": 1710210487,
-        "narHash": "sha256-85iU1QzcZmZYGhK30/ZaKwJNLTsx+j3w6St8bFiQWxc=",
+        "lastModified": 1703712950,
+        "narHash": "sha256-ZyEk/WoxdX5Fr2kXRERQS1U1QHH3oVSyBQvlwYnEYyc=",
         "owner": "IlanCosman",
         "repo": "tide",
-        "rev": "44c521ab292f0eb659a9e2e1b6f83f5f0595fcbd",
+        "rev": "a34b0c2809f665e854d6813dd4b052c1b32a32b4",
         "type": "github"
       },
       "original": {
         "owner": "IlanCosman",
+        "ref": "v6.1.1",
         "repo": "tide",
         "type": "github"
       }

@@ -452,6 +452,8 @@ in {
           # from a file named .pkgs automatically. This allows it to fill the role of `nix develop`
           # for projects that don't use Nix as their build system, and it allows you to add more
           # tools to your environment without spawning a new subshell.
+          # The file, .pkgs, is a line-separated list of packages. It supports blank lines and
+          # comments. You don't have to specify `nixpkgs#` if the package is from nixpkgs.
           use = language "fish" ''
             # Stores the list of resolved package names
             set -l packages
@@ -463,7 +465,10 @@ in {
               # This pipeline supports adding comments, leading whitespace, and blank lines.
               set unfixed_packages (cat .pkgs | sed 's/^[[:space:]]*//;/^[[:space:]]*$/d' | grep -v '^#')
             else
-              set unfixed_packages $argv
+              # There's not much of a reason to not also run the same logic on the commandline
+              # arguments too, because this allows you to run `use (cat .pkgs)`. Don't know why
+              # you'd do that but it makes it more resiliant. Maybe I'll have a use for that one day?
+              set unfixed_packages (string join '\\\\n' $argv | sed 's/^[[:space:]]*//;/^[[:space:]]*$/d' | grep -v '^#')
             end
 
             set active_packages (string split -- ' ' "$USING_PACKAGES")
@@ -494,18 +499,19 @@ in {
               return
             end
 
-            echo -s "Attempting to activate " (string join ", " (set_color --bold)$packages(set_color reset)) "..."
-
-            # Using a fixed path to nix because I have a function wrapper than I don't want
-            # to use in this case, and using `command nix` breaks the exec mess below
-            set nix (command -v nix)
-
             if jobs -q
               echo
               echo -s (set_color red) "Failed to activate packages: " (set_color reset) "shell still has active jobs"
               jobs
               return 1
             end
+
+            echo -s "Checking packages: " (string join ", " (set_color --bold)$packages(set_color reset))
+
+            # Using a fixed path to nix because I have a function wrapper than I don't want
+            # to use in this case, and using `command nix` breaks the exec mess below
+            set nix (command -v nix)
+
 
             # Running a no-op command to test if activating the shell would work. Because
             # an exec is used below, there's only one shot to get it right -- if the exec
@@ -517,6 +523,7 @@ in {
             end
 
             # Checks are complete, print the packages to make it clear what's being added.
+            echo "Success! Activating environment..."
             for pkg in $packages
               echo -s -- "+ " (set_color green) $pkg (set_color reset)
             end

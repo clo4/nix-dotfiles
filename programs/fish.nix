@@ -137,7 +137,7 @@ in {
           abbr -a pmu permutations
 
           abbr -a t  tmux
-          abbr -a ta "tmux attach or tmux"
+          abbr -a ta "tmux attach; or tmux"
           abbr -a tk "tmux kill-session"
           abbr -a tl "tmux list-sessions"
 

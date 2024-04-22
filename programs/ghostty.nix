@@ -38,7 +38,7 @@ in {
         macos-option-as-alt = true;
         window-theme = "dark";
 
-        font-family = "RobotoMono Nerd Font";
+        font-family = "RobotoMonoNL Nerd Font Mono";
         font-size = 12;
 
         window-height = 60;

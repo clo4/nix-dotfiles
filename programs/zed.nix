@@ -23,6 +23,7 @@ in {
   config = mkIf cfg.enable {
     programConfig.zed.enable = true;
     programConfig.zed.settings = {
+      ui_font_family = "Zed Sans";
       theme = "Gruvbox Dark";
       buffer_font_size = 12;
       vim_mode = true;

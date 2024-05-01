@@ -120,6 +120,15 @@ in {
         keys.normal.D = "goto_word";
         keys.select.D = "extend_to_word";
 
+        keys.normal.S-left = "jump_view_left";
+        keys.select.S-left = "jump_view_left";
+        keys.normal.S-right = "jump_view_right";
+        keys.select.S-right = "jump_view_right";
+        keys.normal.S-up = "jump_view_up";
+        keys.select.S-up = "jump_view_up";
+        keys.normal.S-down = "jump_view_down";
+        keys.select.S-down = "jump_view_down";
+
         # These are unbound by default, probably because there's not really a good reason
         # to use them. But because I use the arrow keys on the home row of my keyboard (hjkl
         # are in other locations because I use an alternate keyboard layout) I need to

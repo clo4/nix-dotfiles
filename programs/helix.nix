@@ -129,6 +129,30 @@ in {
         keys.normal.S-down = "jump_view_down";
         keys.select.S-down = "jump_view_down";
 
+        # lots of repetition. if only there was a configuration language with functions that
+        # compiled to the desired end format. oh well
+        keys.normal."`" = {
+          c = ["trim_selections" ":pipe ccase --to camel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          C = ["trim_selections" ":pipe ccase --to uppercamel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          s = ["trim_selections" ":pipe ccase --to snake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          S = ["trim_selections" ":pipe ccase --to screamingsnake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          k = ["trim_selections" ":pipe ccase --to kebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          K = ["trim_selections" ":pipe ccase --to upperkebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          t = ["trim_selections" ":pipe ccase --to title" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          r = ["trim_selections" ":pipe ccase --to pseudorandom" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+        };
+
+        keys.select."`" = {
+          c = ["trim_selections" ":pipe ccase --to camel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          C = ["trim_selections" ":pipe ccase --to uppercamel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          s = ["trim_selections" ":pipe ccase --to snake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          S = ["trim_selections" ":pipe ccase --to screamingsnake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          k = ["trim_selections" ":pipe ccase --to kebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          K = ["trim_selections" ":pipe ccase --to upperkebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          t = ["trim_selections" ":pipe ccase --to title" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          r = ["trim_selections" ":pipe ccase --to pseudorandom" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+        };
+
         # These are unbound by default, probably because there's not really a good reason
         # to use them. But because I use the arrow keys on the home row of my keyboard (hjkl
         # are in other locations because I use an alternate keyboard layout) I need to

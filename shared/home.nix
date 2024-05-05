@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  inputs,
+  pkgs,
+  ...
+}: {
   imports = [
     ../programs
     ../modules/home
@@ -35,6 +39,9 @@
     asciinema
     parallel
     _1password
+
+    # ccase is used for case conversion
+    inputs.ccase.packages.${pkgs.stdenv.system}.default
   ];
 
   # Enables the programs and uses my configuration for them.

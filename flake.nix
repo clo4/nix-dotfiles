@@ -28,6 +28,12 @@
 
     ghostty.url = "github:clo4/ghostty-hm-module";
 
+    # Case conversion utility that I'm using for some Helix keybinds
+    ccase = {
+      url = "github:rutrum/ccase";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     fish-tide = {
       url = "github:IlanCosman/tide/v6.1.1";
       flake = false;

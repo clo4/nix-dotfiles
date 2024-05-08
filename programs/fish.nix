@@ -150,6 +150,7 @@ in {
           abbr -a co  "cargo"
           abbr -a cob "cargo build"
           abbr -a cor "cargo run"
+          abbr -a corr "cargo run --release"
           abbr -a cot "cargo test"
           abbr -a coa "cargo add"
 

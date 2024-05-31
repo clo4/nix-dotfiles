@@ -21,7 +21,7 @@ in {
 
     enableInteractiveCommandNotFound =
       mkEnableOption "my command not found handler using comma"
-      // {default = true;};
+      // {default = false;}; # This is broken but `use` basically removes the need for it
 
     enableWslFunctions = mkEnableOption "my fish wsl alias functions";
 
@@ -153,6 +153,7 @@ in {
           abbr -a corr "cargo run --release"
           abbr -a cot "cargo test"
           abbr -a coa "cargo add"
+          abbr -a coc "cargo check"
 
           abbr -a ",a"  "git add"
           abbr -a ",ap" "git add --patch"
@@ -163,6 +164,7 @@ in {
           abbr -a ",c"  "git commit"
           abbr -a ",ca" "git commit --amend"
           abbr -a ",d"  "git diff"
+          abbr -a ",dc"  "git diff --cached"
           abbr -a ",m"  "git merge"
           abbr -a ",s"  "git status"
           abbr -a ",p"  "git push"

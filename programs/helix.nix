@@ -114,11 +114,13 @@ in {
 
           # Searching for a selection probably shouldn't have whitespace included.
           # Makes sense to keep the default keybind in select mode though?
-          "*" = ["trim_selections" "search_selection"];
+          "*" = ["trim_selections" "search_selection" "select_mode"];
         };
 
         keys.normal.D = "goto_word";
         keys.select.D = "extend_to_word";
+        keys.normal.V = "add_selection_on_word";
+        keys.select.V = "add_selection_on_word";
 
         keys.normal.S-left = "jump_view_left";
         keys.select.S-left = "jump_view_left";
@@ -196,13 +198,6 @@ in {
         keys.normal.space.w = {
           V = ["vsplit_new" "file_picker"];
           S = ["hsplit_new" "file_picker"];
-        };
-
-        # Minor mode, perform operations on selection.
-        # When custom typable commands land, replace these with typables.
-        keys.normal.V = {
-          s = ":pipe sort";
-          S = ":pipe sort -u";
         };
 
         keys.select = {

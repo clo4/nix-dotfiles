@@ -36,7 +36,7 @@ in {
         quit-after-last-window-closed = true;
 
         macos-option-as-alt = true;
-        window-theme = "dark";
+        window-theme = "auto";
 
         font-family = "RobotoMonoNL Nerd Font Mono";
         font-size = 12;

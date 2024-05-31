@@ -57,6 +57,8 @@
   # Enables programs that I don't have a more complicated config for.
   # Programs in this section should be limited to a few lines of config at most.
   programs = {
+    jujutsu.enable = true;
+
     # TODO: figure out why this is breaking in nushell
     zoxide = {
       enable = true;

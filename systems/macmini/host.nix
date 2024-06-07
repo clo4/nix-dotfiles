@@ -38,7 +38,7 @@ in {
       # "com.apple.mouse.scaling" = "-1";
     };
     "com.dexterleng.homerow" = {
-      label-characters = "nrtsldaiehuo";
+      label-characters = "arstneiowfplyou";
       scroll-keys = "mnei";
       map-arrow-keys-to-scroll = false;
       launch-at-login = true;

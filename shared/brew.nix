@@ -46,9 +46,6 @@
     "audio-hijack"
     "loopback"
     "blender"
-    "affinity-designer"
-    "affinity-photo"
-    "affinity-publisher"
 
     # Loosely, productivity
     "raycast"
@@ -60,13 +57,10 @@
     # Loosely, social platforms
     "signal"
     "discord"
-
-    "crossover"
     "steam"
-    "keymapp"
 
+    "cursorcerer"
     "docker"
-    "elgato-camera-hub"
     "firefox"
     "grandperspective"
     "iina"
@@ -74,9 +68,11 @@
     "monitorcontrol"
     "obs"
     "obsidian"
+    "plover"
     "rectangle"
     "spotify"
     "transmission"
+    "utm"
     "wezterm"
     "zed"
   ];

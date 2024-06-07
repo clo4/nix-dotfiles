@@ -71,9 +71,6 @@
 
     nushell = {
       enable = true;
-
-      # nushellFull adds support for dataframes
-      package = pkgs.nushellFull;
     };
 
     fzf = {

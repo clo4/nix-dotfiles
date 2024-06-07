@@ -57,6 +57,7 @@ in {
       };
 
       keybindings = {
+        # TODO: Increase speed of pane resizing?
         "super+left" = "goto_split:left";
         "super+right" = "goto_split:right";
         "super+up" = "goto_split:top";

@@ -63,6 +63,11 @@ in {
         "super+up" = "goto_split:top";
         "super+down" = "goto_split:bottom";
 
+        "super+control+left" = "resize_split:left,40";
+        "super+control+right" = "resize_split:right,40";
+        "super+control+up" = "resize_split:up,40";
+        "super+control+down" = "resize_split:down,40";
+
         "page_up" = "scroll_page_fractional:-0.5";
         "page_down" = "scroll_page_fractional:0.5";
       };

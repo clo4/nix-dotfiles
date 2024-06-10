@@ -1,6 +1,7 @@
 {
   inputs,
   pkgs,
+  lib,
   ...
 }: {
   imports = [
@@ -57,6 +58,17 @@
   # Enables programs that I don't have a more complicated config for.
   # Programs in this section should be limited to a few lines of config at most.
   programs = {
+    home-manager.enable = true;
+
+    broot = {
+      enable = true;
+      settings = {
+        imports = ["skins/dark-gruvbox.hjson"];
+        # NOTE: In Ghostty, this breaks shift. Not sure why and haven't looked into it.
+        # enable_kitty_keyboard = lib.mkForce true;
+      };
+    };
+
     jujutsu.enable = true;
 
     # TODO: figure out why this is breaking in nushell
@@ -64,8 +76,6 @@
       enable = true;
       enableNushellIntegration = false;
     };
-
-    home-manager.enable = true;
 
     zellij.enable = true;
 

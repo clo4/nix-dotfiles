@@ -117,6 +117,10 @@ in {
           "*" = ["trim_selections" "search_selection" "select_mode"];
         };
 
+        keys.normal.C-r = ":reload";
+        keys.normal.C-R = ":reload-all";
+        keys.normal.space.u = ":reset-diff-change";
+
         keys.normal.D = "goto_word";
         keys.select.D = "extend_to_word";
         keys.normal.V = "add_selection_on_word";

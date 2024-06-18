@@ -23,6 +23,8 @@
     ripgrep
     comma
     amber
+    sad
+    delta
 
     # File stuff
     eza
@@ -86,7 +88,7 @@
     fzf = {
       enable = true;
       defaultOptions = [
-        "--height ~40%"
+        # "--height ~40%"
       ];
     };
 

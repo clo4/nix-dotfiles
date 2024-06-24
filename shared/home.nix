@@ -71,6 +71,11 @@
       };
     };
 
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
     jujutsu.enable = true;
 
     # TODO: figure out why this is breaking in nushell

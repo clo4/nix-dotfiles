@@ -117,6 +117,13 @@ in {
           "*" = ["trim_selections" "search_selection" "select_mode"];
         };
 
+        keys.normal.C-q = ":quit-all";
+        keys.normal.C-w = ":quit";
+        keys.normal.space.d = "vsplit";
+        keys.select.space.d = "vsplit";
+        keys.normal.space.D = "hsplit";
+        keys.select.space.D = "hsplit";
+
         keys.normal.C-r = ":reload";
         keys.normal.C-R = ":reload-all";
         keys.normal.space.u = ":reset-diff-change";

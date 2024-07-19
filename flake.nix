@@ -22,7 +22,7 @@
     };
 
     helix = {
-      url = "github:clo4/helix/jump_label_add_selection";
+      url = "github:helix-editor/helix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

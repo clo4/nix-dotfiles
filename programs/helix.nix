@@ -49,7 +49,8 @@ in {
       };
 
       settings = {
-        theme = myTheme;
+        theme = "gruvbox";
+        # theme = myTheme;
 
         editor = {
           # Override because every terminal I use supports true color, but
@@ -130,8 +131,8 @@ in {
 
         keys.normal.D = "goto_word";
         keys.select.D = "extend_to_word";
-        keys.normal.V = "add_selection_on_word";
-        keys.select.V = "add_selection_on_word";
+        # keys.normal.V = "add_selection_on_word";
+        # keys.select.V = "add_selection_on_word";
 
         keys.normal.S-left = "jump_view_left";
         keys.select.S-left = "jump_view_left";
@@ -145,25 +146,25 @@ in {
         # lots of repetition. if only there was a configuration language with functions that
         # compiled to the desired end format. oh well
         keys.normal."`" = {
-          c = ["trim_selections" ":pipe ccase --to camel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          C = ["trim_selections" ":pipe ccase --to uppercamel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          s = ["trim_selections" ":pipe ccase --to snake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          S = ["trim_selections" ":pipe ccase --to screamingsnake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          k = ["trim_selections" ":pipe ccase --to kebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          K = ["trim_selections" ":pipe ccase --to upperkebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          t = ["trim_selections" ":pipe ccase --to title" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          r = ["trim_selections" ":pipe ccase --to pseudorandom" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          c = ["trim_selections" ":pipe ccase --to camel"];
+          C = ["trim_selections" ":pipe ccase --to uppercamel"];
+          s = ["trim_selections" ":pipe ccase --to snake"];
+          S = ["trim_selections" ":pipe ccase --to screamingsnake"];
+          k = ["trim_selections" ":pipe ccase --to kebab"];
+          K = ["trim_selections" ":pipe ccase --to upperkebab"];
+          t = ["trim_selections" ":pipe ccase --to title"];
+          r = ["trim_selections" ":pipe ccase --to pseudorandom"];
         };
 
         keys.select."`" = {
-          c = ["trim_selections" ":pipe ccase --to camel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          C = ["trim_selections" ":pipe ccase --to uppercamel" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          s = ["trim_selections" ":pipe ccase --to snake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          S = ["trim_selections" ":pipe ccase --to screamingsnake" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          k = ["trim_selections" ":pipe ccase --to kebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          K = ["trim_selections" ":pipe ccase --to upperkebab" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          t = ["trim_selections" ":pipe ccase --to title" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
-          r = ["trim_selections" ":pipe ccase --to pseudorandom" "save_selection" "ensure_selections_forward" "collapse_selection" "delete_selection"];
+          c = ["trim_selections" ":pipe ccase --to camel"];
+          C = ["trim_selections" ":pipe ccase --to uppercamel"];
+          s = ["trim_selections" ":pipe ccase --to snake"];
+          S = ["trim_selections" ":pipe ccase --to screamingsnake"];
+          k = ["trim_selections" ":pipe ccase --to kebab"];
+          K = ["trim_selections" ":pipe ccase --to upperkebab"];
+          t = ["trim_selections" ":pipe ccase --to title"];
+          r = ["trim_selections" ":pipe ccase --to pseudorandom"];
         };
 
         # These are unbound by default, probably because there's not really a good reason

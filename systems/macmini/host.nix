@@ -37,8 +37,8 @@ in {
       # This should really be in the settings app
       # "com.apple.mouse.scaling" = "-1";
     };
-    "com.dexterleng.homerow" = {
-      label-characters = "arstneiowfplyou";
+    "com.superultra.homerow" = {
+      label-characters = "arstneiowfpluy";
       scroll-keys = "mnei";
       map-arrow-keys-to-scroll = false;
       launch-at-login = true;

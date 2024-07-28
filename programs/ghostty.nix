@@ -16,10 +16,10 @@ in {
       enable = true;
 
       settings = {
-        # Fixes an issue on macOS where if the terminal launches before the
-        # Nix partition is mounted then the shell will fail to start.
+        # If the terminal launches before the Nix store is mounted then the shell won't start.
+        # macOS comes with a built-in tool for this called wait4path, and using it doesn't
+        # introduce enough delay that I actually care.
         command = let
-          # shell = "$SHELL -c 'exec nu'";
           shell = "$SHELL";
         in
           if pkgs.stdenv.isDarwin
@@ -35,10 +35,11 @@ in {
 
         quit-after-last-window-closed = true;
 
+        macos-titlebar-style = "tabs";
         macos-option-as-alt = true;
         window-theme = "auto";
 
-        font-family = "RobotoMonoNL Nerd Font Mono";
+        font-family = "RobotoMono Nerd Font Mono";
         font-size = 12;
 
         window-height = 60;

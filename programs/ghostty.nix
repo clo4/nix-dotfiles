@@ -35,7 +35,8 @@ in {
 
         quit-after-last-window-closed = true;
 
-        macos-titlebar-style = "tabs";
+        # This is a little broken on macOS 15
+        # macos-titlebar-style = "tabs";
         macos-option-as-alt = true;
         window-theme = "auto";
 

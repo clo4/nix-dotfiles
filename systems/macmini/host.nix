@@ -50,7 +50,7 @@ in {
 
   system.defaults.NSGlobalDomain = {
     # Automatic dark mode at night
-    AppleInterfaceStyleSwitchesAutomatically = true;
+    # AppleInterfaceStyleSwitchesAutomatically = true;
 
     # Disabling this means you can hold to repeat keys
     ApplePressAndHoldEnabled = false;
@@ -84,7 +84,8 @@ in {
     # Shows a breadcrumb trail down the bottom of the Finder window
     ShowPathbar = true;
 
-    # Hides desktop icons (but they're still accessible through Finder)
+    # Hides desktop icons (but they're still accessible through Finder).
+    # Because it never creates a desktop, you can't *click* on the desktop.
     CreateDesktop = false;
 
     # This magic string makes it search the current folder by default

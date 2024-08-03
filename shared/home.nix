@@ -74,6 +74,7 @@
     direnv = {
       enable = true;
       nix-direnv.enable = true;
+      silent = true;
     };
 
     jujutsu.enable = true;

@@ -26,6 +26,8 @@ in {
     enableWslFunctions = mkEnableOption "my fish wsl alias functions";
 
     enableGreetingTouchIdCheck = mkEnableOption "a check for pam_tid.so on startup";
+
+    setupNixEnv = mkEnableOption "configuration to set up the Nix environment (unnecessary when managed by NixOS or nix-darwin)";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -66,6 +68,15 @@ in {
         # to execute it afterwards, so make the color of an unknown command less aggressive
         set -g fish_color_error brblue
       '';
+    })
+
+    (mkIf cfg.setupNixEnv {
+      programs.fish.plugins = [
+        {
+          name = "nix-env.fish";
+          src = inputs.fish-nix-env;
+        }
+      ];
     })
 
     (mkIf cfg.enableWslFunctions {
@@ -395,7 +406,13 @@ in {
           # switch system flake correctly regardless of the operating system
           rebuild-switch-flake = language "fish" ''
             if test (uname) = Darwin
-              announce darwin-rebuild switch --flake .#
+              if string match -iq "*air" (hostname)
+                # This isn't the exact name of the host, because I don't own the
+                # laptop.
+                announce home-manager switch --flake .#robert@macbook-air
+              else
+                announce darwin-rebuild switch --flake .#
+              end
             else
               announce sudo nixos-rebuild switch --flake .#
             end
@@ -404,7 +421,13 @@ in {
           # build system flake correctly regardless of the operating system
           rebuild-build-flake = language "fish" ''
             if test (uname) = Darwin
-              announce darwin-rebuild build --flake .#
+              if string match -iq "*air" (hostname)
+                # This isn't the exact name of the host, because I don't own the
+                # laptop.
+                announce home-manager build --flake .#robert@macbook-air
+              else
+                announce darwin-rebuild build --flake .#
+              end
             else
               announce sudo nixos-rebuild build --flake .#
             end

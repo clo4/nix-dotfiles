@@ -39,6 +39,11 @@
       flake = false;
     };
 
+    fish-nix-env = {
+      url = "github:lilyball/nix-env.fish";
+      flake = false;
+    };
+
     # I use tealdeer as a quick reference for some commands, but I want the
     # tldr page cache to be managed by my Nix setup instead.
     tldr-pages = {
@@ -115,6 +120,17 @@
           specialArgs = {
             inherit inputs;
           };
+        };
+      };
+
+      homeConfigurations = {
+        "robert@macbook-air" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-darwin;
+          extraSpecialArgs = {inherit inputs;};
+          modules = [
+            ghostty.homeModules.default
+            ./systems/macbook-air/home.nix
+          ];
         };
       };
 

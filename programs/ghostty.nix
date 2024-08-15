@@ -39,6 +39,7 @@ in {
         # macos-titlebar-style = "tabs";
         macos-option-as-alt = true;
         window-theme = "auto";
+        window-padding-color = "extend";
 
         font-family = "RobotoMono Nerd Font Mono";
         font-size = 12;

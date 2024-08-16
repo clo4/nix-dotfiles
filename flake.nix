@@ -28,6 +28,9 @@
 
     ghostty.url = "github:clo4/ghostty-hm-module";
 
+    # This is only here to declaratively add it to the registry
+    mkshell.url = "github:clo4/mkshell";
+
     # Case conversion utility that I'm using for some Helix keybinds
     ccase = {
       url = "github:rutrum/ccase";
@@ -46,6 +49,7 @@
       flake = false;
     };
 
+    # TODO: I think I can remove this now
     skyrocket-spoon = {
       url = "github:clo4/SkyRocket.spoon";
       flake = false;

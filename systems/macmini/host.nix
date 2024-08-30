@@ -15,6 +15,8 @@ in {
     shell = pkgs.fish;
   };
 
+  # This isn't part of the fish module by default, this is a custom extension
+  # to it (see `modules/host/fish.nix`)
   programs.fish.fixPathOrder = true;
 
   # This needs to be reapplied after system updates
@@ -24,6 +26,8 @@ in {
 
   # TODO: Should this be moved to the common config?
   services.nix-daemon.enable = true;
+
+  nix.linux-builder.enable = true;
 
   system.stateVersion = 4;
 

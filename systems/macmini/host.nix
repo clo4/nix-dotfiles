@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   language = _: t: t;
 in {
   imports = [
@@ -27,12 +31,24 @@ in {
   # TODO: Should this be moved to the common config?
   services.nix-daemon.enable = true;
 
+  # services.openssh.enable = true;
   nix.linux-builder = {
-    enable = true;
+    enable = false;
+    package = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin.darwin.linux-builder;
     systems = [
       "x86_64-linux"
       # "aarch64-linux"
     ];
+    # config = {
+    #   services.openssh.enable = true;
+    # };
+  };
+
+  launchd.daemons.linux-builder = {
+    serviceConfig = {
+      StandardOutPath = "/var/log/darwin-builder.log";
+      StandardErrorPath = "/var/log/darwin-builder.log";
+    };
   };
 
   system.stateVersion = 4;

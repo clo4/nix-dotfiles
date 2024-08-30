@@ -404,6 +404,22 @@
         "type": "indirect"
       }
     },
+    "nixpkgs-unstable": {
+      "locked": {
+        "lastModified": 1724932487,
+        "narHash": "sha256-zzbqHmY1mt21omyk1+14QbAkII1B7OHlwKLcczVq22w=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "b4f7fb71438d00539b21f1b1e6968c0eac060127",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1724819573,
@@ -436,6 +452,7 @@
         "nix-homebrew": "nix-homebrew",
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-unstable": "nixpkgs-unstable",
         "skyrocket-spoon": "skyrocket-spoon",
         "tldr-pages": "tldr-pages"
       }

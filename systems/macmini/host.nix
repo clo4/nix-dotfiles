@@ -33,15 +33,12 @@ in {
 
   # services.openssh.enable = true;
   nix.linux-builder = {
-    enable = false;
-    package = inputs.nixpkgs-unstable.legacyPackages.aarch64-darwin.darwin.linux-builder;
+    enable = true;
+    ephemeral = true;
+    package = pkgs.darwin.linux-builder-x86_64;
     systems = [
       "x86_64-linux"
-      # "aarch64-linux"
     ];
-    # config = {
-    #   services.openssh.enable = true;
-    # };
   };
 
   launchd.daemons.linux-builder = {

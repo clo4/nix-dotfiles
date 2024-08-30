@@ -34,11 +34,8 @@ in {
   # services.openssh.enable = true;
   nix.linux-builder = {
     enable = true;
-    # ephemeral = true;
+    maxJobs = 8;
     package = pkgs.darwin.linux-builder-x86_64;
-    systems = [
-      "x86_64-linux"
-    ];
   };
 
   launchd.daemons.linux-builder = {

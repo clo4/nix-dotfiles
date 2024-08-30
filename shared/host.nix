@@ -26,14 +26,16 @@
     # This seems to cause issues:
     # https://github.com/NixOS/nix/issues/7273
     #auto-optimise-store = true;
-    substituters = [
+    trusted-substituters = [
       "https://helix.cachix.org"
+      "https://cache.nixos.org"
     ];
     trusted-public-keys = [
       "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
     ];
     trusted-users = [
-      "robert"
+      "root"
+      "@admin"
     ];
   };
 

@@ -23,7 +23,7 @@ in {
   # an implementation detail, I use the kitty installed with brew. I just didn't
   # want to bother copying the module to my own modules folder just to remove
   # one line from it.
-  my.programs.kitty.enable = true;
+  my.programs.kitty.enable = false;
 
   my.programs.ghostty.enable = true;
   # my.programConfig.zed.enable = true;

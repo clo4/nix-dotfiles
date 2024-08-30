@@ -34,7 +34,7 @@ in {
   # services.openssh.enable = true;
   nix.linux-builder = {
     enable = true;
-    ephemeral = true;
+    # ephemeral = true;
     package = pkgs.darwin.linux-builder-x86_64;
     systems = [
       "x86_64-linux"

@@ -27,19 +27,19 @@ in {
   # TODO: Should this be moved to the common config?
   services.nix-daemon.enable = true;
 
-  nix.linux-builder.enable = true;
+  nix.linux-builder = {
+    enable = true;
+    systems = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
+  };
 
   system.stateVersion = 4;
 
   system.defaults.CustomUserPreferences = {
     NSGlobalDomain = {
       NSWindowShouldDragOnGesture = true;
-
-      # NOTE: Disabling for now because RSI is making a pretty good case for
-      # non-linear inputs...
-      #
-      # This should really be in the settings app
-      # "com.apple.mouse.scaling" = "-1";
     };
     "com.superultra.homerow" = {
       label-characters = "arstneiowfpluy";

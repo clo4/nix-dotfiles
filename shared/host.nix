@@ -52,6 +52,8 @@
     mkshell.flake = inputs.mkshell;
   };
 
+  nix.channel.enable = false;
+
   nixpkgs.config = {
     allowUnfree = true;
   };

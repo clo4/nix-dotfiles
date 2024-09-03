@@ -26,24 +26,33 @@
     # This seems to cause issues:
     # https://github.com/NixOS/nix/issues/7273
     #auto-optimise-store = true;
-    substituters = [
+    trusted-substituters = [
       "https://helix.cachix.org"
+      "https://cache.nixos.org"
     ];
     trusted-public-keys = [
       "helix.cachix.org-1:ejp9KQpR1FBI2onstMQ34yogDm4OgU2ru6lIwPvuCVs="
     ];
+    trusted-users = [
+      "root"
+      "@admin"
+    ];
   };
 
   nix.registry = {
-    # Makes `nix run nixpkgs#...` run using the nixpkgs from this flake
-    nixpkgs.flake = inputs.nixpkgs;
+    # Makes `nix run nixpkgs#...` run using the latest unstable
+    nixpkgs.flake = inputs.nixpkgs-unstable;
 
     # inputs.self is a reference to this flake, which allows self-references.
     # In this case, adding this flake to the registry under the name `my`,
     # which is the name I use any time I'm customising stuff.
     # (at time of writing, this is only used for `nix flake init -t my#...`)
     my.flake = inputs.self;
+
+    mkshell.flake = inputs.mkshell;
   };
+
+  nix.channel.enable = false;
 
   nixpkgs.config = {
     allowUnfree = true;

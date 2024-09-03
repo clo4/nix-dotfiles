@@ -64,7 +64,6 @@
     "firefox"
     "grandperspective"
     "iina"
-    "little-snitch"
     "monitorcontrol"
     "obs"
     "obsidian"

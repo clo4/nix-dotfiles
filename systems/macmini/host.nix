@@ -1,4 +1,8 @@
-{pkgs, ...}: let
+{
+  pkgs,
+  inputs,
+  ...
+}: let
   language = _: t: t;
 in {
   imports = [
@@ -15,6 +19,8 @@ in {
     shell = pkgs.fish;
   };
 
+  # This isn't part of the fish module by default, this is a custom extension
+  # to it (see `modules/host/fish.nix`)
   programs.fish.fixPathOrder = true;
 
   # This needs to be reapplied after system updates
@@ -25,17 +31,25 @@ in {
   # TODO: Should this be moved to the common config?
   services.nix-daemon.enable = true;
 
+  # services.openssh.enable = true;
+  nix.linux-builder = {
+    enable = false;
+    maxJobs = 8;
+    package = pkgs.darwin.linux-builder-x86_64;
+  };
+
+  launchd.daemons.linux-builder = {
+    serviceConfig = {
+      StandardOutPath = "/var/log/darwin-builder.log";
+      StandardErrorPath = "/var/log/darwin-builder.log";
+    };
+  };
+
   system.stateVersion = 4;
 
   system.defaults.CustomUserPreferences = {
     NSGlobalDomain = {
       NSWindowShouldDragOnGesture = true;
-
-      # NOTE: Disabling for now because RSI is making a pretty good case for
-      # non-linear inputs...
-      #
-      # This should really be in the settings app
-      # "com.apple.mouse.scaling" = "-1";
     };
     "com.superultra.homerow" = {
       label-characters = "arstneiowfpluy";

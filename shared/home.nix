@@ -42,6 +42,7 @@
     asciinema
     parallel
     _1password
+    nix-output-monitor
 
     # ccase is used for case conversion
     inputs.ccase.packages.${pkgs.stdenv.system}.default

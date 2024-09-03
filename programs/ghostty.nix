@@ -33,10 +33,8 @@ in {
         cursor-style-blink = false;
         mouse-hide-while-typing = true;
 
-        quit-after-last-window-closed = true;
-
         # This is a little broken on macOS 15
-        # macos-titlebar-style = "tabs";
+        macos-titlebar-style = "tabs";
         macos-option-as-alt = true;
         window-theme = "auto";
         window-padding-color = "extend";
@@ -52,6 +50,8 @@ in {
         # solution to just double the padding when it's so small already.
         window-padding-x = 4;
         window-padding-y = 4;
+
+        window-save-state = "always";
 
         theme = "GruvboxDark";
 

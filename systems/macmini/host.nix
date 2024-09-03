@@ -33,7 +33,7 @@ in {
 
   # services.openssh.enable = true;
   nix.linux-builder = {
-    enable = true;
+    enable = false;
     maxJobs = 8;
     package = pkgs.darwin.linux-builder-x86_64;
   };

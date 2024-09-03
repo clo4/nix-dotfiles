@@ -136,6 +136,19 @@
             ghostty.homeModules.default
             ./systems/macbook-air/home.nix
           ];
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+        };
+        "robert@desktop1" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            ghostty.homeModules.default
+            ./systems/desktop1/home.nix
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+          };
         };
       };
 

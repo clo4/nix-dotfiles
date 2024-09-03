@@ -123,6 +123,19 @@
         };
       };
 
+      homeConfigurations = {
+        "robert@desktop1" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            ghostty.homeModules.default
+            ./systems/desktop1/home.nix
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+          };
+        };
+      };
+
       nixosConfigurations = {
         # My virtual machine that I run on my Mac
         robert-nixos-utm = nixpkgs.lib.nixosSystem {

@@ -45,11 +45,12 @@ in {
         window-height = 60;
         window-width = 170;
 
+        # NOTE: Disabled because I'm trying out the built-in window tiling
         # The default window padding is 2, which is mostly fine, but on my monitor
         # it's a little hard to see the characters right at the edge. It's a simple
         # solution to just double the padding when it's so small already.
-        window-padding-x = 4;
-        window-padding-y = 4;
+        # window-padding-x = 4;
+        # window-padding-y = 4;
 
         window-save-state = "always";
 

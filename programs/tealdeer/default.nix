@@ -22,14 +22,15 @@ in {
     # For some reason I couldn't get this to work right with an overlay, so
     # this may cause problems with conflicts in the future... we'll see.
     home.packages = [
-      (pkgs.tealdeer.overrideAttrs (o: {
-        pname = "tealdeer-patched";
-        patches =
-          (o.patches or [])
-          ++ [
-            ./no-max-cache-age.patch
-          ];
-      }))
+      # (pkgs.tealdeer.overrideAttrs (o: {
+      #   pname = "tealdeer-patched";
+      #   patches =
+      #     (o.patches or [])
+      #     ++ [
+      #       ./no-max-cache-age.patch
+      #     ];
+      # }))
+      pkgs.tealdeer
     ];
     home.file."${cachesDir}/tealdeer/tldr-pages".source = inputs.tldr-pages;
   };

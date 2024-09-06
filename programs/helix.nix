@@ -271,9 +271,6 @@ in {
           config = {};
         };
 
-        nil.command = "nil";
-        nixd.command = "nixd";
-
         rust-analyzer = {
           command = "rust-analyzer";
           config.check.command = "clippy";
@@ -288,7 +285,7 @@ in {
           language-servers = ["nil"];
           auto-format = true;
           formatter = {
-            command = "${pkgs.alejandra}/bin/alejandra";
+            command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
             args = ["-"];
           };
         }

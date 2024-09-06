@@ -1,9 +1,10 @@
-{inputs, ...}: {
+{ inputs, ... }:
+{
   imports = [
     inputs.nix-homebrew.darwinModules.nix-homebrew
   ];
 
-  environment.systemPath = ["/opt/homebrew/bin"];
+  environment.systemPath = [ "/opt/homebrew/bin" ];
 
   nix-homebrew = {
     enable = true;

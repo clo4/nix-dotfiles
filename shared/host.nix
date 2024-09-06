@@ -3,7 +3,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ../modules/host
   ];
@@ -22,7 +23,10 @@
   ];
 
   nix.settings = {
-    experimental-features = ["nix-command" "flakes"];
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     # This seems to cause issues:
     # https://github.com/NixOS/nix/issues/7273
     #auto-optimise-store = true;

@@ -4,15 +4,17 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.programConfig.zed;
-  jsonFormat = pkgs.formats.json {};
-in {
+  jsonFormat = pkgs.formats.json { };
+in
+{
   options = {
     programConfig.zed.enable = mkEnableOption "zed configuration";
     programConfig.zed.settings = mkOption {
       type = jsonFormat.type;
-      default = {};
+      default = { };
       example = literalExpression ''
         {
           features.copilot = false;
@@ -25,7 +27,7 @@ in {
     };
     programConfig.zed.keymap = mkOption {
       type = jsonFormat.type;
-      default = [];
+      default = [ ];
       example = literalExpression ''
         []
       '';
@@ -37,10 +39,8 @@ in {
 
   config = mkIf cfg.enable {
     xdg.configFile = {
-      "zed/settings.json".source =
-        jsonFormat.generate "zed-settings" cfg.settings;
-      "zed/keymap.json".source =
-        jsonFormat.generate "zed-keymap" cfg.keymap;
+      "zed/settings.json".source = jsonFormat.generate "zed-settings" cfg.settings;
+      "zed/keymap.json".source = jsonFormat.generate "zed-keymap" cfg.keymap;
     };
   };
 }

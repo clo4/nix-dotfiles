@@ -1,6 +1,8 @@
-{osConfig, ...}: let
+{ osConfig, ... }:
+let
   language = name: text: text;
-in {
+in
+{
   imports = [
     ../../shared/home.nix
   ];
@@ -16,8 +18,7 @@ in {
   # If the system should have Touch ID enabled for sudo, also enable the check
   # in my fish config. It runs every time a new shell starts, but this is a
   # pretty cheap check because the file it checks is small.
-  my.programs.fish.enableGreetingTouchIdCheck =
-    osConfig.security.pam.enableSudoTouchIdAuth;
+  my.programs.fish.enableGreetingTouchIdCheck = osConfig.security.pam.enableSudoTouchIdAuth;
 
   # This is under programs because it does technically install kitty, but that's
   # an implementation detail, I use the kitty installed with brew. I just didn't

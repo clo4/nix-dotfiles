@@ -1,6 +1,8 @@
-{...}: let
+{ ... }:
+let
   language = name: text: text;
-in {
+in
+{
   imports = [
     ../../shared/home.nix
   ];

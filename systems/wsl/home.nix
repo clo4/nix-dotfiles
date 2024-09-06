@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   imports = [
     ../../shared/home.nix
   ];

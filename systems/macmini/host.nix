@@ -2,16 +2,18 @@
   pkgs,
   inputs,
   ...
-}: let
+}:
+let
   language = _: t: t;
-in {
+in
+{
   imports = [
     ../../shared/host.nix
     ../../shared/brew.nix
   ];
 
   # This has to be set on macOS to make fish a usable shell
-  environment.shells = [pkgs.fish];
+  environment.shells = [ pkgs.fish ];
 
   users.users.robert = {
     description = "Robert";

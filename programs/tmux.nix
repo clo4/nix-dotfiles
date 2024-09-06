@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.my.programs.tmux;
-in {
+in
+{
   options.my.programs.tmux = {
     enable = mkEnableOption "my tmux configuration";
   };

@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.my.programs.kitty;
-in {
+in
+{
   options = {
     my.programs.kitty.enable = mkEnableOption "my kitty config";
   };
@@ -16,11 +18,12 @@ in {
       # Shell integration is enabled by default
       theme = "Gruvbox Dark";
       font.package = pkgs.nerdfonts.override {
-        fonts = ["JetBrainsMono"];
+        fonts = [ "JetBrainsMono" ];
       };
       font.name = "JetBrainsMono Nerd Font Mono";
-      keybindings = {
-      };
+      keybindings =
+        {
+        };
       settings = {
         macos_option_as_alt = true;
         macos_titlebar_color = "dark";

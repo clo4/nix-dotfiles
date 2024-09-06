@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.my.programs.ghostty;
-in {
+in
+{
   options = {
     my.programs.ghostty.enable = mkEnableOption "my Ghostty config";
   };
@@ -19,16 +21,18 @@ in {
         # If the terminal launches before the Nix store is mounted then the shell won't start.
         # macOS comes with a built-in tool for this called wait4path, and using it doesn't
         # introduce enough delay that I actually care.
-        command = let
-          shell = "$SHELL";
-        in
-          if pkgs.stdenv.isDarwin
-          then ''
-            /bin/bash --noprofile --norc -c "/bin/wait4path ${builtins.head (splitString " " shell)} && exec -l ${shell}"
-          ''
-          else shell;
+        command =
+          let
+            shell = "$SHELL";
+          in
+          if pkgs.stdenv.isDarwin then
+            ''
+              /bin/bash --noprofile --norc -c "/bin/wait4path ${builtins.head (splitString " " shell)} && exec -l ${shell}"
+            ''
+          else
+            shell;
 
-        unfocused-split-opacity = 0.80;
+        unfocused-split-opacity = 0.8;
         # unfocused-split-fill = "#000000";
         cursor-style-blink = false;
         mouse-hide-while-typing = true;

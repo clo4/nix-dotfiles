@@ -4,16 +4,21 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.my.programConfig.zed;
   formatWithPrettier = {
     format_on_save = "on";
     formatter.external = {
       command = pkgs.nodePackages_latest.prettier;
-      arguments = ["--stdin-filepath" "{buffer_path}"];
+      arguments = [
+        "--stdin-filepath"
+        "{buffer_path}"
+      ];
     };
   };
-in {
+in
+{
   imports = [
     ../modules/home/zed.nix
   ];

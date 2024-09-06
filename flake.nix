@@ -82,36 +82,38 @@
     };
   };
 
-  outputs = inputs @ {
-    nixpkgs,
-    nixos-wsl,
-    home-manager,
-    darwin,
-    flake-utils,
-    ghostty,
-    nix-homebrew,
-    homebrew-core,
-    homebrew-cask,
-    homebrew-bundle,
-    ...
-  }: let
-    # This defines the home-manager config module for a user called robert.
-    # My config structure assumes that this is the only user I'll want to set
-    # up, but I'll have to rethink this one day.
-    home-manager-robert = path: {
-      home-manager = {
-        useUserPackages = true;
-        useGlobalPkgs = true;
-        users.robert = path;
-        sharedModules = [
-          ghostty.homeModules.default
-        ];
-        extraSpecialArgs = {
-          inherit inputs;
+  outputs =
+    inputs@{
+      nixpkgs,
+      nixos-wsl,
+      home-manager,
+      darwin,
+      flake-utils,
+      ghostty,
+      nix-homebrew,
+      homebrew-core,
+      homebrew-cask,
+      homebrew-bundle,
+      ...
+    }:
+    let
+      # This defines the home-manager config module for a user called robert.
+      # My config structure assumes that this is the only user I'll want to set
+      # up, but I'll have to rethink this one day.
+      home-manager-robert = path: {
+        home-manager = {
+          useUserPackages = true;
+          useGlobalPkgs = true;
+          users.robert = path;
+          sharedModules = [
+            ghostty.homeModules.default
+          ];
+          extraSpecialArgs = {
+            inherit inputs;
+          };
         };
       };
-    };
-  in
+    in
     {
       darwinConfigurations = {
         # Using nix-darwin, configuring the Mac mini itself
@@ -131,7 +133,9 @@
       homeConfigurations = {
         "robert@macbook-air" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-darwin;
-          extraSpecialArgs = {inherit inputs;};
+          extraSpecialArgs = {
+            inherit inputs;
+          };
           modules = [
             ghostty.homeModules.default
             ./systems/macbook-air/home.nix
@@ -185,15 +189,19 @@
         };
       };
     }
-    // flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in {
-      formatter = pkgs.alejandra;
-      devShell = pkgs.mkShell {
-        packages = with pkgs; [
-          nil
-          alejandra
-        ];
-      };
-    });
+    // flake-utils.lib.eachDefaultSystem (
+      system:
+      let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
+      {
+        formatter = pkgs.nixfmt-rfc-style;
+        devShell = pkgs.mkShell {
+          packages = with pkgs; [
+            nil
+            alejandra
+          ];
+        };
+      }
+    );
 }

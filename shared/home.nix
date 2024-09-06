@@ -3,7 +3,8 @@
   pkgs,
   lib,
   ...
-}: {
+}:
+{
   imports = [
     ../programs
     ../modules/home
@@ -37,6 +38,8 @@
     croc
     wget
 
+    nodejs
+
     # Other stuff
     git-open
     asciinema
@@ -66,7 +69,7 @@
     broot = {
       enable = true;
       settings = {
-        imports = ["skins/dark-gruvbox.hjson"];
+        imports = [ "skins/dark-gruvbox.hjson" ];
         # NOTE: In Ghostty, this breaks shift. Not sure why and haven't looked into it.
         # enable_kitty_keyboard = lib.mkForce true;
       };

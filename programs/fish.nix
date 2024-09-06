@@ -5,7 +5,8 @@
   inputs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.my.programs.fish;
   # This is a no-op function that is only used by Helix to highlight an indented
   # string in the correct language. The highlight query is defined in the
@@ -15,13 +16,14 @@ with lib; let
     wraps = name;
     body = "${name} $argv";
   };
-in {
+in
+{
   options.my.programs.fish = {
     enable = mkEnableOption "my fish configuration";
 
-    enableInteractiveCommandNotFound =
-      mkEnableOption "my command not found handler using comma"
-      // {default = false;}; # This is broken but `use` basically removes the need for it
+    enableInteractiveCommandNotFound = mkEnableOption "my command not found handler using comma" // {
+      default = false;
+    }; # This is broken but `use` basically removes the need for it
 
     enableWslFunctions = mkEnableOption "my fish wsl alias functions";
 
@@ -32,7 +34,7 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.enableInteractiveCommandNotFound {
-      home.packages = [pkgs.gum];
+      home.packages = [ pkgs.gum ];
 
       programs.nix-index.enable = true;
       programs.nix-index.enableFishIntegration = false;
@@ -84,7 +86,7 @@ in {
     })
 
     (mkIf cfg.enableGreetingTouchIdCheck {
-      home.packages = [pkgs.gum];
+      home.packages = [ pkgs.gum ];
 
       programs.fish.functions.fish_greeting = language "fish" ''
         if not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo
@@ -113,7 +115,7 @@ in {
       # This is used by so many functions that it's basically essential.
       # I could reference it in each function, but annoyingly that breaks
       # the syntax highlighting that I'm brutally forcing Helix to do.
-      home.packages = [pkgs.gum];
+      home.packages = [ pkgs.gum ];
 
       programs.fish = {
         enable = true;
@@ -232,7 +234,15 @@ in {
           # print anything if the job has stopped. The original implementation can
           # be found here:
           # https://github.com/fish-shell/fish-shell/blob/8d20bbf/share/functions/fish_job_summary.fish
-          fish_job_summary.argumentNames = ["job_id" "is_foreground" "cmd_line" "signal_or_end_name" "signal_desc" "proc_pid" "proc_name"];
+          fish_job_summary.argumentNames = [
+            "job_id"
+            "is_foreground"
+            "cmd_line"
+            "signal_or_end_name"
+            "signal_desc"
+            "proc_pid"
+            "proc_name"
+          ];
           fish_job_summary.body = language "fish" ''
             if test "$signal_or_end_name" = SIGINT; and test $is_foreground -eq 1
                 return
@@ -684,32 +694,35 @@ in {
           '';
 
           # once again, if I cared about this being fast, I'd just use Rust
-          permutations = let
-            # pkgs has a trivial builder I can use for this if I need it again
-            pythonFunction = string: ''
-              ${pkgs.python3}/bin/python -c '
-              ${string}
-              ' $argv
-            '';
-          in
-            pythonFunction (language "python" ''
-              import sys
+          permutations =
+            let
+              # pkgs has a trivial builder I can use for this if I need it again
+              pythonFunction = string: ''
+                ${pkgs.python3}/bin/python -c '
+                ${string}
+                ' $argv
+              '';
+            in
+            pythonFunction (
+              language "python" ''
+                import sys
 
-              if len(sys.argv) < 2:
-                sys.exit(1)
+                if len(sys.argv) < 2:
+                  sys.exit(1)
 
-              from functools import reduce
-              from itertools import permutations
-              from operator import add
+                from functools import reduce
+                from itertools import permutations
+                from operator import add
 
-              if len(sys.argv) > 2:
-                items = sys.argv[1:]
-              else:
-                items = sys.argv[1]
+                if len(sys.argv) > 2:
+                  items = sys.argv[1:]
+                else:
+                  items = sys.argv[1]
 
-              for a in permutations(items):
-                print(reduce(add, a))
-            '');
+                for a in permutations(items):
+                  print(reduce(add, a))
+              ''
+            );
         };
       };
     }

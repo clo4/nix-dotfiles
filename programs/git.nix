@@ -4,9 +4,11 @@
   lib,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.my.programs.git;
-in {
+in
+{
   options.my.programs.git = {
     enable = mkEnableOption "my git configuration";
   };

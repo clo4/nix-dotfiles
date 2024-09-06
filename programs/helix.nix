@@ -5,22 +5,25 @@
   inputs,
   ...
 }:
-with lib; let
+with lib;
+let
   cfg = config.my.programs.helix;
   language = name: text: text;
   myTheme = "gruvbox_clo4";
-in {
+in
+{
   options = {
     my.programs.helix.enable = mkEnableOption "my helix configuration";
   };
 
   config = mkIf cfg.enable {
     # Might have to refactor this into a module or upstream it if I add more queries!
-    xdg.configFile."helix/runtime/queries/nix/injections.scm".text = let
-      # Helix will override whatever the builtin injection query is with your own
-      # if you don't copy it and append your query to it.
-      originalNixInjections = builtins.readFile (inputs.helix + "/runtime/queries/nix/injections.scm");
-    in
+    xdg.configFile."helix/runtime/queries/nix/injections.scm".text =
+      let
+        # Helix will override whatever the builtin injection query is with your own
+        # if you don't copy it and append your query to it.
+        originalNixInjections = builtins.readFile (inputs.helix + "/runtime/queries/nix/injections.scm");
+      in
       language "scheme" ''
         ; This is a simple query that allows you to define a function called "language" and
         ; highlight as whatever its first argument is. `language = name: str: str;`
@@ -103,19 +106,35 @@ in {
           # Mode switching always happens at the end of the list of commands, so
           # the order that these are in doesn't matter because collapsing the selection
           # will always happen first.
-          a = ["append_mode" "collapse_selection"];
-          i = ["insert_mode" "collapse_selection"];
+          a = [
+            "append_mode"
+            "collapse_selection"
+          ];
+          i = [
+            "insert_mode"
+            "collapse_selection"
+          ];
 
           # Mnemonic: control hints
           C-h = ":toggle-option lsp.display-inlay-hints";
 
           # By default, Helix tries to leave the cursor where it was when scrolling
-          C-d = ["half_page_down" "goto_window_center"];
-          C-u = ["half_page_up" "goto_window_center"];
+          C-d = [
+            "half_page_down"
+            "goto_window_center"
+          ];
+          C-u = [
+            "half_page_up"
+            "goto_window_center"
+          ];
 
           # Searching for a selection probably shouldn't have whitespace included.
           # Makes sense to keep the default keybind in select mode though?
-          "*" = ["trim_selections" "search_selection" "select_mode"];
+          "*" = [
+            "trim_selections"
+            "search_selection"
+            "select_mode"
+          ];
         };
 
         keys.normal.C-q = ":quit-all";
@@ -146,25 +165,73 @@ in {
         # lots of repetition. if only there was a configuration language with functions that
         # compiled to the desired end format. oh well
         keys.normal."`" = {
-          c = ["trim_selections" ":pipe ccase --to camel"];
-          C = ["trim_selections" ":pipe ccase --to uppercamel"];
-          s = ["trim_selections" ":pipe ccase --to snake"];
-          S = ["trim_selections" ":pipe ccase --to screamingsnake"];
-          k = ["trim_selections" ":pipe ccase --to kebab"];
-          K = ["trim_selections" ":pipe ccase --to upperkebab"];
-          t = ["trim_selections" ":pipe ccase --to title"];
-          r = ["trim_selections" ":pipe ccase --to pseudorandom"];
+          c = [
+            "trim_selections"
+            ":pipe ccase --to camel"
+          ];
+          C = [
+            "trim_selections"
+            ":pipe ccase --to uppercamel"
+          ];
+          s = [
+            "trim_selections"
+            ":pipe ccase --to snake"
+          ];
+          S = [
+            "trim_selections"
+            ":pipe ccase --to screamingsnake"
+          ];
+          k = [
+            "trim_selections"
+            ":pipe ccase --to kebab"
+          ];
+          K = [
+            "trim_selections"
+            ":pipe ccase --to upperkebab"
+          ];
+          t = [
+            "trim_selections"
+            ":pipe ccase --to title"
+          ];
+          r = [
+            "trim_selections"
+            ":pipe ccase --to pseudorandom"
+          ];
         };
 
         keys.select."`" = {
-          c = ["trim_selections" ":pipe ccase --to camel"];
-          C = ["trim_selections" ":pipe ccase --to uppercamel"];
-          s = ["trim_selections" ":pipe ccase --to snake"];
-          S = ["trim_selections" ":pipe ccase --to screamingsnake"];
-          k = ["trim_selections" ":pipe ccase --to kebab"];
-          K = ["trim_selections" ":pipe ccase --to upperkebab"];
-          t = ["trim_selections" ":pipe ccase --to title"];
-          r = ["trim_selections" ":pipe ccase --to pseudorandom"];
+          c = [
+            "trim_selections"
+            ":pipe ccase --to camel"
+          ];
+          C = [
+            "trim_selections"
+            ":pipe ccase --to uppercamel"
+          ];
+          s = [
+            "trim_selections"
+            ":pipe ccase --to snake"
+          ];
+          S = [
+            "trim_selections"
+            ":pipe ccase --to screamingsnake"
+          ];
+          k = [
+            "trim_selections"
+            ":pipe ccase --to kebab"
+          ];
+          K = [
+            "trim_selections"
+            ":pipe ccase --to upperkebab"
+          ];
+          t = [
+            "trim_selections"
+            ":pipe ccase --to title"
+          ];
+          r = [
+            "trim_selections"
+            ":pipe ccase --to pseudorandom"
+          ];
         };
 
         # These are unbound by default, probably because there's not really a good reason
@@ -184,49 +251,75 @@ in {
           down = "move_line_down";
         };
 
-        keys.normal.Z = let
-          repeat = count: thing:
-            if count < 2
-            then [thing]
-            else [thing] ++ repeat (count - 1) thing;
-        in {
-          C-d = ["half_page_down" "goto_window_center"];
-          C-u = ["half_page_up" "goto_window_center"];
+        keys.normal.Z =
+          let
+            repeat = count: thing: if count < 2 then [ thing ] else [ thing ] ++ repeat (count - 1) thing;
+          in
+          {
+            C-d = [
+              "half_page_down"
+              "goto_window_center"
+            ];
+            C-u = [
+              "half_page_up"
+              "goto_window_center"
+            ];
 
-          d = "scroll_down";
-          u = "scroll_up";
-          e = "scroll_down";
-          y = "scroll_up";
+            d = "scroll_down";
+            u = "scroll_up";
+            e = "scroll_down";
+            y = "scroll_up";
 
-          # upper case should move more than one line but less than a half page
-          J = repeat 5 "scroll_down";
-          K = repeat 5 "scroll_up";
-          D = repeat 5 "scroll_down";
-          U = repeat 5 "scroll_up";
-          E = repeat 5 "scroll_down";
-          Y = repeat 5 "scroll_up";
-        };
+            # upper case should move more than one line but less than a half page
+            J = repeat 5 "scroll_down";
+            K = repeat 5 "scroll_up";
+            D = repeat 5 "scroll_down";
+            U = repeat 5 "scroll_up";
+            E = repeat 5 "scroll_down";
+            Y = repeat 5 "scroll_up";
+          };
 
         keys.normal.space.w = {
-          V = ["vsplit_new" "file_picker"];
-          S = ["hsplit_new" "file_picker"];
+          V = [
+            "vsplit_new"
+            "file_picker"
+          ];
+          S = [
+            "hsplit_new"
+            "file_picker"
+          ];
         };
 
         keys.select = {
           # Mode switching always happens at the end of the list of commands, so
           # the order that these are in doesn't matter because collapsing the selection
           # will always happen first.
-          a = ["append_mode" "collapse_selection"];
-          i = ["insert_mode" "collapse_selection"];
+          a = [
+            "append_mode"
+            "collapse_selection"
+          ];
+          i = [
+            "insert_mode"
+            "collapse_selection"
+          ];
 
           C-h = ":toggle-option lsp.display-inlay-hints";
 
-          C-d = ["half_page_down" "goto_window_center"];
-          C-u = ["half_page_up" "goto_window_center"];
+          C-d = [
+            "half_page_down"
+            "goto_window_center"
+          ];
+          C-u = [
+            "half_page_up"
+            "goto_window_center"
+          ];
 
           # When I collapse a selection in select mode, the next thing I do
           # is *always* enter normal mode.
-          ";" = ["collapse_selection" "normal_mode"];
+          ";" = [
+            "collapse_selection"
+            "normal_mode"
+          ];
         };
 
         keys.insert = {
@@ -245,7 +338,7 @@ in {
         "ui.virtual.jump-label" = {
           fg = "purple0";
           bg = "bg-1";
-          modifiers = ["bold"];
+          modifiers = [ "bold" ];
         };
 
         palette.bg-1 = "#141414";
@@ -254,7 +347,7 @@ in {
       languages.language-server = {
         deno = {
           command = "deno";
-          args = ["lsp"];
+          args = [ "lsp" ];
           config = {
             enable = true;
             unstable = true;
@@ -267,8 +360,8 @@ in {
         tailwindcss = {
           command = "tailwindcss-language-server";
           language-id = "tailwindcss";
-          args = ["--stdio"];
-          config = {};
+          args = [ "--stdio" ];
+          config = { };
         };
 
         rust-analyzer = {
@@ -282,11 +375,11 @@ in {
       languages.language = [
         {
           name = "nix";
-          language-servers = ["nil"];
+          language-servers = [ "nil" ];
           auto-format = true;
           formatter = {
             command = "${pkgs.nixfmt-rfc-style}/bin/nixfmt";
-            args = ["-"];
+            args = [ "-" ];
           };
         }
         {
@@ -296,16 +389,20 @@ in {
         }
         {
           name = "markdown";
-          language-servers = ["ltex-ls"];
+          language-servers = [ "ltex-ls" ];
           auto-format = false;
           formatter = {
             command = "deno";
-            args = ["--ext" "md" "-"];
+            args = [
+              "--ext"
+              "md"
+              "-"
+            ];
           };
         }
         {
           name = "git-commit";
-          language-servers = ["ltex-ls"];
+          language-servers = [ "ltex-ls" ];
         }
       ];
     };

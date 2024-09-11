@@ -16,7 +16,7 @@ in
   config = mkIf cfg.enable {
     programs.git = {
       enable = true;
-      package = pkgs.gitFull;
+      # package = pkgs.gitFull;
       userName = "clo4";
       userEmail = "git@clo4.net";
       ignores = [

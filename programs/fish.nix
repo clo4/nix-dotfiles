@@ -419,12 +419,12 @@ in
               if string match -iq "*air" (hostname)
                 # This isn't the exact name of the host, because I don't own the
                 # laptop.
-                announce home-manager switch --flake .#robert@macbook-air
+                announce home-manager switch --flake .#robert@macbook-air &| nom
               else
-                announce darwin-rebuild switch --flake .#
+                announce darwin-rebuild switch --flake .# &| nom
               end
             else
-              announce sudo nixos-rebuild switch --flake .#
+              announce sudo nixos-rebuild switch --flake .# &| nom
             end
           '';
 
@@ -434,12 +434,12 @@ in
               if string match -iq "*air" (hostname)
                 # This isn't the exact name of the host, because I don't own the
                 # laptop.
-                announce home-manager build --flake .#robert@macbook-air
+                announce home-manager build --flake .#robert@macbook-air &| nom
               else
-                announce darwin-rebuild build --flake .#
+                announce darwin-rebuild build --flake .# &| nom
               end
             else
-              announce sudo nixos-rebuild build --flake .#
+              announce sudo nixos-rebuild build --flake .# &| nom
             end
           '';
 

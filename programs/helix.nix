@@ -355,6 +355,11 @@ in
           };
         };
 
+        vtsls = {
+          command = "vtsls";
+          args = [ "--stdio" ];
+        };
+
         svelteserver.command = "svelteserver";
 
         tailwindcss = {
@@ -373,6 +378,10 @@ in
       };
 
       languages.language = [
+        {
+          name = "typescript";
+          language-servers = [ "vtsls" ];
+        }
         {
           name = "nix";
           language-servers = [ "nil" ];

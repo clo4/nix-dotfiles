@@ -44,8 +44,8 @@
   };
 
   nix.registry = {
-    # Makes `nix run nixpkgs#...` run using the latest unstable
-    nixpkgs.flake = inputs.nixpkgs-unstable;
+    # Latest nix-darwin breaks this and I can't be bothered to fix it right now
+    # nixpkgs.flake = lib.mkForce inputs.nixpkgs-unstable;
 
     # inputs.self is a reference to this flake, which allows self-references.
     # In this case, adding this flake to the registry under the name `my`,

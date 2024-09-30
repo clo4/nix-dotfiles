@@ -37,19 +37,52 @@ in
         ${originalNixInjections}
       '';
 
+    xdg.configFile."helix/runtime/queries/go/injections.scm".text =
+      let
+        originalGoInjections = builtins.readFile (inputs.helix + "/runtime/queries/go/injections.scm");
+      in
+      language "scheme" ''
+        ; Inject SQL as the first argument to the standard library's SQL methods
+        ; Query | QueryRow | Exec
+        ((call_expression
+          function: (selector_expression
+            operand: (_)
+            field: (field_identifier) @_querier (#match? @_querier "^Query(Row)?|Exec$"))
+          arguments: (argument_list
+            [(interpreted_string_literal) (raw_string_literal)] @injection.content))
+          (#set! injection.language "sql"))
+
+        ; Inject SQL as the second argument to all the different SQL query methods
+        ; ( Query | QueryRow | QueryContext | QueryRowContext | Exec | ExecContext )
+        ; This supports the style that PGX uses where there is implicitly a context
+        ; argument for each function.
+        ((call_expression
+          function: (selector_expression
+            operand: (_)
+            field: (field_identifier) @_querier (#match? @_querier "^(Query(Row)?|Exec)(Context)?$"))
+          arguments: (argument_list
+            (_)
+            [(interpreted_string_literal) (raw_string_literal)] @injection.content))
+          (#set! injection.language "sql"))
+
+        ${originalGoInjections}
+      '';
+
     programs.helix = {
       enable = true;
       defaultEditor = true;
-      # nu syntax has been updated a fair bit since the last update to the default language file
-      package = inputs.helix.packages.${pkgs.stdenv.system}.default.override {
-        grammarOverlays = [
-          (final: prev: {
-            nu = prev.nu.overrideAttrs {
-              rev = "2d0dd587dbfc3363d2af4e4141833e718647a67e";
-            };
-          })
-        ];
-      };
+      package = inputs.helix.packages.${pkgs.stdenv.system}.default;
+
+      # # nu syntax has been updated a fair bit since the last update to the default language file
+      # package = inputs.helix.packages.${pkgs.stdenv.system}.default.override {
+      #   grammarOverlays = [
+      #     (final: prev: {
+      #       nu = prev.nu.overrideAttrs {
+      #         rev = "2d0dd587dbfc3363d2af4e4141833e718647a67e";
+      #       };
+      #     })
+      #   ];
+      # };
 
       settings = {
         theme = "gruvbox";
@@ -96,6 +129,11 @@ in
         editor.lsp = {
           display-messages = true;
           display-inlay-hints = true;
+        };
+
+        editor.inline-diagnostics = {
+          cursor-line = "hint";
+          other-lines = "hint";
         };
 
         keys.normal = {
@@ -378,6 +416,13 @@ in
       };
 
       languages.language = [
+        {
+          name = "go";
+          auto-format = true;
+          formatter = {
+            command = "goimports";
+          };
+        }
         {
           name = "typescript";
           language-servers = [ "vtsls" ];

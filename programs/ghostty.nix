@@ -37,9 +37,11 @@ in
         cursor-style-blink = false;
         mouse-hide-while-typing = true;
 
-        # This is a little broken on macOS 15
-        macos-titlebar-style = "tabs";
+        # macos-titlebar-style = "hidden";
+        # title = "👻";
+        # shell-integration-features = [ "no-title" ];
         macos-option-as-alt = true;
+
         window-theme = "auto";
         window-padding-color = "extend";
 

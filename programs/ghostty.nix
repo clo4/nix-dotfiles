@@ -35,7 +35,12 @@ in
         unfocused-split-opacity = 0.8;
         # unfocused-split-fill = "#000000";
         cursor-style-blink = false;
-        mouse-hide-while-typing = true;
+
+        # this is causing me a lot of problems at the moment
+        mouse-hide-while-typing = false;
+
+        # 100MB
+        scrollback-limit = 100000000;
 
         # macos-titlebar-style = "hidden";
         # title = "👻";
@@ -80,6 +85,8 @@ in
 
         "page_up" = "scroll_page_fractional:-0.5";
         "page_down" = "scroll_page_fractional:0.5";
+
+        "super+control+alt+shift+grave_accent" = "toggle_quick_terminal";
       };
     };
   };

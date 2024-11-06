@@ -14,7 +14,7 @@
   system.configurationRevision = inputs.self.rev or inputs.self.dirtyRev or null;
 
   environment.systemPackages = with pkgs; [
-    mosh
+    # mosh
   ];
 
   nix.nixPath = lib.mkForce [

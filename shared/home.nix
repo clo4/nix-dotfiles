@@ -118,5 +118,7 @@
       enable = true;
       config.theme = "gruvbox-dark";
     };
+
+    lazygit.enable = true;
   };
 }

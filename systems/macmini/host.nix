@@ -23,7 +23,7 @@ in
 
   # This isn't part of the fish module by default, this is a custom extension
   # to it (see `modules/host/fish.nix`)
-  programs.fish.fixPathOrder = true;
+  # programs.fish.fixPathOrder = true;
 
   # This needs to be reapplied after system updates
   security.pam.enableSudoTouchIdAuth = true;

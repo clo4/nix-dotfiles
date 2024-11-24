@@ -29,13 +29,13 @@ in
   my.programs.ghostty.enable = true;
   # my.programConfig.zed.enable = true;
 
-  # Might move this to the fish module one day but for now it's specific to
-  # this system. If there's another Mac or a NixOS system to care about, that
-  # would be a good time to refactor into something that can be shared.
-  programs.fish.interactiveShellInit = language "fish" ''
-    # 1Password SSH agent should only be used if not in an SSH session
-    if not set -q SSH_TTY
-      set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
-    end
-  '';
+  # # Might move this to the fish module one day but for now it's specific to
+  # # this system. If there's another Mac or a NixOS system to care about, that
+  # # would be a good time to refactor into something that can be shared.
+  # programs.fish.interactiveShellInit = language "fish" ''
+  #   # 1Password SSH agent should only be used if not in an SSH session
+  #   if not set -q SSH_TTY
+  #     set -gx SSH_AUTH_SOCK ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+  #   end
+  # '';
 }

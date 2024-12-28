@@ -7,7 +7,6 @@
 {
   imports = [
     ../programs
-    ../modules/home
   ];
 
   # The homeDirectory is configured by each host's configuration because it's

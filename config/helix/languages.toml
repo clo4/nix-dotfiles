@@ -1,0 +1,72 @@
+[[language]]
+auto-format = true
+name = "go"
+
+[language.formatter]
+command = "goimports"
+
+[[language]]
+language-servers = ["vtsls"]
+name = "typescript"
+
+[[language]]
+auto-format = true
+language-servers = ["nil"]
+name = "nix"
+
+[language.formatter]
+args = ["-"]
+command = "/nix/store/5pkwg6nxlv8s3ccaj5avsmqa2ibj7rmx-nixfmt-unstable-2024-12-04/bin/nixfmt"
+
+[[language]]
+auto-format = true
+name = "fish"
+
+[language.formatter]
+command = "/nix/store/0r9d9fxp15qg8vi00zhnc3hz5y2flych-fish-3.7.1/bin/fish_indent"
+
+[[language]]
+auto-format = false
+language-servers = ["ltex-ls"]
+name = "markdown"
+
+[language.formatter]
+args = ["--ext", "md", "-"]
+command = "deno"
+
+[[language]]
+language-servers = ["ltex-ls"]
+name = "git-commit"
+
+[language-server.deno]
+args = ["lsp"]
+command = "deno"
+
+[language-server.deno.config]
+enable = true
+lint = true
+unstable = true
+
+[language-server.ltex-ls]
+command = "ltex-ls"
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+[language-server.svelteserver]
+command = "svelteserver"
+
+[language-server.tailwindcss]
+args = ["--stdio"]
+command = "tailwindcss-language-server"
+language-id = "tailwindcss"
+
+[language-server.tailwindcss.config]
+
+[language-server.vtsls]
+args = ["--stdio"]
+command = "vtsls"
+

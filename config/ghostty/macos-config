@@ -10,4 +10,4 @@ keybind = super+control+up=resize_split:up,40
 keybind = super+control+down=resize_split:down,40
 keybind = page_up=scroll_page_fractional:-0.5
 keybind = page_down=scroll_page_fractional:0.5
-keybind = global:super+control+alt+shift+grave_accent=toggle_quick_terminal
+keybind = global:super+alt+grave_accent=toggle_quick_terminal

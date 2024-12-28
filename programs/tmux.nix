@@ -14,16 +14,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.tmux = {
-      enable = true;
-      escapeTime = 50;
-      historyLimit = 10000;
-      mouse = true;
-      terminal = "tmux-256color";
-      baseIndex = 1;
-      extraConfig = ''
-        set-option -sa terminal-overrides ",tmux-256color:RGB"
-      '';
-    };
+    home.packages = [ pkgs.tmux ];
+    home.file.".config/tmux".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Developer/nix-dotfiles/config/tmux";
   };
 }

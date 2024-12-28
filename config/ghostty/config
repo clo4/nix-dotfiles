@@ -1,0 +1,8 @@
+scrollback-limit = 100000000
+window-padding-color = extend
+font-family = RobotoMono Nerd Font
+font-size = 12
+window-height = 60
+window-width = 170
+theme = GruvboxDark
+config-file = ?macos-config

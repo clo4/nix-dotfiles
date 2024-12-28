@@ -1,0 +1,13 @@
+command = /bin/bash --noprofile --norc -c "/bin/wait4path $SHELL && exec -l $SHELL"
+
+keybind = super+left=goto_split:left
+keybind = super+right=goto_split:right
+keybind = super+up=goto_split:top
+keybind = super+down=goto_split:bottom
+keybind = super+control+left=resize_split:left,40
+keybind = super+control+right=resize_split:right,40
+keybind = super+control+up=resize_split:up,40
+keybind = super+control+down=resize_split:down,40
+keybind = page_up=scroll_page_fractional:-0.5
+keybind = page_down=scroll_page_fractional:0.5
+keybind = global:super+control+alt+shift+grave_accent=toggle_quick_terminal

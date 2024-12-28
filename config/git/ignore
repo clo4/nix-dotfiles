@@ -1,0 +1,7 @@
+*~
+*.swp
+result
+.DS_Store
+/.helix
+.flake
+.pkgs

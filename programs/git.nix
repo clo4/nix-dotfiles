@@ -14,25 +14,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    programs.git = {
-      enable = true;
-      # package = pkgs.gitFull;
-      userName = "clo4";
-      userEmail = "git@clo4.net";
-      ignores = [
-        "*~"
-        "*.swp"
-        "result"
-        ".DS_Store"
-        "/.helix"
-        ".flake"
-        ".pkgs"
-      ];
-      extraConfig = {
-        init.defaultBranch = "main";
-        push.autoSetupRemote = true;
-      };
-      delta.enable = true;
-    };
+    home.file.".config/git".source =
+      config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/Developer/nix-dotfiles/config/git";
+    home.packages = [ pkgs.git ];
   };
 }

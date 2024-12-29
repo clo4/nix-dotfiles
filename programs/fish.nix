@@ -128,6 +128,13 @@ in
         ];
 
         interactiveShellInit = language "fish" ''
+          # This is required because I have a custom "command" for Ghostty, which
+          # makes it unable to detect my shell.
+          if set -q GHOSTTY_RESOURCES_DIR
+            source "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_conf.d/ghostty-shell-integration.fish"
+            set --prepend fish_complete_path "$GHOSTTY_RESOURCES_DIR/shell-integration/fish/vendor_completions.d"
+          end
+
           # This isn't set by default
           set -g fish_color_option blue
 
@@ -198,6 +205,7 @@ in
           abbr -a grv "gh pr view"
           abbr -a grc "gh pr checkout"
           abbr -a gb  "gh browse"
+          abbr -a g   "lazygit"
 
           abbr -a cd     "to" # I want to use my custom `cd` wrapper instead
           abbr -a "-"    "cd -"

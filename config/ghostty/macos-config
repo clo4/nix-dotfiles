@@ -1,13 +1,23 @@
-command = /bin/bash --noprofile --norc -c "/bin/wait4path $SHELL && exec -l $SHELL"
+command = /bin/sh -c "/bin/wait4path /nix/store && exec -l $SHELL"
+
+keybind = global:super+alt+grave_accent=toggle_quick_terminal
 
 keybind = super+left=goto_split:left
 keybind = super+right=goto_split:right
 keybind = super+up=goto_split:top
 keybind = super+down=goto_split:bottom
+
 keybind = super+control+left=resize_split:left,40
 keybind = super+control+right=resize_split:right,40
 keybind = super+control+up=resize_split:up,40
 keybind = super+control+down=resize_split:down,40
+
 keybind = page_up=scroll_page_fractional:-0.5
 keybind = page_down=scroll_page_fractional:0.5
-keybind = global:super+alt+grave_accent=toggle_quick_terminal
+
+keybind = cmd+left=csi:H
+keybind = cmd+right=csi:F
+keybind = opt+left=unbind
+keybind = opt+right=unbind
+keybind = cmd+backspace=text:\x15
+keybind = opt+backspace=text:\x17

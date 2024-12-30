@@ -14,10 +14,3 @@ keybind = super+control+down=resize_split:down,40
 
 keybind = page_up=scroll_page_fractional:-0.5
 keybind = page_down=scroll_page_fractional:0.5
-
-keybind = cmd+left=csi:H
-keybind = cmd+right=csi:F
-keybind = opt+left=unbind
-keybind = opt+right=unbind
-keybind = cmd+backspace=text:\x15
-keybind = opt+backspace=text:\x17

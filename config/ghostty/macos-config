@@ -1,16 +1,53 @@
-command = /bin/sh -c "/bin/wait4path /nix/store && exec -l $SHELL"
+command = /bin/sh -c "/bin/wait4path /nix/store && exec -l /bin/zsh"
 
-keybind = global:super+alt+grave_accent=toggle_quick_terminal
+macos-option-as-alt = true
 
-keybind = super+left=goto_split:left
-keybind = super+right=goto_split:right
-keybind = super+up=goto_split:top
-keybind = super+down=goto_split:bottom
+keybind = clear
 
-keybind = super+control+left=resize_split:left,40
-keybind = super+control+right=resize_split:right,40
-keybind = super+control+up=resize_split:up,40
-keybind = super+control+down=resize_split:down,40
+# All keybinds are "command-first" - if it's possible to bind just using
+# command, that should be the preference. Nothing in the terminal will use
+# command, so it's safe, and simpler is easier to remember + use.
 
+keybind = command+shift+comma=reload_config
+
+# Splits are controlled by D.
+# preference for vertical, shift becomes horizontal.
+# ---
+keybind = command+d=new_split:right
+keybind = command+shift+d=new_split:down
+
+# Moving between splits is an arrow key.
+# Enter will "fullscreen" a split, for full focus.
+# ---
+keybind = command+enter=toggle_split_zoom
+keybind = command+left=goto_split:left
+keybind = command+right=goto_split:right
+keybind = command+up=goto_split:top
+keybind = command+down=goto_split:bottom
+
+# Resizing is the same as moving, but you add shift.
+# ---
+keybind = command+shift+left=resize_split:left,40
+keybind = command+shift+right=resize_split:right,40
+keybind = command+shift+up=resize_split:up,40
+keybind = command+shift+down=resize_split:down,40
+keybind = command+equal=equalize_splits
+
+# macOS controls.
+# Some things are implemented by the GUI toolkit, e.g. control+tab
+# ---
+keybind = command+t=new_tab
+keybind = command+w=close_surface
+keybind = command+shift+w=close_window
+keybind = command+q=quit
+keybind = command+c=copy_to_clipboard
+keybind = command+v=paste_from_clipboard
+keybind = command+shift+v=paste_from_selection
+
+
+# Misc functionality
+# ---
 keybind = page_up=scroll_page_fractional:-0.5
 keybind = page_down=scroll_page_fractional:0.5
+# The s can be a mnemonic for scrollback or search
+keybind = command+shift+s=write_scrollback_file:paste

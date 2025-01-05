@@ -1,72 +1,85 @@
 [[language]]
-auto-format = true
 name = "go"
+auto-format = true
+formatter.command = "goimports"
 
-[language.formatter]
-command = "goimports"
 
 [[language]]
-language-servers = ["vtsls"]
 name = "typescript"
+language-servers = ["vtsls"]
+
+[language-server.vtsls]
+command = "vtsls"
+args = ["--stdio"]
+
 
 [[language]]
+name = "nix"
 auto-format = true
 language-servers = ["nil"]
-name = "nix"
+formatter.command = "nixfmt"
+formatter.args = ["-"]
 
-[language.formatter]
-args = ["-"]
-command = "/nix/store/5pkwg6nxlv8s3ccaj5avsmqa2ibj7rmx-nixfmt-unstable-2024-12-04/bin/nixfmt"
 
 [[language]]
-auto-format = true
 name = "fish"
+auto-format = true
+formatter.command = "fish_indent"
+language-servers = ["fish-lsp"]
 
-[language.formatter]
-command = "/nix/store/0r9d9fxp15qg8vi00zhnc3hz5y2flych-fish-3.7.1/bin/fish_indent"
+[language-server.fish-lsp]
+command = "fish-lsp"
+args = ["start"]
+
 
 [[language]]
+name = "markdown"
 auto-format = false
 language-servers = ["ltex-ls"]
-name = "markdown"
+formatter.command = "deno"
+formatter.args = ["--ext", "md", "-"]
 
-[language.formatter]
-args = ["--ext", "md", "-"]
-command = "deno"
 
 [[language]]
-language-servers = ["ltex-ls"]
 name = "git-commit"
+language-servers = ["ltex-ls"]
+
+
+[[language]]
+name = "scheme"
+formatter = { command = "schemat", args = ["/dev/stdin"] }
+auto-format = true
+language-servers = ["steel-language-server"]
+
+[language-server.steel-language-server]
+command = "steel-language-server"
+
 
 [language-server.deno]
-args = ["lsp"]
 command = "deno"
+args = ["lsp"]
+config.enable = true
+config.lint = true
+config.unstable = true
 
-[language-server.deno.config]
-enable = true
-lint = true
-unstable = true
 
 [language-server.ltex-ls]
 command = "ltex-ls"
 
+
 [language-server.rust-analyzer]
 command = "rust-analyzer"
+
 
 [language-server.rust-analyzer.config.check]
 command = "clippy"
 
+
 [language-server.svelteserver]
 command = "svelteserver"
 
+
 [language-server.tailwindcss]
-args = ["--stdio"]
 command = "tailwindcss-language-server"
-language-id = "tailwindcss"
-
-[language-server.tailwindcss.config]
-
-[language-server.vtsls]
 args = ["--stdio"]
-command = "vtsls"
-
+language-id = "tailwindcss"

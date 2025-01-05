@@ -1,26 +1,18 @@
-# My simple nix-darwin & NixOS (WSL) configuration
+# nix-dotfiles
 
-This is my dead-simple configuration. Maybe something to take inspiration from
-if you're trying to get set up with your own cross-platform NixOS, WSL, and
-nix-darwin configuration!
+Nix is extremely capable for writing configuration, but I found that things tended to become
+complicated and difficult to change. I changed my program configuration less than I wanted to
+because any change involved rebuilding my system and applying the result.
 
-This repo entirely supersedes [clo4/dotfiles](https://github.com/clo4/dotfiles).
+One thing I know about myself is that if there is any amount of friction between thinking about
+doing something and actually doing that thing, I just... won't. So, I needed to remove as much
+friction as possible.
 
-## License
+The solution, for me, is to use Home Manager as a declarative symlink manager. Instead of declaring
+the configuration that I want to apply, I declare the locations on my system that I want a directory
+to be linked to, and have HM generate the symlink to my config directory. This gives me all the
+advantages of declarative *and* imperative configuration management.
 
-This repository is public domain. You can copy/paste any code from it that you
-want. I don't believe that something as small and inconsequential as my
-computer's configuration should have any protections applied to it - this is
-stuff we should be sharing freely to improve everyone's setups! If you find
-anything in this repo that you like, feel free to take it and use it anywhere.
+This is still only finished for my Mac mini. Things may change when I start porting this
+configuration to other computers.
 
-Any code in this repository that is under another license (at time of writing,
-there is none) will have the appropriate license above it and the section of
-code that the license applies to will be clearly delineated.
-
-## Structure
-
-My configuration is currently under a lot of flux. I'm refactoring it so that some programs are managed imperatively, and some are managed with Nix.
-I found that after about a year and a half of using this system to manage my configuration, the rate of changes had gone down, but my desire to make changes hadn't. I'd been making more identical changes in every repository, instead of configuring things globally. I'd been testing things out using temporary config files in different directories. But none of the changes were really propagating back to my config.
-
-So, we'll see how this goes. This branch is applied to my Mac mini, which is the main computer I'm using.

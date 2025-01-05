@@ -1,1 +1,4 @@
-prompts
+*
+!.gitignore
+!keymap.json
+!settings.json

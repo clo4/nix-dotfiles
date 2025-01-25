@@ -1,8 +1,10 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
-    blueprint.url = "github:numtide/blueprint";
+    # blueprint.url = "github:numtide/blueprint";
+    blueprint.url = "path:/Users/robert/Developer/blueprint";
     blueprint.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-darwin.url = "github:LnL7/nix-darwin/master";

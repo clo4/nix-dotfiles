@@ -33,11 +33,12 @@ in
   };
 
   config = {
-    xdg.dataFile."fish/vendor_conf.d/00_hm-session-vars.fish".source =
-      let
-        sessionVars = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
-      in
-      babelfishTranslate sessionVars "hm-session-vars";
+    # FIXME: This is no longer necessary now that ZSH handles sourcing it.
+    # xdg.dataFile."fish/vendor_conf.d/00_hm-session-vars.fish".source =
+    #   let
+    #     sessionVars = "${config.home.sessionVariablesPackage}/etc/profile.d/hm-session-vars.sh";
+    #   in
+    #   babelfishTranslate sessionVars "hm-session-vars";
 
     xdg.dataFile."fish/vendor_conf.d/00_source_plugins.fish".source = lib.mkIf (cfg.plugins != [ ]) (
       fishIndent "source_plugins.fish" ''

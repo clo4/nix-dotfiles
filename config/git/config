@@ -5,5 +5,5 @@
         autoSetupRemote = true
 
 [user]
-        email = "git@clo4.net"
+        email = "robert@clo4.net"
         name = "clo4"

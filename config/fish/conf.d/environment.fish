@@ -1,4 +1,6 @@
-pathify XDG_DATA_DIRS XDG_CONFIG_DIRS TERMINFO_DIRS
+for p in XDG_DATA_DIRS XDG_CONFIG_DIRS TERMINFO_DIRS
+    set --path $p $$p
+end
 
 set -x EDITOR hx
 
@@ -19,4 +21,8 @@ end
 
 if test -d /opt/homebrew/bin; and not contains -- /opt/homebrew/bin $PATH
     set --prepend fish_user_paths /opt/homebrew/bin
+end
+
+if set -q GHOSTTY_BIN_DIR; and not contains -- $GHOSTTY_BIN_DIR $PATH
+    set --append PATH $GHOSTTY_BIN_DIR
 end

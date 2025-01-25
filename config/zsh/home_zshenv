@@ -1,4 +1,7 @@
-export ZDOTDIR=~/.config/zsh
+local session_vars="$HOME/.local/share/zsh/hm-session-vars.sh"
+if [[ -f $session_vars && -r $session_vars ]]; then
+    source $session_vars
+fi
 
 # ~/.zshenv is always sourced first, so when this file sets the ZDOTDIR,
 # it finishes executing and ZSH moves on to the next item in the source order.

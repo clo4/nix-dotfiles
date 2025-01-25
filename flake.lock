@@ -8,14 +8,17 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1737843550,
-        "narHash": "sha256-w0tBV4Eb9Ftsi4Wxkgdr8gzl6ROIIhV3hD8RsHvwKoc=",
-        "path": "/Users/robert/Developer/blueprint",
-        "type": "path"
+        "lastModified": 1737728850,
+        "narHash": "sha256-vzDmgZ1kabldBXqRKmOWBUkQ3mhrthnlZKagNhpi6Gg=",
+        "owner": "numtide",
+        "repo": "blueprint",
+        "rev": "d9d31d08528233f08f1040b0495ca9e53943314a",
+        "type": "github"
       },
       "original": {
-        "path": "/Users/robert/Developer/blueprint",
-        "type": "path"
+        "owner": "numtide",
+        "repo": "blueprint",
+        "type": "github"
       }
     },
     "brew-src": {

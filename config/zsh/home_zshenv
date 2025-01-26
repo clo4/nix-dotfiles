@@ -7,6 +7,6 @@ fi
 # it finishes executing and ZSH moves on to the next item in the source order.
 # We need to manually source the appropriate file in the correct directory, if
 # it exists and is readable.
-if [[ -f $ZDOTDIR/.zshenv && -r $ZDOTDIR/.zshenv ]]; then
+if [[ -n $ZDOTDIR && -f $ZDOTDIR/.zshenv && -r $ZDOTDIR/.zshenv ]]; then
     source $ZDOTDIR/.zshenv
 fi

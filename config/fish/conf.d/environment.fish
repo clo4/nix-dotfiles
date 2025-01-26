@@ -10,10 +10,12 @@ end
 # and deduplicate them (deduping is handled in config.fish)
 for path in (string split ' ' $NIX_PROFILES)
     test -d $path/bin; or continue
-    set PATH $path/bin $PATH
+    set --global fish_user_paths $path/bin $fish_user_paths
 end
 
-set -x EDITOR hx
+command -q hx; and set -x EDITOR hx
+
+set -x MANWIDTH 80
 
 # Setting this to an empty string makes direnv silent
 set -x DIRENV_LOG_FORMAT
@@ -31,7 +33,7 @@ if not test -d $sqlite_history_dir
 end
 
 if test -d /opt/homebrew/bin; and not contains -- /opt/homebrew/bin $PATH
-    set --prepend fish_user_paths /opt/homebrew/bin
+    set --append fish_user_paths /opt/homebrew/bin
 end
 
 if set -q GHOSTTY_BIN_DIR; and not contains -- $GHOSTTY_BIN_DIR $PATH

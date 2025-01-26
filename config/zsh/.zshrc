@@ -20,16 +20,20 @@
 # in Fish that appends `--command $(status fish-path)`.
 
 if [[ -o interactive ]]; then
+  found_fish=0
   if type fish >/dev/null; then
     ppid=$$
     while [[ $ppid -gt 1 ]]; do
       if [[ $(ps -o comm= -p $ppid) =~ /fish$ ]]; then
-        return
+        found_fish=1
+        break
       fi
       ppid=$(ps -o ppid= -p $ppid)
     done
-    SHELL=$(command -v fish)
-    exec "$SHELL" -l
+    if [[ $found_fish -eq 0 ]]; then
+      SHELL=$(command -v fish)
+      exec "$SHELL" -l
+    fi
   else
     echo
     echo "  WARNING: fish not found in PATH - falling back to zsh"

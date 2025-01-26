@@ -42,3 +42,14 @@ This configuration is applied per-host with tweaks on top of it: [hosts](/hosts)
   [nix-homebrew](https://github.com/zhaofengli/nix-homebrew)
 
 More of my tweaks will be documented in the future.
+
+## Hosts
+
+- `macmini`
+  - This is my main dev machine. Most configuration will be up-to-date for it.
+    It's a nix-darwin system that also configures my user using Home Manager.
+- `macbook-air`
+  - This is my secondary computer. It's owned by my partner, so I haven't
+    installed nix-darwin. Instead, this is a standalone configuration.
+
+In the future, I'll likely have a WSL host and NixOS host for homelab stuff.

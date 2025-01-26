@@ -2,6 +2,17 @@ for p in XDG_DATA_DIRS XDG_CONFIG_DIRS TERMINFO_DIRS
     set --path $p $$p
 end
 
+# Standalone Home Manager leaves Fish to reconstruct its own PATH, which
+# takes the existing path from ZSH, puts /etc/paths and /etc/paths.d first,
+# then appends the existing non-duplicate entries to the end.
+# This results in the Nix entries being at the tail of the PATH, which isn't
+# ideal. The solution is to add all profile bin directories to the front
+# and deduplicate them (deduping is handled in config.fish)
+for path in (string split ' ' $NIX_PROFILES)
+    test -d $path/bin; or continue
+    set PATH $path/bin $PATH
+end
+
 set -x EDITOR hx
 
 # Setting this to an empty string makes direnv silent

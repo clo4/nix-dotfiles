@@ -1,18 +1,44 @@
-# nix-dotfiles
+# clo4's configuration
 
-Nix is extremely capable for writing configuration, but I found that things tended to become
-complicated and difficult to change. I changed my program configuration less than I wanted to
-because any change involved rebuilding my system and applying the result.
+This is my dead-simple configuration. Maybe something to take inspiration from
+if you're getting stuck configuring your own Nix flake setup! I currently
+actively maintain my nix-darwin and standalone Home Manager configurations, but
+supporting NixOS or WSL would be as simple as adding another entry to `hosts`.
 
-One thing I know about myself is that if there is any amount of friction between thinking about
-doing something and actually doing that thing, I just... won't. So, I needed to remove as much
-friction as possible.
+Traditional Nix system configuration requires a rebuild to apply, but I found
+that this was slowing me down and disincentivising me from changing things on my
+system. This time around, everything about the way my config is structured is to
+allow me to iterate raplidly:
 
-The solution, for me, is to use Home Manager as a declarative symlink manager. Instead of declaring
-the configuration that I want to apply, I declare the locations on my system that I want a directory
-to be linked to, and have HM generate the symlink to my config directory. This gives me all the
-advantages of declarative *and* imperative configuration management.
+- Home Manager symlinks my config to the right location. This results in the
+  normal instant feedback loop of editing your dotfiles, but with the certainty
+  that you can reapply it at any point exactly the same way it is now.
+- The flake uses [Blueprint](https://github.com/numtide/blueprint), which gets
+  rid of all the glue code I would otherwise need. Creating hosts is as simple
+  as creating a directory in `hosts`, or making a package, creating a file in
+  `packages`.
 
-This is still only finished for my Mac mini. Things may change when I start porting this
-configuration to other computers.
+Program configuration is all stored in [config](/config).
 
+My shared Home Manager config applies this configuration:
+[modules/home/robert.nix](/modules/home/robert.nix)
+
+This configuration is applied per-host with tweaks on top of it: [hosts](/hosts)
+
+## Custom stuff
+
+- Using Fish as my interactive shell, but delegating all initial setup to ZSH.
+  This means the login shell is always guaranteed to be POSIX-enough to work,
+  but I still get to benefit from my shell of choice.
+- Reimplemented a Fish plugin manager in Nix for declarative plugins with
+  imperative configuration. Plugins will not clutter up my config, nor can they
+  accidentally clobber any files. Updates are done by updating the plugin
+  package.
+- Using
+  [mattwparas' fork of Helix](https://github.com/mattwparas/helix/tree/steel-event-system)
+  with support for plugins, though I haven't set up or written any plugins yet.
+  Steel language server integration works.
+- Homebrew is installed automatically and managed declaratively with
+  [nix-homebrew](https://github.com/zhaofengli/nix-homebrew)
+
+More of my tweaks will be documented in the future.

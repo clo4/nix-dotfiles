@@ -1,0 +1,130 @@
+theme = "gruvbox"
+
+[editor]
+bufferline = "multiple"
+color-modes = true
+completion-trigger-len = 1
+idle-timeout = 0
+line-number = "relative"
+true-color = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+character = "▏"
+render = true
+skip-levels = 1
+
+[editor.inline-diagnostics]
+cursor-line = "hint"
+other-lines = "hint"
+
+[editor.lsp]
+display-inlay-hints = true
+display-messages = true
+
+[editor.statusline]
+right = ["diagnostics", "selections", "position", "position-percentage", "file-encoding"]
+
+[editor.whitespace.characters]
+newline = "↵"
+
+[editor.whitespace.render]
+newline = "all"
+
+[keys.insert]
+C-h = ":toggle-option lsp.display-inlay-hints"
+C-space = "completion"
+
+[keys.normal]
+"*" = ["trim_selections", "search_selection", "select_mode"]
+C-R = ":reload-all"
+C-d = ["half_page_down", "goto_window_center"]
+C-h = ":toggle-option lsp.display-inlay-hints"
+C-q = ":quit-all"
+C-r = ":reload"
+C-u = ["half_page_up", "goto_window_center"]
+C-w = ":quit"
+D = "goto_word"
+S-down = "jump_view_down"
+S-left = "jump_view_left"
+S-right = "jump_view_right"
+S-up = "jump_view_up"
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
+
+[keys.normal.Z]
+C-d = ["half_page_down", "goto_window_center"]
+C-u = ["half_page_up", "goto_window_center"]
+D = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+E = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+J = ["scroll_down", "scroll_down", "scroll_down", "scroll_down", "scroll_down"]
+K = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
+U = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
+Y = ["scroll_up", "scroll_up", "scroll_up", "scroll_up", "scroll_up"]
+d = "scroll_down"
+e = "scroll_down"
+u = "scroll_up"
+y = "scroll_up"
+
+[keys.normal."`"]
+C = ["trim_selections", ":pipe ccase --to uppercamel"]
+K = ["trim_selections", ":pipe ccase --to upperkebab"]
+S = ["trim_selections", ":pipe ccase --to screamingsnake"]
+c = ["trim_selections", ":pipe ccase --to camel"]
+k = ["trim_selections", ":pipe ccase --to kebab"]
+r = ["trim_selections", ":pipe ccase --to pseudorandom"]
+s = ["trim_selections", ":pipe ccase --to snake"]
+t = ["trim_selections", ":pipe ccase --to title"]
+
+[keys.normal.g]
+down = "move_line_down"
+left = "goto_line_start"
+right = "goto_line_end"
+up = "move_line_up"
+
+[keys.normal.space]
+D = "hsplit"
+d = "vsplit"
+u = ":reset-diff-change"
+
+[keys.normal.space.w]
+S = ["hsplit_new", "file_picker"]
+V = ["vsplit_new", "file_picker"]
+
+[keys.select]
+";" = ["collapse_selection", "normal_mode"]
+C-d = ["half_page_down", "goto_window_center"]
+C-h = ":toggle-option lsp.display-inlay-hints"
+C-u = ["half_page_up", "goto_window_center"]
+D = "extend_to_word"
+S-down = "jump_view_down"
+S-left = "jump_view_left"
+S-right = "jump_view_right"
+S-up = "jump_view_up"
+a = ["append_mode", "collapse_selection"]
+i = ["insert_mode", "collapse_selection"]
+
+[keys.select."`"]
+C = ["trim_selections", ":pipe ccase --to uppercamel"]
+K = ["trim_selections", ":pipe ccase --to upperkebab"]
+S = ["trim_selections", ":pipe ccase --to screamingsnake"]
+c = ["trim_selections", ":pipe ccase --to camel"]
+k = ["trim_selections", ":pipe ccase --to kebab"]
+r = ["trim_selections", ":pipe ccase --to pseudorandom"]
+s = ["trim_selections", ":pipe ccase --to snake"]
+t = ["trim_selections", ":pipe ccase --to title"]
+
+[keys.select.g]
+down = "move_line_down"
+left = "goto_line_start"
+right = "goto_line_end"
+up = "move_line_up"
+
+[keys.select.space]
+D = "hsplit"
+d = "vsplit"
+

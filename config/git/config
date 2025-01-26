@@ -1,0 +1,9 @@
+[init]
+        defaultBranch = "main"
+
+[push]
+        autoSetupRemote = true
+
+[user]
+        email = "robert@clo4.net"
+        name = "clo4"

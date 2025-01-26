@@ -1,0 +1,85 @@
+[[language]]
+name = "go"
+auto-format = true
+formatter.command = "goimports"
+
+
+[[language]]
+name = "typescript"
+language-servers = ["vtsls"]
+
+[language-server.vtsls]
+command = "vtsls"
+args = ["--stdio"]
+
+
+[[language]]
+name = "nix"
+auto-format = true
+language-servers = ["nil"]
+formatter.command = "nixfmt"
+formatter.args = ["-"]
+
+
+[[language]]
+name = "fish"
+auto-format = true
+formatter.command = "fish_indent"
+language-servers = ["fish-lsp"]
+
+[language-server.fish-lsp]
+command = "fish-lsp"
+args = ["start"]
+
+
+[[language]]
+name = "markdown"
+auto-format = false
+language-servers = ["ltex-ls"]
+formatter.command = "deno"
+formatter.args = ["--ext", "md", "-"]
+
+
+[[language]]
+name = "git-commit"
+language-servers = ["ltex-ls"]
+
+
+[[language]]
+name = "scheme"
+formatter = { command = "schemat", args = ["/dev/stdin"] }
+auto-format = true
+language-servers = ["steel-language-server"]
+
+[language-server.steel-language-server]
+command = "steel-language-server"
+
+
+[language-server.deno]
+command = "deno"
+args = ["lsp"]
+config.enable = true
+config.lint = true
+config.unstable = true
+
+
+[language-server.ltex-ls]
+command = "ltex-ls"
+
+
+[language-server.rust-analyzer]
+command = "rust-analyzer"
+
+
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+
+
+[language-server.svelteserver]
+command = "svelteserver"
+
+
+[language-server.tailwindcss]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+language-id = "tailwindcss"

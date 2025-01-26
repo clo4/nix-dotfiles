@@ -9,7 +9,6 @@ end
 # ideal. The solution is to add all profile bin directories to the front
 # and deduplicate them (deduping is handled in config.fish)
 for path in (string split ' ' $NIX_PROFILES)
-    test -d $path/bin; or continue
     set --global fish_user_paths $path/bin $fish_user_paths
 end
 

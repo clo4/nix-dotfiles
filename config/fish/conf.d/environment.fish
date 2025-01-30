@@ -14,8 +14,6 @@ end
 
 command -q hx; and set -x EDITOR hx
 
-set -x MANWIDTH 80
-
 # Setting this to an empty string makes direnv silent
 set -x DIRENV_LOG_FORMAT
 

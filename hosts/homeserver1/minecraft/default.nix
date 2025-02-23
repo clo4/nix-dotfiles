@@ -5,15 +5,14 @@
   ...
 }:
 {
-  # User and group configuration
   users = {
     users.minecraft-family = {
       isSystemUser = true;
       group = "minecraft-family";
       description = "Minecraft family server service user";
-      shell = "${pkgs.bash}/bin/bash";
       home = "/srv/minecraft/family";
-      createHome = true;
+      createHome = false;
+      packages = [ pkgs.dbus ];
     };
 
     groups.minecraft-family = { };
@@ -30,7 +29,7 @@
     oci-containers = {
       backend = "podman";
       containers.minecraft-family = {
-        image = "itzg/minecraft-server";
+        image = "docker.io/itzg/minecraft-server";
         autoStart = true;
         ports = [ "25565:25565" ];
 
@@ -61,7 +60,6 @@
           GID = toString config.users.groups.minecraft-family.gid;
         };
 
-        user = "${toString config.users.users.minecraft-family.uid}:${toString config.users.groups.minecraft-family.gid}";
         volumes = [
           "/srv/minecraft/family:/data"
         ];
@@ -80,7 +78,9 @@
     requires = [ "network.target" ];
 
     serviceConfig = {
-      RestartSec = "30s";
+      RestartSec = "10s";
+      User = "minecraft-family";
+      Group = "minecraft-family";
     };
   };
 }

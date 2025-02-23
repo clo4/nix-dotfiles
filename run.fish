@@ -5,7 +5,7 @@ function switch-server
         --build-host robert@homeserver1 \
         --fast \
         --use-remote-sudo \
-        &| nom
+        $argv
 end
 
 function switch-macmini

@@ -3,6 +3,7 @@
   inputs,
   config,
   pkgs,
+  perSystem,
   ...
 }:
 {
@@ -13,8 +14,12 @@
     inputs.srvos.nixosModules.server
     inputs.srvos.nixosModules.mixins-systemd-boot
 
+    # inputs.quadlet-nix.nixosModules.quadlet
+
     ./disko.nix
     ./minecraft
+    # ./minecraft/please.nix
+    # ./minecraft/postgres.nix
   ];
 
   system.stateVersion = "24.11";
@@ -62,7 +67,13 @@
       "wheel"
       "podman"
       "systemd-journal"
+      "minecraft-family"
     ];
+    hashedPassword = "$6$bj5noqbzbRUVifze$v2e9wChwgDsa8CVG8KpLJngUYOsVHofv0jWbzuUKzInCGxRveU5RGeO5KQ5W4pmBDqtaBHSfLudbwKgqjw/Em1";
+    # packages = [
+    #   perSystem.self.rcon-cli
+    #   perSystem.self.mrpack-install
+    # ];
     openssh.authorizedKeys.keyFiles = [
       "${flake}/hosts/macbook-air/users/robert/authorized_keys"
       "${flake}/hosts/macmini/users/robert/authorized_keys"

@@ -33,6 +33,9 @@
     agenix.inputs.darwin.follows = "nix-darwin";
     agenix.inputs.home-manager.follows = "home-manager";
 
+    quadlet-nix.url = "github:SEIAROTg/quadlet-nix";
+    quadlet-nix.inputs.nixpkgs.follows = "nixpkgs";
+
     # coco-ddns.url = "github:CocoisBuggy/cloudflare_ddns";
     # coco-ddns.inputs.nixpkgs.follows = "nixpkgs";
   };

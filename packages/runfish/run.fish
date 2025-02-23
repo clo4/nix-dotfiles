@@ -1,10 +1,24 @@
 set pre_functions (functions --names)
-source run.fish
+
+set -l dir (pwd)
+while test "$dir" != /
+    if test -e "$dir/run.fish"
+        source "$dir/run.fish"
+        break
+    end
+    set dir (dirname "$dir")
+end
+
+if test "$dir" = /
+    echo "Error: run.fish not found in current or parent directories"
+    exit 1
+end
+
 set post_functions (functions --names)
 
 set new_functions
 for function in $post_functions
-    if not contains -- $function $pre_functions
+    if not contains -- $function $pre_functions; and not string match '_*' -- $function
         set --append new_functions $function
     end
 end

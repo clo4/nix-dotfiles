@@ -1,7 +1,10 @@
 command = /bin/sh -c "/bin/wait4path /nix/store && exec -l $SHELL"
 
 macos-option-as-alt = true
+macos-icon = holographic
 
+window-padding-x = 6
+window-padding-y = 4
 keybind = clear
 
 # All keybinds are "command-first" - if it's possible to bind just using

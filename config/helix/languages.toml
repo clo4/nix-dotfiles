@@ -29,7 +29,10 @@ language-servers = ["fish-lsp"]
 
 [language-server.fish-lsp]
 command = "fish-lsp"
+# Helix doesn't support popups at the moment, which
+# causes the language server to crash
 args = ["start"]
+environment = { "fish_lsp_show_client_popups" = "false" }
 
 
 [[language]]

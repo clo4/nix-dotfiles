@@ -47,12 +47,24 @@
   nix.registry.nixpkgs.flake = inputs.nixpkgs;
   nix.registry.self.flake = inputs.self;
 
+  # The srvos server profile disables documentation by default, but it's
+  # useful to have it enabled so I can reference things quickly in an
+  # SSH session instead of trying to find the documentation online.
+  srvos.server.docs.enable = true;
+
+  # Srvos also sets the timezone to UTC automatically. I want this to be
+  # my current location because it will also handle DST changes smoothly.
+  # A timer set for "04:00" should go off when my wall clock says it's 4.
+  time.timeZone = "Australia/Sydney";
+
   age.secrets.tailscale-homeserver1.file = "${flake}/secrets/tailscale-homeserver1.age";
   services.tailscale = {
     enable = true;
     authKeyFile = config.age.secrets.tailscale-homeserver1.path;
     openFirewall = true;
     extraUpFlags = [
+      # I don't remember why I have this here, but it's carried over from my
+      # VPS setup, and I'm too afraid to change it in case it breaks something.
       "--accept-dns=false"
     ];
   };
@@ -63,7 +75,6 @@
       "wheel"
       "podman"
       "systemd-journal"
-      "minecraft-family"
     ];
     hashedPassword = "!";
     openssh.authorizedKeys.keyFiles = [

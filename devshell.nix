@@ -14,5 +14,19 @@ pkgs.mkShellNoCC {
     pkgs.nixos-anywhere
     pkgs.age
     pkgs.lima
+    # All this stuff is for developing the ddns client
+    pkgs.go
+    pkgs.gopls
+    pkgs.go-tools
+    pkgs.gotools
+    pkgs.golangci-lint
+    pkgs.clang
   ];
+  buildInputs =
+    [ ]
+    ++ pkgs.lib.optional pkgs.stdenv.isDarwin [
+      pkgs.clang
+      pkgs.darwin.cctools # I've been burned in the past by not having this
+      pkgs.darwin.apple_sdk.frameworks.CoreFoundation
+    ];
 }

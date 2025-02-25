@@ -9,4 +9,5 @@ let
 in
 {
   "tailscale-homeserver1.age".publicKeys = [ system-homeserver1 ] ++ robert;
+  "tinycfddnsclient-config.age".publicKeys = [ system-homeserver1 ] ++ robert;
 }

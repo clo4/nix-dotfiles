@@ -2,10 +2,16 @@
 # docker image, but is fully managed by NixOS and systemd. The service is
 # launched by root, but is run as a system user (minecraft-family) instead.
 # The server will be restarted by another service on a timer at 4 am every day.
+#
+# There is also a DDNS configuration for Cloudflare, and the data is stored
+# using agenix for security. This step may not be necessary for you if you're
+# copying parts of this configuration.
 {
   config,
   lib,
   pkgs,
+  perSystem,
+  flake,
   ...
 }:
 let
@@ -127,6 +133,53 @@ in
       # it needs to be scheduled for 5 minutes before the intended time.
       OnCalendar = "03:55:00";
       Unit = "minecraft-family-restart.service";
+    };
+  };
+
+  age.secrets.tinycfddnsclient-config = {
+    file = "${flake}/secrets/tinycfddnsclient-config.age";
+    owner = "tinycfddnsclient";
+    group = "tinycfddnsclient";
+    mode = "400";
+  };
+
+  users.users.tinycfddnsclient = {
+    description = "System user for tinycfddnsclient";
+    isSystemUser = true;
+    group = "tinycfddnsclient";
+  };
+
+  users.groups.tinycfddnsclient = { };
+
+  systemd.services.tinycfddnsclient = {
+    description = "Update Cloudflare DNS records with the current IP address";
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      # This service can't use PrivateTmp because it's a oneshot that writes stateful
+      # data to the tmp as a cache. This data doesn't need to persist across reboots.
+      NoNewPrivileges = true;
+      PrivateDevices = true;
+      MemoryDenyWriteExecute = true;
+      User = "tinycfddnsclient";
+      Group = "tinycfddnsclient";
+      Environment = [
+        "CONFIG_PATH=${config.age.secrets.tinycfddnsclient-config.path}"
+      ];
+      ExecStartPre = "-rm -rf /var/tmp/tinycfddns_ip_cache.txt";
+      ExecStart = "${perSystem.self.tinycfddnsclient}/bin/tinycfddnsclient";
+    };
+  };
+
+  systemd.timers.tinycfddnsclient = {
+    description = "Timer for Tiny Cloudflare DDNS Client";
+    wantedBy = [ "timers.target" ];
+
+    timerConfig = {
+      OnBootSec = "10s";
+      OnCalendar = "*:0/20";
     };
   };
 }

@@ -1,3 +1,7 @@
+# This is a fully configured Minecraft server. It uses the itzg/minecraft-server
+# docker image, but is fully managed by NixOS and systemd. The service is
+# launched by root, but is run as a system user (minecraft-family) instead.
+# The server will be restarted by another service on a timer at 4 am every day.
 {
   config,
   lib,
@@ -5,31 +9,36 @@
   ...
 }:
 let
-  # This is declared in the configuration itself rather than being declared in
-  # a let-in binding and assigned to an option.
-  backend = config.virtualisation.oci-containers.backend;
+  uid = 399;
+  gid = 398;
 in
 {
   users.users.minecraft-family = {
+    inherit uid;
     isSystemUser = true;
-    uid = 399;
     group = "minecraft-family";
     home = "/srv/minecraft/family";
+
+    # I'm not certain if these are necessary any more, but they don't hurt.
     linger = true;
     autoSubUidGidRange = true;
   };
 
   # The group needs its own GID because the container references it directly.
   users.groups.minecraft-family = {
-    gid = 398;
+    inherit gid;
   };
 
-  # Other users in the minecraft-family group will also be able to rwx
-  # in this directory, meaning any system administrators.
-  # Any files they create will of course be owned by them.
+  users.users.robert.extraGroups = [ "minecraft-family" ];
+
+  # rwxrwx--- so the minecraft-family group can also make changes.
   systemd.tmpfiles.rules = [
     "d /srv/minecraft/family 0770 minecraft-family minecraft-family -"
   ];
+
+  networking.firewall.allowedTCPPorts = [ 25565 ];
+  # For voice chat mods:
+  # networking.firewall.allowedUDPPorts = [ 24464 ];
 
   virtualisation.podman.enable = true;
 
@@ -39,9 +48,9 @@ in
     autoStart = true;
     ports = [ "25565:25565" ];
 
-    # The container is launched by root, then changes to
-    # minecraft-family:minecraft-family.
-    user = "${toString config.users.users.minecraft-family.uid}:${toString config.users.groups.minecraft-family.gid}";
+    # Launched by root, then changed to minecraft-family:minecraft-family.
+    # Because the user has been set, it's also respected inside the container.
+    user = "${toString uid}:${toString gid}";
 
     # All the actual server configuration is done manually in server.properties.
     environment = {
@@ -82,7 +91,7 @@ in
     ];
   };
 
-  systemd.services."${backend}-minecraft-family" = {
+  systemd.services.podman-minecraft-family = {
     after = [ "network.target" ];
     requires = [ "network.target" ];
   };
@@ -104,7 +113,6 @@ in
 
       ${pkgs.systemd}/bin/systemctl restart podman-minecraft-family.service
     '';
-
     serviceConfig = {
       Type = "oneshot";
       User = "root";
@@ -114,10 +122,9 @@ in
   systemd.timers.minecraft-family-restart = {
     description = "Timer for daily Minecraft server restart";
     wantedBy = [ "timers.target" ];
-
-    # Since the script starts warning players at 5 minutes before restart,
-    # it neesd to be scheduled for 5 minutes before the intended time.
     timerConfig = {
+      # Since the script starts warning players at 5 minutes before restart,
+      # it needs to be scheduled for 5 minutes before the intended time.
       OnCalendar = "03:55:00";
       Unit = "minecraft-family-restart.service";
     };

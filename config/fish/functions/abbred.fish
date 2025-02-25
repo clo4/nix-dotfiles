@@ -3,13 +3,18 @@ function abbred
     pushd ~/.config/fish
     # If $EDITOR is set by basically anything other than fish,
     # it will be a single string that could contain multiple space-separated
-    # arguments. The 'env' utility can split this as a user would expect.
-    env -S "$EDITOR" $abbrfile
+    # arguments. Using 'read -at' will tokenize it like the shell would, and
+    # and store that in a list.
+    set -l editor vim
+    if set -q EDITOR
+        echo -- $EDITOR | read -at editor
+    end
+    $editor $abbrfile
     set editor_status $status
     popd
     if test $editor_status -gt 0
         echo "$EDITOR exited with a non-zero status code, not executing abbreviations"
-        return 1
+        return $editor_status
     end
     echo "removing and reapplying abbreviations"
     abbr --erase (abbr --list)

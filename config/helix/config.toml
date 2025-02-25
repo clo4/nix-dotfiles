@@ -55,6 +55,7 @@ S-right = "jump_view_right"
 S-up = "jump_view_up"
 a = ["append_mode", "collapse_selection"]
 i = ["insert_mode", "collapse_selection"]
+C-t = ["delete_selection", "paste_after"]
 
 [keys.normal.Z]
 C-d = ["half_page_down", "goto_window_center"]
@@ -107,6 +108,7 @@ S-right = "jump_view_right"
 S-up = "jump_view_up"
 a = ["append_mode", "collapse_selection"]
 i = ["insert_mode", "collapse_selection"]
+C-t = ["delete_selection", "paste_after"]
 
 [keys.select."`"]
 C = ["trim_selections", ":pipe ccase --to uppercamel"]

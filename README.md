@@ -21,7 +21,7 @@ allow me to iterate raplidly:
 Program configuration is all stored in [config](/config).
 
 My shared Home Manager config applies this configuration:
-[modules/home/robert.nix](/modules/home/robert.nix)
+[users/robert/home-configuration.nix](/users/robert/home-configuration.nix)
 
 This configuration is applied per-host with tweaks on top of it: [hosts](/hosts)
 

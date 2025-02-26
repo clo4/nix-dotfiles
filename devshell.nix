@@ -14,6 +14,7 @@ pkgs.mkShellNoCC {
     pkgs.nixos-anywhere
     pkgs.age
     pkgs.lima
+    pkgs.deno
     # All this stuff is for developing the ddns client
     pkgs.go
     pkgs.gopls

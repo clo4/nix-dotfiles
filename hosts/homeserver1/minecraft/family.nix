@@ -96,6 +96,7 @@ in
     extraOptions = [
       "--cap-add=CAP_NET_RAW" # Required for autopause
       "--no-healthcheck"
+      "--tty"
     ];
   };
 

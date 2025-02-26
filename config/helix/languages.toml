@@ -40,7 +40,7 @@ name = "markdown"
 auto-format = false
 language-servers = ["ltex-ls"]
 formatter.command = "deno"
-formatter.args = ["--ext", "md", "-"]
+formatter.args = ["--ext=md", "-"]
 
 
 [[language]]

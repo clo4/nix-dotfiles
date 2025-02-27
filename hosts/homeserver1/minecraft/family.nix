@@ -52,7 +52,9 @@ in
   virtualisation.oci-containers.containers.minecraft-family = {
     image = "docker.io/itzg/minecraft-server";
     autoStart = true;
-    ports = [ "25565:25565" ];
+    # This service doesn't run on the normal Minecraft port because mc-router
+    # runs on 25565 and will forward its traffic to this port.
+    ports = [ "25580:25565" ];
 
     # Launched by root, then changed to minecraft-family:minecraft-family.
     # Because the user has been set, it's also respected inside the container.
@@ -100,6 +102,35 @@ in
   systemd.services.podman-minecraft-family = {
     after = [ "network.target" ];
     requires = [ "network.target" ];
+  };
+
+  users.users.mc-router = {
+    isSystemUser = true;
+    description = "Routes Minecraft client connections";
+    group = "mc-router";
+  };
+  users.groups.mc-router = { };
+
+  age.secrets.mc-router-mapping = {
+    file = "${flake}/secrets/mc-router-mapping.age";
+    owner = "mc-router";
+    group = "mc-router";
+    mode = "400";
+  };
+
+  systemd.services.mc-router = {
+    description = perSystem.self.mc-router.meta.description;
+    requires = [ "podman-minecraft-family.service" ];
+    after = [ "podman-minecraft-family.service" ];
+    wantedBy = [ "multi-user.target" ];
+    script = ''
+      export MAPPING=$(cat ${config.age.secrets.mc-router-mapping.path})
+      ${perSystem.self.mc-router}/bin/mc-router
+    '';
+    serviceConfig = {
+      User = "mc-router";
+      Group = "mc-router";
+    };
   };
 
   # Service to restart the Minecraft container

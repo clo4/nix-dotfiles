@@ -1,10 +1,8 @@
 { config, ... }:
 {
   imports = [
-    ./mc-router.nix
-    ./ddns.nix
-
     ./servers/family.nix
+    ./ddns.nix
   ];
   assertions = [
     {

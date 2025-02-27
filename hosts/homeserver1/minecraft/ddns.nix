@@ -1,6 +1,9 @@
-# This file uses a custom DDNS client written in Go. It allows me to directly
-# update multiple DNS records, and skips updating them if the IP address has
-# not changed since the last time it checked.
+# This uses a custom DDNS client written in Go explicitly for Cloudflare DNS.
+# It's capable of updating multiple records at once, but I only use it to
+# update one since I use SRV records to point at the target host.
+#
+# The client caches the current IP to prevent unnecessary requests if nothing
+# has changed.
 {
   config,
   lib,

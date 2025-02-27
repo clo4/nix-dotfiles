@@ -32,15 +32,17 @@ in
     "d /srv/minecraft/family 0770 minecraft-family minecraft-family -"
   ];
 
-  networking.firewall.allowedTCPPorts = [ 25565 ];
-  # For voice chat mods:
-  # networking.firewall.allowedUDPPorts = [ 24464 ];
-
   virtualisation.oci-containers.containers.minecraft-family = {
     image = "docker.io/itzg/minecraft-server";
     autoStart = true;
-    # This service doesn't run on the normal Minecraft port because mc-router
-    # runs on 25565 and will forward its traffic to this port.
+
+    # There are multiple ways to connect to a Minecraft server without entering
+    # any port information. I'm choosing to use SRV records instead of A records
+    # because I want to add more servers in the future and doing so means I'd
+    # have to use a routing solution like mc-router to inspect incoming packets
+    # and route them to the right port based on the address the client was
+    # connected to. This way, the client connects right to the desired server
+    # instance.
     ports = [ "25580:25565" ];
 
     # Launched by root, then changed to minecraft-family:minecraft-family.

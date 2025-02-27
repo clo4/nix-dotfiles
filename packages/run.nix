@@ -8,14 +8,11 @@ pkgs.stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cat > $out/bin/run <<'NIXPACKAGESCRIPT'
-    #!${pkgs.fish}/bin/fish
-    $(cat config/fish/functions/run.fish)
-
-    run $argv
-    NIXPACKAGESCRIPT
-
-    chmod +x $out/bin/run
+    echo "#!${pkgs.fish}/bin/fish" > $out/bin/run
+    echo "" >> $out/bin/run
+    cat config/fish/functions/run.fish >> $out/bin/run
+    echo "" >> $out/bin/run
+    echo "run \$argv" >> $out/bin/run
 
     mkdir -p $out/share/fish/vendor_completions.d
     cp config/fish/completions/run.fish $out/share/fish/vendor_completions.d/

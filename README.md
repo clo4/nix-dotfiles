@@ -21,32 +21,44 @@ allow me to iterate raplidly:
 Program configuration is all stored in [config](/config).
 
 My shared Home Manager config applies this configuration:
-[modules/home/robert.nix](/modules/home/robert.nix)
+[users/robert/home-configuration.nix](/users/robert/home-configuration.nix)
 
 This configuration is applied per-host with tweaks on top of it: [hosts](/hosts)
 
 ## Custom stuff
 
-- Using Fish as my interactive shell, but delegating all initial setup to ZSH.
-  This means the login shell is always guaranteed to be POSIX-enough to work,
-  but I still get to benefit from my shell of choice.
-- Reimplemented a Fish plugin manager in Nix for declarative plugins with
-  imperative configuration. Plugins will not clutter up my config, nor can they
-  accidentally clobber any files. Updates are done by updating the plugin
-  package.
-- Using
+I keep finding yaks to shave.
+
+- Fish is my interactive shell, but all _initial_ environment setup is delegated
+  to ZSH. This means the login shell is always guaranteed to be POSIX-enough to
+  work, but I still get to benefit from using the _best_ shell. I'm particularly
+  proud that the `$PATH` works flawlessly on my Darwin systems, which has been a
+  known issue with Fish + Nix.
+- I implemented a Fish plugin manager in Nix for declarative plugins with
+  imperative configuration. Plugins don't clutter up my config, nor can they
+  accidentally clobber any files. Updates are done by updating the Nix plugin
+  package definitions.
+- This config uses
   [mattwparas' fork of Helix](https://github.com/mattwparas/helix/tree/steel-event-system)
   with support for plugins, though I haven't set up or written any plugins yet.
-  Steel language server integration works.
+  I had to fork it to get the Steel language server integration working.
 - Homebrew is installed automatically and managed declaratively with
   [nix-homebrew](https://github.com/zhaofengli/nix-homebrew)
-- Fish is not my login shell, but is `exec`'d by ZSH if the session is
-  interactive. Further invocations of `zsh` will not become Fish. ZSH handles
-  some environment setup (sourcing Home Manager's setup, etc.) then hands off
-  execution to Fish which sets up everything I need interactively. If `fish` is
-  not available, ZSH will be set up as a usable fallback.
+- Since fish is the best language for shell scripting, I wrote a custom command
+  runner for fish functions. It replaces tools like `just` and common abuse of
+  `make`. You just write fish functions in `run.fish`, then run them with `run`.
+  This is also usable as `nix run github:clo4/nix-dotfiles#run`.
+- My server hosts a Minecraft server using `virtualisation.oci-containers` with
+  podman. The container is launched as root, but switched to a system
+  user/group. Its data is stored in `/srv/minecraft/family`. It restarts every
+  day at 4 am local-time. It has a DDNS client. I think this may be the best
+  reference configuration for setting up a Minecraft server on NixOS.
+- I built a simple DDNS client for Cloudflare to keep my DNS record up to date
+  with my home internet's IP address. It's a simple Go program, it compiles
+  quickly, it caches IP to minimise useless updates. The credentials are stored
+  encrypted with Agenix.
 
-More of my tweaks will be documented in the future.
+More of my custom things will be documented in the future.
 
 ## Hosts
 
@@ -56,5 +68,17 @@ More of my tweaks will be documented in the future.
 - `macbook-air`
   - This is my secondary computer. It's owned by my partner, so I haven't
     installed nix-darwin. Instead, this is a standalone configuration.
+- `homeserver1`
+  - This is my personal server. It's a Minisforum NAB6 Lite running an Intel
+    Core i5 12600, so it uses <9w at idle.
+  - Hopefully not the first of many, but knowing me, it's best to start adding
+    versioning to the names.
 
-In the future, I'll likely have a WSL host and NixOS host for homelab stuff.
+### Bootstrapping homeserver1
+
+This isn't included in `run.fish` because it has to be executed from the system
+itself or over SSH.
+
+```bash
+sudo nix --extra-experimental-features 'nix-command flakes' run github:clo4/nix-dotfiles/vps#homeserver1-install
+```

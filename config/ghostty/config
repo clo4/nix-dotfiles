@@ -4,7 +4,7 @@ font-family = RobotoMono Nerd Font
 font-size = 12
 window-height = 60
 window-width = 170
-window-theme = dark
+window-theme = auto
 theme = GruvboxDark
 auto-update-channel = tip
 

@@ -15,7 +15,7 @@
     inputs.srvos.nixosModules.mixins-systemd-boot
 
     ./disko.nix
-    ./minecraft/family.nix
+    ./minecraft
   ];
 
   system.stateVersion = "24.11";
@@ -68,6 +68,9 @@
       "--accept-dns=false"
     ];
   };
+
+  virtualisation.podman.enable = true;
+  virtualisation.oci-containers.backend = "podman";
 
   users.users.robert = {
     isNormalUser = true;

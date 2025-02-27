@@ -1,17 +1,7 @@
-# This is a fully configured Minecraft server. It uses the itzg/minecraft-server
-# docker image, but is fully managed by NixOS and systemd. The service is
-# launched by root, but is run as a system user (minecraft-family) instead.
-# The server will be restarted by another service on a timer at 4 am every day.
-#
-# There is also a DDNS configuration for Cloudflare, and the data is stored
-# using agenix for security. This step may not be necessary for you if you're
-# copying parts of this configuration.
 {
   config,
   lib,
   pkgs,
-  perSystem,
-  flake,
   ...
 }:
 let
@@ -46,9 +36,6 @@ in
   # For voice chat mods:
   # networking.firewall.allowedUDPPorts = [ 24464 ];
 
-  virtualisation.podman.enable = true;
-
-  virtualisation.oci-containers.backend = "podman";
   virtualisation.oci-containers.containers.minecraft-family = {
     image = "docker.io/itzg/minecraft-server";
     autoStart = true;
@@ -105,35 +92,6 @@ in
     requires = [ "network.target" ];
   };
 
-  users.users.mc-router = {
-    isSystemUser = true;
-    description = "Routes Minecraft client connections";
-    group = "mc-router";
-  };
-  users.groups.mc-router = { };
-
-  age.secrets.mc-router-mapping = {
-    file = "${flake}/secrets/mc-router-mapping.age";
-    owner = "mc-router";
-    group = "mc-router";
-    mode = "400";
-  };
-
-  systemd.services.mc-router = {
-    description = perSystem.self.mc-router.meta.description;
-    requires = [ "podman-minecraft-family.service" ];
-    after = [ "podman-minecraft-family.service" ];
-    wantedBy = [ "multi-user.target" ];
-    script = ''
-      export MAPPING=$(cat ${config.age.secrets.mc-router-mapping.path})
-      ${perSystem.self.mc-router}/bin/mc-router
-    '';
-    serviceConfig = {
-      User = "mc-router";
-      Group = "mc-router";
-    };
-  };
-
   # Service to restart the Minecraft container
   systemd.services.minecraft-family-restart = {
     description = "Restart Minecraft Family Server";
@@ -165,53 +123,6 @@ in
       # it needs to be scheduled for 5 minutes before the intended time.
       OnCalendar = "03:55:00";
       Unit = "minecraft-family-restart.service";
-    };
-  };
-
-  age.secrets.tinycfddnsclient-config = {
-    file = "${flake}/secrets/tinycfddnsclient-config.age";
-    owner = "tinycfddnsclient";
-    group = "tinycfddnsclient";
-    mode = "400";
-  };
-
-  users.users.tinycfddnsclient = {
-    description = "System user for tinycfddnsclient";
-    isSystemUser = true;
-    group = "tinycfddnsclient";
-  };
-
-  users.groups.tinycfddnsclient = { };
-
-  systemd.services.tinycfddnsclient = {
-    description = "Update Cloudflare DNS records with the current IP address";
-    after = [ "network-online.target" ];
-    wants = [ "network-online.target" ];
-
-    serviceConfig = {
-      Type = "oneshot";
-      # This service can't use PrivateTmp because it's a oneshot that writes stateful
-      # data to the tmp as a cache. This data doesn't need to persist across reboots.
-      NoNewPrivileges = true;
-      PrivateDevices = true;
-      MemoryDenyWriteExecute = true;
-      User = "tinycfddnsclient";
-      Group = "tinycfddnsclient";
-      Environment = [
-        "CONFIG_PATH=${config.age.secrets.tinycfddnsclient-config.path}"
-      ];
-      ExecStartPre = "-rm -rf /var/tmp/tinycfddns_ip_cache.txt";
-      ExecStart = "${perSystem.self.tinycfddnsclient}/bin/tinycfddnsclient";
-    };
-  };
-
-  systemd.timers.tinycfddnsclient = {
-    description = "Timer for Tiny Cloudflare DDNS Client";
-    wantedBy = [ "timers.target" ];
-
-    timerConfig = {
-      OnBootSec = "10s";
-      OnCalendar = "*:0/20";
     };
   };
 }

@@ -100,13 +100,19 @@ in
     requires = [ "podman-minecraft-family.service" ];
     after = [ "podman-minecraft-family.service" ];
     script = ''
-      ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 5 minutes."
+      # If the server is currently paused, the autopause daemon creates .paused
+      # in the /data mount, so if this file is present then don't wake the server
+      # up to send a message to nobody.
+      function is_paused() {
+        [ -f /srv/minecraft/family/.paused ]
+      }
+      is_paused || ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 5 minutes."
       sleep 240
-      ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 1 minute."
+      is_paused || ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 1 minute."
       sleep 50
-      ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 10 seconds."
+      is_paused || ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 10 seconds."
       sleep 5
-      ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 5 seconds."
+      is_paused || ${pkgs.podman}/bin/podman exec minecraft-family rcon-cli "say Server will restart in 5 seconds."
       sleep 5
 
       ${pkgs.systemd}/bin/systemctl restart podman-minecraft-family.service

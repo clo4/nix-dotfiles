@@ -1,6 +1,6 @@
 function fish_greeting
     if test -n "$FISH_GREETING_CHECK_SUDO_TOUCHID"
-        and not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo
+        and not grep -qE '^auth\\s+sufficient\\s+pam_tid\\.so' /etc/pam.d/sudo_local
         echo
         gum style \
             --foreground 3 \

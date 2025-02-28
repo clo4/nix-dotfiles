@@ -13,6 +13,8 @@
 
     helix.url = "github:clo4/helix/helix-cogs-steel-language-server";
     helix.inputs.nixpkgs.follows = "nixpkgs";
+    helix.inputs.crane.follows = "crane";
+    crane.url = "github:ipetkov/crane";
     steel.url = "github:mattwparas/steel";
     steel.inputs.nixpkgs.follows = "nixpkgs";
 

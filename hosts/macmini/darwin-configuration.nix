@@ -20,13 +20,13 @@
   };
 
   # This needs to be reapplied after each system update
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   networking.hostName = "macmini";
 
-  services.nix-daemon.enable = true;
+  nix.enable = true;
 
-  system.stateVersion = 4;
+  system.stateVersion = 6;
 
   home-manager.backupFileExtension = "hm-backup";
 

@@ -38,3 +38,15 @@ functions -e la ll
 if set -q SSH_CLIENT; or set -q SSH_TTY
     set -x BROWSER echo
 end
+
+# Something has gone wrong if the first item in these paths is not the
+# user configuration directories, but *if* it isn't, correct it so that
+# user functions will always win.
+if test $fish_function_path[1] != $HOME/.config/fish/functions
+    set --prepend fish_function_path $HOME/.config/fish/functions
+    echo "WARNING: fish_function_path[1] was not $HOME/.config/fish/functions, fixing for this shell"
+end
+if test $fish_complete_path[1] != $HOME/.config/fish/completions
+    set --prepend fish_complete_path $HOME/.config/fish/completions
+    echo "WARNING: fish_complete_path[1] was not $HOME/.config/fish/completions, fixing for this shell"
+end

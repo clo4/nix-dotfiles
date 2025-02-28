@@ -74,6 +74,26 @@ More of my custom things will be documented in the future.
   - Hopefully not the first of many, but knowing me, it's best to start adding
     versioning to the names.
 
+### Building and switching
+
+As a way to make sure I always get the commands right, there's a command runner
+included in the developer environment named `run`. The following lines are
+examples of how to switch config for each of the hosts.
+
+```fish
+run server switch
+run macmini switch
+run macbook switch
+```
+
+Instead of switch, the verb `build` can also be used.
+
+Switching `macmini` and `macbook` will attempt to switch the currently active
+device, but switching `server` will cause the server to rebuild and switch
+remotely, allowing the command to be run from whatever device is being used
+without an SSH connection. The only requirement is that Tailscale is up and
+connected.
+
 ### Bootstrapping homeserver1
 
 This isn't included in `run.fish` because it has to be executed from the system

@@ -17,9 +17,18 @@
   users.users.robert = {
     description = "Robert";
     home = "/Users/robert";
+    openssh.authorizedKeys.keys = [
+      # My iPhone, blink terminal
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFkVAe4iwrprDibMgY1m0BeUPgrKBRErKRfLfxjVl+lu"
+    ];
+    openssh.authorizedKeys.keyFiles = [
+      "${flake}/hosts/macbook-air/users/robert/authorized_keys"
+      "${flake}/hosts/macmini/users/robert/authorized_keys"
+    ];
   };
 
-  # This needs to be reapplied after each system update
+  # This needs to be reapplied after each system update. My Fish configuration
+  # will warn about this if it detects the line it adds to sudo_local is absent.
   security.pam.services.sudo_local.touchIdAuth = true;
 
   networking.hostName = "macmini";
@@ -64,4 +73,12 @@
   nixpkgs.config.allowUnfree = true;
 
   services.tailscale.enable = true;
+  services.openssh.enable = true;
+
+  environment.etc."ssh/sshd_config.d/999-disable-password-auth.conf".text = ''
+    PermitRootLogin no
+    PasswordAuthentication no
+    KbdInteractiveAuthentication no
+    UsePAM no
+  '';
 }

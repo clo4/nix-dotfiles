@@ -35,11 +35,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1739830441,
-        "narHash": "sha256-4gPd5fCYWoBDfzdTv9h27nHxSo3OnZ6TRo71HmhSC+w=",
+        "lastModified": 1740813264,
+        "narHash": "sha256-LIO3+CMw9yLVLK+8TjcaQoLmEgCUkXfRonzFguoLZZk=",
         "owner": "clo4",
         "repo": "blueprint",
-        "rev": "25281821e9be741bf1ab0de98572171adddaee11",
+        "rev": "b033f96062fd91c024f6a04ee2cbf7c168a28a6e",
         "type": "github"
       },
       "original": {

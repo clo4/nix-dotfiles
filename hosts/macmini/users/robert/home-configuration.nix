@@ -3,13 +3,12 @@
   perSystem,
   inputs,
   flake,
-  users,
   ...
 }:
 {
   home.stateVersion = "24.11";
 
-  imports = [ users.robert ];
+  imports = [ "${flake}/users/robert/home-configuration.nix" ];
 
   home.sessionVariables = {
     # My fish configuration uses this to check whether it should check if

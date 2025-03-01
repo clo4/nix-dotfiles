@@ -2,11 +2,10 @@
   inputs,
   pkgs,
   flake,
-  users,
   ...
 }:
 {
-  imports = [ users.robert ];
+  imports = [ "${flake}/users/robert/home-configuration.nix" ];
 
   home.stateVersion = "24.05";
 

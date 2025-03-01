@@ -24,8 +24,6 @@
 
   networking.hostName = "macmini";
 
-  nix.enable = true;
-
   system.stateVersion = 6;
 
   home-manager.backupFileExtension = "hm-backup";
@@ -50,6 +48,8 @@
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
+
+  nix.enable = true;
   nix.nixPath = lib.mkForce [
     "nixpkgs=${inputs.nixpkgs}"
     "home-manager=${inputs.home-manager}"
@@ -58,6 +58,7 @@
     "nix-command"
     "flakes"
   ];
+  nix.settings.trusted-users = [ "@admin" ];
   nix.channel.enable = false;
   # TODO: should I make 'robert' a trusted user?
   nixpkgs.config.allowUnfree = true;

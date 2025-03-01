@@ -16,6 +16,9 @@ function fish_user_key_bindings
     bind '>' expand-abbr self-insert
     bind '<' expand-abbr self-insert
     bind ')' expand-abbr self-insert
+
+    # This isn't bound by default because of the fzf keybindings.
+    bind \cr history-pager
 end
 
 function _fzf_git_status_modified

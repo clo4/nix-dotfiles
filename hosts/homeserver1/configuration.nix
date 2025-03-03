@@ -88,8 +88,8 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGcz3Qiqix5lJPsDeE+RY2q64Bpl+jY0tLO/fUM5TNr"
     ];
     openssh.authorizedKeys.keyFiles = [
-      "${flake}/hosts/macbook-air/users/robert/authorized_keys"
-      "${flake}/hosts/macmini/users/robert/authorized_keys"
+      "${flake}/hosts/macbook-air/users/robert/id_ed25519.pub"
+      "${flake}/hosts/macmini/users/robert/id_ed25519.pub"
     ];
   };
 }

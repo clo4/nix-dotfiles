@@ -80,6 +80,13 @@
       "systemd-journal"
     ];
     hashedPassword = "!";
+    openssh.authorizedKeys.keys = [
+      # My iPhone, blink terminal
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFkVAe4iwrprDibMgY1m0BeUPgrKBRErKRfLfxjVl+lu"
+
+      # My iPad, blink terminal
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGcz3Qiqix5lJPsDeE+RY2q64Bpl+jY0tLO/fUM5TNr"
+    ];
     openssh.authorizedKeys.keyFiles = [
       "${flake}/hosts/macbook-air/users/robert/authorized_keys"
       "${flake}/hosts/macmini/users/robert/authorized_keys"

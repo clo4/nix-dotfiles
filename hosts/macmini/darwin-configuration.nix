@@ -20,6 +20,12 @@
     openssh.authorizedKeys.keys = [
       # My iPhone, blink terminal
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFkVAe4iwrprDibMgY1m0BeUPgrKBRErKRfLfxjVl+lu"
+
+      # My iPad, blink terminal
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGcz3Qiqix5lJPsDeE+RY2q64Bpl+jY0tLO/fUM5TNr"
+
+      # MacBok Air root, allows it to use macmini as a builder
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMcW6rkRTw2QGfPkxMK56J7dIh65B0HHXqk7ee9FKAWv"
     ];
     openssh.authorizedKeys.keyFiles = [
       "${flake}/hosts/macbook-air/users/robert/authorized_keys"

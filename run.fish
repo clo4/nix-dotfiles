@@ -38,3 +38,8 @@ function macbook -d "Build and switch robert@macbook-air Home Manager configurat
 
     home-manager $argv[1] --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
 end
+
+function rcon -d "Connect to homeserver1 and begin an interactive RCON session"
+    echo (set_color --italics)"connecting to homeserver1 and executing rcon-cli..."(set_color normal)
+    ssh robert@homeserver1 "sudo podman exec -i minecraft-family rcon-cli"
+end

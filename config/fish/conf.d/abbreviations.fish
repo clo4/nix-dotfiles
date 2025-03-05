@@ -12,6 +12,8 @@ abbr -a md "mkdir -p"
 abbr -a cmv "command -v"
 abbr -a l "ls -lAhH"
 
+abbr -a r run
+
 if set -q IS_DARWIN
     abbr -a pb pbcopy
     abbr -a pbp pbpaste

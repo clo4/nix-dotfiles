@@ -51,7 +51,7 @@ language-servers = ["ltex-ls"]
 [[language]]
 name = "scheme"
 formatter = { command = "schemat", args = ["/dev/stdin"] }
-auto-format = true
+# auto-format = true
 language-servers = ["steel-language-server"]
 
 [language-server.steel-language-server]

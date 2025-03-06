@@ -18,7 +18,7 @@ in
   imports = [
     inputs.self.homeModules.my-config
     inputs.self.homeModules.my-programs-fish
-  ];
+  ] ++ lib.optional pkgs.stdenv.isDarwin inputs.self.homeModules.darwin;
 
   home.packages = [
     perSystem.helix.helix
@@ -75,8 +75,6 @@ in
     ".config/zsh" = "zsh";
   };
 
-  home.sessionVariables.IS_DARWIN = if pkgs.stdenv.isDarwin then "" else null;
-
   # This needs to be in a known location so it can be sourced regardless
   # of whether we're in standalone HM or as a system module.
   home.file.".local/share/zsh/hm-session-vars.sh".source =
@@ -89,9 +87,6 @@ in
   # Ordinarily, the direnv module would set this automatically.
   home.file.".config/direnv/lib/nix-direnv.sh".source =
     "${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
-
-  # On macOS, this is intended to suppress the login welcome message.
-  home.file.".hushlogin".source = lib.mkIf pkgs.stdenv.isDarwin pkgs.emptyFile;
 
   # My change to helix-cogs generates a 'steel-language-server' directory,
   # and since steel doesn't care if the directories are nested, it's possible

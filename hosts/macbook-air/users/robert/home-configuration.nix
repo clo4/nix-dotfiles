@@ -9,7 +9,7 @@
 
   home.stateVersion = "24.05";
 
-  my.config.directory = "Developer/nix-dotfiles/config";
+  my.config.directory = ".config/nix-dotfiles/config";
 
   # FIXME: This isn't working, need to figure out why
   targets.darwin.currentHostDefaults = {

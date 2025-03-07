@@ -78,8 +78,22 @@
   ];
   nix.settings.trusted-users = [ "@admin" ];
   nix.channel.enable = false;
-  # TODO: should I make 'robert' a trusted user?
   nixpkgs.config.allowUnfree = true;
+
+  nix.distributedBuilds = true;
+  nix.buildMachines = [
+    {
+      hostName = "homeserver1";
+      sshUser = "robert";
+      system = "x86_64-linux";
+      maxJobs = 8;
+      supportedFeatures = [
+        "kvm"
+        "benchmark"
+        "big-parallel"
+      ];
+    }
+  ];
 
   services.tailscale.enable = true;
   services.openssh.enable = true;

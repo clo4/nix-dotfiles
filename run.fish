@@ -1,3 +1,9 @@
+function _run
+    set colored_command (echo -- "$argv" | fish_indent --ansi)
+    echo "$(set_color brgreen --bold)running: $(set_color normal)$colored_command"
+    $argv
+end
+
 function _validate_system_verb
     set verbs build switch
     set joined_verbs (string join ', ' -- $verbs)
@@ -18,7 +24,7 @@ end
 function homeserver1 -d "Build and switch homeserver1 NixOS configuration"
     _validate_system_verb $argv
 
-    nixos-rebuild $argv[1] \
+    _run nixos-rebuild $argv[1] \
         --flake .#homeserver1 \
         --target-host robert@homeserver1 \
         --build-host robert@homeserver1 \
@@ -30,15 +36,13 @@ alias hs homeserver1
 
 function macmini -d "Build and switch macmini nix-darwin configuration"
     _validate_system_verb $argv
-
-    darwin-rebuild $argv[1] --flake .#macmini --max-jobs 8 $argv[2..]
+    _run darwin-rebuild $argv[1] --flake .#macmini --max-jobs 8 $argv[2..]
 end
 alias mm macmini
 
 function macbook-air -d "Build and switch robert@macbook-air Home Manager configuration"
     _validate_system_verb $argv
-
-    home-manager $argv[1] --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
+    _run home-manager $argv[1] --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
 end
 alias mb macbook-air
 

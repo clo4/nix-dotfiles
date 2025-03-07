@@ -80,15 +80,22 @@
       "systemd-journal"
     ];
     hashedPassword = "!";
+
+    # TODO: Think of a better place to store these keys. Maybe in users/robert/<device>?
     openssh.authorizedKeys.keys = [
       # My iPhone, blink terminal
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFkVAe4iwrprDibMgY1m0BeUPgrKBRErKRfLfxjVl+lu"
-
       # My iPad, blink terminal
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGcz3Qiqix5lJPsDeE+RY2q64Bpl+jY0tLO/fUM5TNr"
     ];
+
+    # Allows each system's root and user to connect to the server, which
+    # is necessary to use it as a builder.
     openssh.authorizedKeys.keyFiles = [
+      "${flake}/hosts/macbook-air/id_ed25519.pub"
       "${flake}/hosts/macbook-air/users/robert/id_ed25519.pub"
+
+      "${flake}/hosts/macmini/id_ed25519.pub"
       "${flake}/hosts/macmini/users/robert/id_ed25519.pub"
     ];
   };

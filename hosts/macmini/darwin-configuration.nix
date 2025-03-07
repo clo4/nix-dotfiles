@@ -23,12 +23,15 @@
 
       # My iPad, blink terminal
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEGcz3Qiqix5lJPsDeE+RY2q64Bpl+jY0tLO/fUM5TNr"
-
-      # MacBok Air root, allows it to use macmini as a builder
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMcW6rkRTw2QGfPkxMK56J7dIh65B0HHXqk7ee9FKAWv"
     ];
     openssh.authorizedKeys.keyFiles = [
+      # Allows both my user account and system root to SSH into the robert account.
+      # This is so I can use macmini as a remote builder to offload some work from
+      # the more thermally constrained laptop, but unfortunately because the laptop
+      # isn't managed with nix-darwin, I have to manually configure the builder :(
+      "${flake}/hosts/macbook-air/id_ed25519.pub"
       "${flake}/hosts/macbook-air/users/robert/id_ed25519.pub"
+      # Allows me to SSH into myself, which is useful sometimes
       "${flake}/hosts/macmini/users/robert/id_ed25519.pub"
     ];
   };

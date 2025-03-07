@@ -18,7 +18,8 @@ in
   imports = [
     inputs.self.homeModules.my-config
     inputs.self.homeModules.my-programs-fish
-  ] ++ lib.optional pkgs.stdenv.isDarwin inputs.self.homeModules.darwin;
+    ./darwin.nix
+  ];
 
   home.packages = [
     perSystem.helix.helix

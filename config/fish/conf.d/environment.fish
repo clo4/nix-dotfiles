@@ -42,11 +42,37 @@ end
 # Something has gone wrong if the first item in these paths is not the
 # user configuration directories, but *if* it isn't, correct it so that
 # user functions will always win.
+# Shells are not pleasant to debug, so I want to give myself a head start
+# by making it hard to ignore errors.
 if test $fish_function_path[1] != $HOME/.config/fish/functions
     set --prepend fish_function_path $HOME/.config/fish/functions
-    echo "WARNING: fish_function_path[1] was not $HOME/.config/fish/functions, fixing for this shell"
+    echo "$(set_color brred)WARNING:$(set_color normal) $(set_color --bold)fish_function_path[1]$(set_color normal) was not $(set_color --italics)'$HOME/.config/fish/functions'$(set_color normal), fixing for this shell."
+    echo "         You should take some time to figure out the root cause - something is misconfigured".
+    echo
+    for line in $fish_function_path
+        if test $line = $HOME/.config/fish/functions
+            set_color --bold
+            echo -- "      -> "$line
+            set_color normal
+        else
+            echo -- "         "$line
+        end
+    end
+    echo
 end
 if test $fish_complete_path[1] != $HOME/.config/fish/completions
     set --prepend fish_complete_path $HOME/.config/fish/completions
-    echo "WARNING: fish_complete_path[1] was not $HOME/.config/fish/completions, fixing for this shell"
+    echo "$(set_color brred)WARNING:$(set_color normal) $(set_color --bold)fish_complete_path[1]$(set_color normal) was not $(set_color --italics)'$HOME/.config/fish/completions'$(set_color normal), fixing for this shell."
+    echo "         You should take some time to figure out the root cause - something is misconfigured".
+    echo
+    for line in $fish_complete_path
+        if test $line = $HOME/.config/fish/completions
+            set_color --bold
+            echo -- "      -> "$line
+            set_color normal
+        else
+            echo -- "         "$line
+        end
+    end
+    echo
 end

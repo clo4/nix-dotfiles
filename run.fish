@@ -1,5 +1,5 @@
 function _run
-    set colored_command (echo -- "$argv" | fish_indent --ansi)
+    set colored_command (string escape -- $argv | string join ' ' | fish_indent --ansi)
     echo "$(set_color brgreen --bold)running: $(set_color normal)$colored_command"
     $argv
 end
@@ -21,10 +21,11 @@ function _validate_system_verb
     end
 end
 
-function homeserver1 -d "Build and switch homeserver1 NixOS configuration"
-    _validate_system_verb $argv
+function homeserver1 -d "Build and switch homeserver1 NixOS configuration" -a verb
+    set -q verb || set verb switch
+    _validate_system_verb $verb
 
-    _run nixos-rebuild $argv[1] \
+    _run nixos-rebuild $verb \
         --flake .#homeserver1 \
         --target-host robert@homeserver1 \
         --build-host robert@homeserver1 \
@@ -34,19 +35,23 @@ function homeserver1 -d "Build and switch homeserver1 NixOS configuration"
 end
 alias hs homeserver1
 
-function macmini -d "Build and switch macmini nix-darwin configuration"
-    _validate_system_verb $argv
-    _run darwin-rebuild $argv[1] --flake .#macmini --max-jobs 8 $argv[2..]
+function macmini -d "Build and switch macmini nix-darwin configuration" -a verb
+    set -q verb || set verb switch
+    _validate_system_verb $verb
+
+    _run darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
 end
 alias mm macmini
 
-function macbook-air -d "Build and switch robert@macbook-air Home Manager configuration"
-    _validate_system_verb $argv
-    _run home-manager $argv[1] --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
+function macbook-air -d "Build and switch robert@macbook-air Home Manager configuration" -a verb
+    set -q verb || set verb switch
+    _validate_system_verb $verb
+
+    _run home-manager $verb --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
 end
 alias mb macbook-air
 
 function rcon -d "Connect to homeserver1 and begin an interactive RCON session"
     echo (set_color --italics)"connecting to homeserver1 and executing rcon-cli..."(set_color normal)
-    ssh robert@homeserver1 "sudo podman exec -i minecraft-family rcon-cli"
+    _run ssh robert@homeserver1 "sudo podman exec -i minecraft-family rcon-cli"
 end

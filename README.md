@@ -77,22 +77,16 @@ More of my custom things will be documented in the future.
 ### Building and switching
 
 As a way to make sure I always get the commands right, there's a command runner
-included in the developer environment named `run`. The following lines are
-examples of how to switch config for each of the hosts.
+included in the developer environment named `run`. Run `run` with no arguments
+to print the available commands.
 
-```fish
-run server switch
-run macmini switch
-run macbook switch
-```
-
-Instead of switch, the verb `build` can also be used.
-
-Switching `macmini` and `macbook` will attempt to switch the currently active
-device, but switching `server` will cause the server to rebuild and switch
+Switching `macmini` and `macbook-air` will attempt to switch the currently active
+device, but switching `homeserver1` will cause the server to rebuild and switch
 remotely, allowing the command to be run from whatever device is being used
 without an SSH connection. The only requirement is that Tailscale is up and
 connected.
+
+`run` can be used from any shell, but is intended for use within Fish.
 
 ### Bootstrapping homeserver1
 
@@ -102,3 +96,13 @@ itself or over SSH.
 ```bash
 sudo nix --extra-experimental-features 'nix-command flakes' run github:clo4/nix-dotfiles/vps#homeserver1-install
 ```
+
+## Personal notes
+
+### Moving configuration directories
+
+To migrate from one directory to another, create an exact copy of the
+configuration in the new destination **without removing the existing
+configuration.** Once created, edit the new configuration, changing
+`my.config.directory` to whatever the new path is. Now you can reapply the
+configuration from the new directory.

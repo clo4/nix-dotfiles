@@ -56,48 +56,53 @@ script will be silenced, functions will not be."
 
     set -l fish_path (status fish-path)
 
-    $fish_path --no-config -c '
+    $fish_path --no-config -c "
     function __private_main
         set -l pre_functions (functions --names)
 
-        cd '$dir'
-        # The script could cd to a different directory before the function
-        # is invoked.
-        __private_source '$file_path' &>/dev/null
-        cd '$dir'
+        cd \"$dir\"
+        # Not all errors from sourcing can be detected. Instead, we're just
+        # going to assume that everything went okay, because partial failure
+        # won't actually impact the execution at all.
+        __private_source \"$file_path\" &>/dev/null
 
         set -l post_functions (functions --names)
 
         set -l new_functions
-        for function in $post_functions
-            if not contains -- $function $pre_functions; and not string match \'_*\' -- $function
-                set --append new_functions $function
+        for function in \$post_functions
+            if not contains -- \$function \$pre_functions; and not string match \"_*\" -- \$function
+                set --append new_functions \$function
             end
         end
 
         if not set -q argv[1]
-            if test "$__COMPLETE_RUN_DESCRIPTIONS" != 1
-                for function in $new_functions
-                    echo -- $function
+            if test \"\$__COMPLETE_RUN_DESCRIPTIONS\" != 1
+                for function in \$new_functions
+                    echo -- \$function
                 end
             else
-                for function in $new_functions
-                    set desc (functions -vD $function | sed -n -e "5{p;q}")
-                    echo -- $function\\t$desc
+                for function in \$new_functions
+                    set desc (functions -vD \$function | sed -n -e \"5{p;q}\")
+                    echo -- \$function\\t\$desc
                 end
             end
-        else if contains -- $argv[1] $new_functions
-            $argv
-            return $status
+        else if contains -- \$argv[1] \$new_functions
+            # The directory could have changed when the script was sourced,
+            # e.g. top-level 'cd' job
+            cd \"$dir\"
+            \$argv
+            return \$status
         else
-            echo (set_color brred)"error:"(set_color normal)" did not match a function name: $argv[1]"
+            echo (set_color brred)\"error:\"(set_color normal)\" did not match a function name: \$argv[1]\"
         end
     end
+
     function __private_source
-        source $argv
+        source \$argv
     end
+
     __private_main $argv
-    ' $argv
+    " $argv
     set -l result_status $status
 
     return $result_status

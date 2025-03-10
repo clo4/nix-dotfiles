@@ -4,52 +4,31 @@ function _run
     $argv
 end
 
-function _validate_system_verb
-    set verbs build switch
-    set joined_verbs (string join ', ' -- $verbs)
 
-    if not set -q argv[1]
-        echo "error: expected at least one of: $joined_verbs"
-        exit 1
+alias build-homeserver1 "_homeserver1 build"
+alias switch-homeserver1 "_homeserver1 switch"
+function _homeserver1 -a verb
+    set rebuild_args --flake .#homeserver1 --fast --use-remote-sudo $argv[2..]
+    if test (hostname -s) != homeserver1
+        set --append rebuild_args --target-host robert@homeserver1 --build-host robert@homeserver1
     end
-    switch $argv[1]
-        case $verbs
-            return 0
-        case '*'
-            echo "error: verb '$argv[1]' must be one of: $joined_verbs"
-            exit 1
-    end
+    _run nixos-rebuild $verb $rebuild_args
 end
 
-function homeserver1 -d "Build and switch homeserver1 NixOS configuration" -a verb
-    set -q verb || set verb switch
-    _validate_system_verb $verb
 
-    _run nixos-rebuild $verb \
-        --flake .#homeserver1 \
-        --target-host robert@homeserver1 \
-        --build-host robert@homeserver1 \
-        --fast \
-        --use-remote-sudo \
-        $argv[2..]
-end
-alias hs homeserver1
-
-function macmini -d "Build and switch macmini nix-darwin configuration" -a verb
-    set -q verb || set verb switch
-    _validate_system_verb $verb
-
+alias build-macmini "_macmini build"
+alias switch-macmini "_macmini switch"
+function _macmini -a verb
     _run darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
 end
-alias mm macmini
 
-function macbook-air -d "Build and switch robert@macbook-air Home Manager configuration" -a verb
-    set -q verb || set verb switch
-    _validate_system_verb $verb
 
+alias build-macbook-air "_macbook-air build"
+alias switch-macbook-air "_macbook-air switch"
+function _macbook-air -a verb
     _run home-manager $verb --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
 end
-alias mb macbook-air
+
 
 function rcon -d "Connect to homeserver1 and begin an interactive RCON session"
     echo (set_color --italics)"connecting to homeserver1 and executing rcon-cli..."(set_color normal)

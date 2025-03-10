@@ -12,21 +12,21 @@ function _homeserver1 -a verb
     if test (hostname -s) != homeserver1
         set --append rebuild_args --target-host robert@homeserver1 --build-host robert@homeserver1
     end
-    _run nixos-rebuild $verb $rebuild_args
+    _run nix run --inputs-from . nixpkgs#nixos-rebuild -- $verb $rebuild_args
 end
 
 
 alias build-macmini "_macmini build"
 alias switch-macmini "_macmini switch"
 function _macmini -a verb
-    _run darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
+    _run nix run --inputs-from . nix-darwin#default -- $verb --flake .#macmini --max-jobs 8 $argv[2..]
 end
 
 
 alias build-macbook-air "_macbook-air build"
 alias switch-macbook-air "_macbook-air switch"
 function _macbook-air -a verb
-    _run home-manager $verb --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
+    _run nix run --inputs-from . home-manager#default -- $verb --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
 end
 
 

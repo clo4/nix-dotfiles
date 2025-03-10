@@ -62,18 +62,19 @@ in
 
   my.config.force = true;
   my.config.source = {
-    ".config/ghostty/config" = "ghostty/config";
-    ".config/ghostty/macos-config" = lib.mkIf pkgs.stdenv.isDarwin "ghostty/macos-config";
-    ".config/ghostty/linux-config" = lib.mkIf pkgs.stdenv.isLinux "ghostty/linux-config";
-    ".config/kitty" = "kitty";
-    ".config/helix" = "helix";
-    ".config/tmux" = "tmux";
-    ".config/git" = "git";
-    ".config/zed" = "zed";
-    ".config/fish" = "fish";
-    ".config/direnv/direnv.toml" = "direnv/direnv.toml";
-    ".zshenv" = "zsh/home_zshenv";
-    ".config/zsh" = "zsh";
+    ".config/ghostty/config" = "config/ghostty/config";
+    ".config/ghostty/macos-config" = lib.mkIf pkgs.stdenv.isDarwin "config/ghostty/macos-config";
+    ".config/ghostty/linux-config" = lib.mkIf pkgs.stdenv.isLinux "config/ghostty/linux-config";
+
+    ".config/kitty" = "config/kitty";
+    ".config/helix" = "config/helix";
+    ".config/tmux" = "config/tmux";
+    ".config/git" = "config/git";
+    ".config/zed" = "config/zed";
+    ".config/fish" = "config/fish";
+    ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";
+    ".zshenv" = "config/zsh/home_zshenv";
+    ".config/zsh" = "config/zsh";
   };
 
   # This needs to be in a known location so it can be sourced regardless

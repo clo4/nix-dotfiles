@@ -10,7 +10,7 @@ let
   cfg = config.my.config;
   home = config.home.homeDirectory;
   mkConfigSymlink =
-    relPath: config.lib.file.mkOutOfStoreSymlink "${home}/${cfg.directory}/${relPath}";
+    relativePath: config.lib.file.mkOutOfStoreSymlink "${home}/${cfg.directory}/${relativePath}";
 in
 {
   options.my.config = {

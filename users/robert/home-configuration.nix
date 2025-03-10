@@ -7,6 +7,7 @@
   inputs,
   lib,
   config,
+  flake,
   ...
 }:
 let
@@ -109,6 +110,7 @@ in
       hash = "sha256-85iU1QzcZmZYGhK30/ZaKwJNLTsx+j3w6St8bFiQWxc=";
     })
   ];
+  home.sessionVariables.NIX_CONFIG_REV = flake.rev or flake.dirtyRev;
 
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
@@ -117,5 +119,5 @@ in
     nix-darwin.flake = inputs.nix-darwin;
     helix.flake = inputs.helix;
   };
-  # nix.settings.log-lines = 25;
+  nix.settings.log-lines = 25;
 }

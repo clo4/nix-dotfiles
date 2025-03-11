@@ -11,7 +11,7 @@ alias homeserver1-switch "_homeserver1 switch"
 function _homeserver1 -a verb
     set rebuild_args --flake .#homeserver1 --fast --use-remote-sudo $argv[2..]
     if test (hostname -s) != homeserver1
-        set --append rebuild_args --target-host robert@homeserver1 --build-host robert@homeserver1
+        set --prepend rebuild_args --target-host robert@homeserver1 --build-host robert@homeserver1
     end
     _run nix run --inputs-from . nixpkgs#nixos-rebuild -- $verb $rebuild_args
 end

@@ -20,7 +20,7 @@ type RecordConfig struct {
 	APIToken string `json:"api_token"`
 	ZoneID   string `json:"zone_id"`
 	RecordID string `json:"record_id"`
-	Domain   string `json:"domain_name"`
+	Name     string `json:"name"`
 }
 
 // DNSUpdateRequest represents the Cloudflare API request
@@ -72,7 +72,7 @@ func updateDNSRecord(config *RecordConfig, ip string) error {
 
 	updateReq := DNSUpdateRequest{
 		Type:    "A",
-		Name:    config.Domain,
+		Name:    config.Name,
 		Content: ip,
 		TTL:     1,
 	}
@@ -159,7 +159,7 @@ func main() {
 	}
 
 	for i, config := range configs {
-		if config.APIToken == "" || config.ZoneID == "" || config.RecordID == "" || config.Domain == "" {
+		if config.APIToken == "" || config.ZoneID == "" || config.RecordID == "" || config.Name == "" {
 			slog.Error("Missing required configuration fields", "index", i)
 			os.Exit(1)
 		}
@@ -202,12 +202,12 @@ func main() {
 
 			slog.Info("Updating DNS record",
 				"index", idx,
-				"domain", cfg.Domain)
+				"name", cfg.Name)
 
 			if err := updateDNSRecord(&cfg, currentIP); err != nil {
 				slog.Error("Error updating DNS record",
 					"index", idx,
-					"domain", cfg.Domain,
+					"domain", cfg.Name,
 					"error", err)
 
 				mu.Lock()
@@ -216,7 +216,7 @@ func main() {
 			} else {
 				slog.Info("Successfully updated DNS record",
 					"index", idx,
-					"domain", cfg.Domain)
+					"domain", cfg.Name)
 			}
 		}(i, config)
 	}

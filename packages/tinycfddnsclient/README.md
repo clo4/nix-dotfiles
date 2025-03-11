@@ -44,7 +44,7 @@ That JSON file is an array of objects that contain the following fields:
 - `api_token`
 - `zone_id`
 - `record_id`
-- `domain_name`
+- `name`
 
 To minimize the complexity of the implementation, you must supply the record ID.
 This means that there must be an existing DNS record - this program will not

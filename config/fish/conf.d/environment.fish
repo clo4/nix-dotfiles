@@ -2,6 +2,7 @@
 # they behave like path variables, so it makes sense to treat them
 # as such.
 for p in XDG_DATA_DIRS XDG_CONFIG_DIRS TERMINFO_DIRS
+    # @fish-lsp-disable-next-line 3003
     set --path $p $$p
 end
 

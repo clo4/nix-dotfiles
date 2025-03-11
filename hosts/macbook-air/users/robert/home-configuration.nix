@@ -11,6 +11,9 @@
 
   my.config.directory = ".config/nix-dotfiles";
 
+  # Config fails to build without this.
+  nix.package = pkgs.nix;
+
   # FIXME: This isn't working, need to figure out why
   targets.darwin.currentHostDefaults = {
     NSGlobalDomain = {

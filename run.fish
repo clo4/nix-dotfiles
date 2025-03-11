@@ -5,8 +5,8 @@ function _run
 end
 
 
-alias build-homeserver1 "_homeserver1 build"
-alias switch-homeserver1 "_homeserver1 switch"
+alias homeserver1-build "_homeserver1 build"
+alias homeserver1-switch "_homeserver1 switch"
 function _homeserver1 -a verb
     set rebuild_args --flake .#homeserver1 --fast --use-remote-sudo $argv[2..]
     if test (hostname -s) != homeserver1
@@ -16,15 +16,15 @@ function _homeserver1 -a verb
 end
 
 
-alias build-macmini "_macmini build"
-alias switch-macmini "_macmini switch"
+alias macmini-build "_macmini build"
+alias macmini-switch "_macmini switch"
 function _macmini -a verb
     _run nix run --inputs-from . nix-darwin#default -- $verb --flake .#macmini --max-jobs 8 $argv[2..]
 end
 
 
-alias build-macbook-air "_macbook-air build"
-alias switch-macbook-air "_macbook-air switch"
+alias macbook-air-build "_macbook-air build"
+alias macbook-air-switch "_macbook-air switch"
 function _macbook-air -a verb
     _run nix run --inputs-from . home-manager#default -- $verb --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
 end

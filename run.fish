@@ -37,3 +37,14 @@ function rcon -d "Connect to homeserver1 and begin an interactive RCON session"
     echo (set_color --italics)"connecting to homeserver1 and executing rcon-cli..."(set_color normal)
     _run ssh robert@homeserver1 "sudo podman exec -i minecraft-family rcon-cli"
 end
+
+function check-applied -d "Check if the currently applied configuration needs to be updated"
+    set last_commit_timestamp (git log -1 --format=%at)
+    if test $NIX_CONFIG_LAST_MODIFIED -lt $last_commit_timestamp
+        echo "Configuration is out of date."
+        # TODO: Prompt to apply configuration if out of date?
+        return 1
+    else
+        echo "Configuration is either the newest available or newer."
+    end
+end

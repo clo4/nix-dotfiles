@@ -112,6 +112,7 @@ in
   ];
   home.sessionVariables.NIX_CONFIG_REV = flake.rev or flake.dirtyRev;
   home.sessionVariables.NIX_CONFIG_DIR = "${config.home.homeDirectory}/${config.my.config.directory}";
+  home.sessionVariables.NIX_CONFIG_LAST_MODIFIED = builtins.toString flake.lastModified;
 
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;

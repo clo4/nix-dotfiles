@@ -57,7 +57,7 @@
   # A timer set for "04:00" should go off when my wall clock says it's 4.
   time.timeZone = "Australia/Sydney";
 
-  age.secrets.tailscale-homeserver1.file = "${flake}/secrets/tailscale-homeserver1.age";
+  age.secrets.tailscale-homeserver1.file = ./tailscale-homeserver1.age;
   services.tailscale = {
     enable = true;
     authKeyFile = config.age.secrets.tailscale-homeserver1.path;
@@ -71,6 +71,8 @@
 
   virtualisation.podman.enable = true;
   virtualisation.oci-containers.backend = "podman";
+
+  environment.etc."configuration-revision".text = flake.rev or flake.dirtyRev;
 
   users.users.robert = {
     isNormalUser = true;

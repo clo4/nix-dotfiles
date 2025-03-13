@@ -14,7 +14,7 @@
 }:
 {
   age.secrets.tinycfddnsclient-config = {
-    file = "${flake}/secrets/tinycfddnsclient-config.age";
+    file = ../tinycfddnsclient-config.age;
     owner = "tinycfddnsclient";
     group = "tinycfddnsclient";
     mode = "400";

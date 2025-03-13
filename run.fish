@@ -18,7 +18,7 @@ function _homeserver1 -a verb
     if test (hostname -s) != homeserver1
         set --prepend rebuild_args --target-host robert@homeserver1 --build-host robert@homeserver1
     end
-    _run $verb $rebuild_args
+    _run nixos-rebuild $verb $rebuild_args
 end
 
 alias macmini-build "_macmini build"

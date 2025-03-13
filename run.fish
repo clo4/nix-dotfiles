@@ -11,6 +11,8 @@ function _run
     $argv
 end
 
+alias host-switch "_run $(hostname -s)-switch"
+alias host-build "_run $(hostname -s)-build"
 alias homeserver1-build "_homeserver1 build"
 alias homeserver1-switch "_homeserver1 switch"
 function _homeserver1 -a verb
@@ -30,7 +32,7 @@ end
 alias macbook-air-build "_macbook-air build"
 alias macbook-air-switch "_macbook-air switch"
 function _macbook-air -a verb
-    _run home-manager $verb --flake .#robert@macbook-air --max-jobs 8 $argv[2..]
+    _run home-manager $verb --flake ".#$USER@macbook-air" --max-jobs 8 $argv[2..]
 end
 
 function rcon -d "Connect to homeserver1 and begin an interactive RCON session"

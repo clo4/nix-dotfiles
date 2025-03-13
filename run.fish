@@ -13,6 +13,7 @@ end
 
 alias host-switch "_run $(hostname -s)-switch"
 alias host-build "_run $(hostname -s)-build"
+
 alias homeserver1-build "_homeserver1 build"
 alias homeserver1-switch "_homeserver1 switch"
 function _homeserver1 -a verb
@@ -42,11 +43,20 @@ end
 
 function check-applied -d "Check if the currently applied configuration needs to be updated"
     set last_commit_timestamp (git log -1 --format=%at)
+    set current_commit_pretty (set_color --dim --italics)$NIX_CONFIG_REV(set_color normal)
     if test $NIX_CONFIG_LAST_MODIFIED -lt $last_commit_timestamp
         echo "Configuration is out of date."
+        echo $current_commit_pretty
         # TODO: Prompt to apply configuration if out of date?
         return 1
     else
-        echo "Configuration is either the newest available or newer."
+        set commit_hash (git log -1 --format=%H)
+        if test $NIX_CONFIG_REV = $commit_hash
+            echo "Configuration is the newest available."
+            echo $current_commit_pretty
+        else
+            echo "Configuration is newer than the latest commit."
+            echo $current_commit_pretty
+        end
     end
 end

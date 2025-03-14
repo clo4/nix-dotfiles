@@ -41,7 +41,10 @@ I keep finding yaks to shave.
 - This config uses
   [mattwparas' fork of Helix](https://github.com/mattwparas/helix/tree/steel-event-system)
   with support for plugins, though I haven't set up or written any plugins yet.
-  I had to fork it to get the Steel language server integration working.
+  I had to fork it to get the Steel language server integration working. A build
+  that uses this version and has working a working scheme language server for
+  building plugins is available by running
+  `nix run github:clo4/nix-dotfiles#helix`.
 - Homebrew is installed automatically and managed declaratively with
   [nix-homebrew](https://github.com/zhaofengli/nix-homebrew)
 - Since fish is the best language for shell scripting, I wrote a custom command
@@ -80,10 +83,10 @@ As a way to make sure I always get the commands right, there's a command runner
 included in the developer environment named `run`. Run `run` with no arguments
 to print the available commands.
 
-Switching `macmini` and `macbook-air` will attempt to switch the currently active
-device, but switching `homeserver1` will cause the server to rebuild and switch
-remotely, allowing the command to be run from whatever device is being used
-without an SSH connection. The only requirement is that Tailscale is up and
+Switching `macmini` and `macbook-air` will attempt to switch the currently
+active device, but switching `homeserver1` will cause the server to rebuild and
+switch remotely, allowing the command to be run from whatever device is being
+used without an SSH connection. The only requirement is that Tailscale is up and
 connected.
 
 `run` can be used from any shell, but is intended for use within Fish.

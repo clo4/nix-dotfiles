@@ -7,7 +7,14 @@
   pkgs,
   flake,
 }:
+let
+  steelWithLsp = perSystem.steel.default.overrideAttrs (oldAttrs: {
+    cargoBuildFlags = "-p cargo-steel-lib -p steel-interpreter -p steel-language-server";
+  });
+in
 pkgs.writeShellScriptBin "hx" ''
-  export PATH=${pkgs.lib.makeSearchPath "bin" [ perSystem.self.ccase ]}:$PATH
+  export PATH=${steelWithLsp}/bin:$PATH
+  export STEEL_HOME=${perSystem.helix.helix-cogs}
+  export STEEL_LSP_HOME=${perSystem.helix.helix-cogs}/steel-language-server
   exec ${perSystem.helix.default}/bin/hx -c ${flake}/config/helix/config.toml "$@"
 ''

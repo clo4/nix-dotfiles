@@ -14,7 +14,7 @@ end
 
 # --- Commands
 
-set this_host (hostname -s)
+set -g this_host (hostname -s)
 
 function rcon -d "Connect to homeserver1 and begin an interactive RCON session"
     echo (set_color --italics)"connecting to homeserver1 and executing rcon-cli..."(set_color normal)
@@ -39,6 +39,12 @@ function check-applied -d "Check if the currently applied configuration needs to
             echo $current_commit_pretty
         end
     end
+end
+
+function edit-age -d "Edit the encrypted files stored in this repository"
+    set file (fd --type file --glob '*.age' | fzf --height=40% --layout=reverse)
+    or return
+    agenix -e $file $argv
 end
 
 # --- Functions for building/switching hosts

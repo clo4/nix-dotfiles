@@ -2,14 +2,9 @@
 
 # --- Utility functions
 
-set -g run_depth 0
-
 function _pretty_print
-    set -g run_depth (math "$run_depth + 1")
-    set stem (string repeat --count $run_depth "~~")
-
     set colored_command (string escape -- $argv | string join ' ' | fish_indent --ansi)
-    echo "$(set_color brgreen --bold)$stem>$(set_color normal) $colored_command"
+    echo "$(set_color brgreen --bold)~~>$(set_color normal) $colored_command"
 end
 
 function _run

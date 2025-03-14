@@ -43,7 +43,8 @@
       User = "tinycfddnsclient";
       Group = "tinycfddnsclient";
       Environment = [
-        "CONFIG_PATH=${config.age.secrets.tinycfddnsclient-config.path}"
+        "DDNS_CONFIG_PATH=${config.age.secrets.tinycfddnsclient-config.path}"
+        "DDNS_CACHE_PATH=/var/tmp"
       ];
       ExecStart = "${perSystem.self.tinycfddnsclient}/bin/tinycfddnsclient";
     };

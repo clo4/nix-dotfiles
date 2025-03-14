@@ -40,6 +40,9 @@ if set -q SSH_CLIENT; or set -q SSH_TTY
     set -x BROWSER echo
 end
 
+set -x FZF_CTRL_T_COMMAND "fd --type file --strip-cwd-prefix"
+set -x FZF_ALT_C_COMMAND "fd --type directory --strip-cwd-prefix"
+
 # Something has gone wrong if the first item in these paths is not the
 # user configuration directories, but *if* it isn't, correct it so that
 # user functions will always win.

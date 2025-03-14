@@ -1,6 +1,15 @@
 # @fish-lsp-disable 2002 4004
 
-# --- Utility functions
+# If the devshell isn't active, the functiond defined in this file cannot be
+# used, so ensure that the dev environment is always active.
+if not set -q IN_NIX_CONFIG_DEVSHELL
+    alias devshell "nix develop"
+    return 1
+end
+
+#
+# --- Private utility functions
+#
 
 function _pretty_print
     set colored_command (string escape -- $argv | string join ' ' | fish_indent --ansi)
@@ -12,9 +21,24 @@ function _run
     $argv
 end
 
+#
 # --- Commands
+# 
 
 set -g this_host (hostname -s)
+
+function dry -d "Dry-run a function (replaces _run with _pretty_print)"
+    functions --erase _run
+    functions --copy _pretty_print _run
+
+    # Mistakenly ran this function without any arguments, print functions.
+    if not set -q argv[1]
+        run
+        return
+    end
+
+    $argv
+end
 
 function rcon -d "Connect to homeserver1 and begin an interactive RCON session"
     echo (set_color --italics)"connecting to homeserver1 and executing rcon-cli..."(set_color normal)
@@ -47,15 +71,36 @@ function edit-age -d "Edit the encrypted files stored in this repository"
     agenix -e $file $argv
 end
 
+#
 # --- Functions for building/switching hosts
+# 
 
 function homeserver1 -a verb
-    set rebuild_args $verb --flake .#homeserver1
+    set rebuild_args
+    set maybe_sudo
+
     if test $this_host != homeserver1
-        set --append rebuild_args --fast --use-remote-sudo --target-host robert@homeserver1 --build-host robert@homeserver1
+        # If not building on homeserver1, set homeserver1 to be the target.
+        # Otherwise, it is definitely a mistake to switch on the local system.
+        set --append rebuild_args --use-remote-sudo --target-host robert@homeserver1
+        echo (set_color --dim --italics)"not on homeserver1, targeting remote host..."(set_color normal)
+
+        # If the current system isn't x86-64 Linux, then homeserver1 needs to build
+        # its own configuration. --fast (--no-build-nix) is also required because
+        # the local system will attempt to execute a version of `nix` that it can't
+        # run.
+        if test (nix eval --impure --raw --expr 'builtins.currentSystem') != x86_64-linux
+            set --append rebuild_args --build-host robert@homeserver1 --fast
+            echo (set_color --dim --italics)"not on x86_64-linux, performing remote build..."(set_color normal)
+        end
+
+    else
+        # If, for whatever reason, we *are* on homeserver1, then we need to use sudo.
+        set maybe_sudo sudo
+        echo (set_color --dim --italics)"on homeserver1, using sudo..."(set_color normal)
     end
-    set --append rebuild_args $argv[2..]
-    _run nixos-rebuild $rebuild_args
+
+    _run $maybe_sudo nixos-rebuild $verb --flake .#homeserver1 $rebuild_args $argv[2..]
 end
 
 function macmini -a verb
@@ -75,16 +120,11 @@ set verbs build switch
 
 for host in $hosts
     functions -q $host; or continue
-
     functions --copy $host _$host
     functions --erase $host
 
     for verb in $verbs
-        echo "
-function $host-$verb -d '$verb the configuration for $host'
-    _$host $verb \$argv
-end
-        " | source
-        test $this_host = $host; and alias host-$verb $host-$verb
+        echo "function $verb-$host -d '$verb the configuration for $host'; _$host $verb \$argv; end" | source
+        test $this_host = $host; and alias $verb-host $verb-$host
     end
 end

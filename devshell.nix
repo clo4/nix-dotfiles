@@ -34,4 +34,7 @@ pkgs.mkShellNoCC {
       pkgs.darwin.cctools # I've been burned in the past by not having this
       pkgs.darwin.apple_sdk.frameworks.CoreFoundation
     ];
+  shellHook = ''
+    export IN_NIX_CONFIG_DEVSHELL=1
+  '';
 }

@@ -1,4 +1,7 @@
 {
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
   "theme": "Gruvbox Dark",
   "vim_mode": true,
   "buffer_font_family": "RobotoMono Nerd Font",

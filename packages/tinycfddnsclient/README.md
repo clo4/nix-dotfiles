@@ -4,12 +4,12 @@ There are a lot of DDNS clients that exist, but most of them are massive
 overkill for what I need. This program fits my requirements exactly, and does
 nothing more:
 
-- Updates A records with Cloudflare's DNS
+- Updates both A and AAAA records with Cloudflare's DNS
 - Updates multiple records at once, concurrently
 - Doesn't run as a daemon (user is expected to use a scheduler, e.g. systemd
   timers or cron)
 - Doesn't do anything more complicated than it has to (no custom configuration
-  languages)
+  languages, just JSON)
 - Compiled, not interpreted
 
 This is a simple Go program. I don't have any use-case for this outside of Nix,
@@ -22,13 +22,9 @@ Since this does exactly what I need, there are edge-cases that I don't care
 about that this doesn't handle. Namely:
 
 - Partial failures will cause the address cache write to be skipped, meaning
-  each record will be updated again even if it succeeded previously.
-- IPv6 is unsupported (this will not be a limitation forever, eventually I'll
-  want this)
-- Configuration is not checked for correctness. You can enter garbage data into
-  any of the fields
-- The cache location is not configurable, so if you don't want to use `/var/tmp`
-  (which may not be reasonable on another system) you don't have a choice
+  each record will be updated again even if it succeeded previously
+- Configuration is not checked extensively for correctness. You are responsible
+  for providing valid data
 
 None of these shortcomings matter at all for what I need this to do. However, if
 someone that is not me wants to use this, you must be aware of what it does and
@@ -36,21 +32,55 @@ does not do.
 
 ## Configuration
 
-You configure this tool by setting a CONFIG_PATH environment variable to the
-path of a JSON file.
+You configure this tool by setting environment variables:
 
-That JSON file is an array of objects that contain the following fields:
+- `DDNS_CONFIG_PATH`: Required. Path to the JSON configuration file
+- `DDNS_CACHE_PATH`: Optional. Directory where IP address cache files will be
+  stored. If not set, caching will be disabled and DNS records will be updated
+  on every run
 
-- `api_token`
-- `zone_id`
-- `record_id`
-- `name`
+The configuration file is a JSON object with two optional arrays, `a` and
+`aaaa`, each containing objects with the following fields:
 
-To minimize the complexity of the implementation, you must supply the record ID.
-This means that there must be an existing DNS record - this program will not
-create one for you. Unfortunately, the record ID is not exposed anywhere in the
-dashboard interface, meaning you need to use information returned by the API to
-get this detail.
+```json
+{
+  "a": [
+    {
+      "name": "example.com",
+      "api_token": "your-cloudflare-api-token",
+      "zone_id": "your-cloudflare-zone-id",
+      "record_id": "your-cloudflare-record-id"
+    }
+  ],
+  "aaaa": [
+    {
+      "name": "example.com",
+      "api_token": "your-cloudflare-api-token",
+      "zone_id": "your-cloudflare-zone-id",
+      "record_id": "your-cloudflare-record-id"
+    }
+  ]
+}
+```
+
+You must supply the record ID for each DNS record you want to update. This means
+there must be existing DNS records - this program will not create them for you.
+Unfortunately, the record ID is not exposed anywhere in the dashboard interface,
+meaning you need to use information returned by the API to get this detail.
+
+When running with Nix, ensure any configuration files are encrypted, as the
+tokens will be readable in plain text. Search this repository for "ddns" for
+example configuration.
+
+### Cache Files
+
+When `DDNS_CACHE_PATH` is set, the program will:
+
+- Store IPv4 addresses in `current_address_ipv4.txt`
+- Store IPv6 addresses in `current_address_ipv6.txt`
+
+These files help avoid unnecessary DNS updates when your IP address hasn't
+changed.
 
 ### Getting record IDs
 
@@ -73,3 +103,19 @@ curl -X GET "https://api.cloudflare.com/client/v4/zones/ZONE_ID_HERE/dns_records
      -H "Authorization: Bearer YOUR_TOKEN_HERE" \
      -H "Content-Type:application/json" | jq '.result[] |  { name, id }'
 ```
+
+## How it works
+
+When executed, the program:
+
+1. Loads the configuration from the path specified in `DDNS_CONFIG_PATH`
+2. Concurrently processes A and AAAA records (if any are defined)
+3. For each record type:
+   - Fetches your current IP address (IPv4 or IPv6) from ipify.org
+   - Checks if this IP matches the cached IP (if caching is enabled)
+   - Only updates DNS records if the IP has changed
+   - Updates all records of that type concurrently
+   - Caches the new IP if all updates succeeded (and caching is enabled)
+
+All operations use a 10-second timeout and failures are logged with detailed
+information.

@@ -337,11 +337,11 @@
         "systems": "systems_4"
       },
       "locked": {
-        "lastModified": 1740689783,
-        "narHash": "sha256-3Iqoy2J9wY3T5jOSjtEk1aT+Q3ncNmmpQ/LY/iyvKuY=",
+        "lastModified": 1741928069,
+        "narHash": "sha256-QKCqh30v7agyIR6yvVlfOnDhrql+zFnD8OGQbKzwpkY=",
         "owner": "mattwparas",
         "repo": "steel",
-        "rev": "f1a605a0f3fe321f4605a80c4497eda2eac5ffce",
+        "rev": "8ecfa5e78f35a6918f18050099e391c0d0494302",
         "type": "github"
       },
       "original": {

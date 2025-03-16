@@ -23,7 +23,7 @@ end
 
 #
 # --- Commands
-# 
+#
 
 set -g this_host (hostname -s)
 
@@ -73,7 +73,7 @@ end
 
 #
 # --- Functions for building/switching hosts
-# 
+#
 
 function homeserver1 -a verb
     set rebuild_args
@@ -108,7 +108,19 @@ function macmini -a verb
 end
 
 function macbook-air -a verb
-    _run home-manager $verb --flake ".#$USER@macbook-air" --max-jobs 8 $argv[2..]
+    set jobs 8
+
+    if test $this_host = "macbook-air"; and pmset -g batt | grep -q "Battery Power"
+        echo (set_color --dim --italics)"on battery power, testing connection to macmini..."(set_color normal)
+        if timeout 3 nix store info --store ssh-ng://robert@macmini &>/dev/null
+            echo (set_color --dim --italics)"delegating to macmini..."(set_color normal)
+            set jobs 0
+        else
+            echo (set_color --dim --italics)"running on this machine..."(set_color normal)
+        end
+    end
+
+    _run home-manager $verb --flake ".#$USER@macbook-air" --max-jobs $jobs $argv[2..]
 end
 
 # The logic below defines the commands used to build/switch configurations for

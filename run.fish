@@ -40,9 +40,24 @@ function dry -d "Dry-run a function (replaces _run with _pretty_print)"
     $argv
 end
 
-function rcon -d "Connect to homeserver1 and begin an interactive RCON session"
+function mc-rcon -d "Connect to homeserver1 and begin an interactive RCON session"
     echo (set_color --italics)"connecting to homeserver1 and executing rcon-cli..."(set_color normal)
     _run ssh robert@homeserver1 "sudo podman exec -i minecraft-family rcon-cli"
+end
+
+function mc-stop
+    echo (set_color --italics)"connecting to homeserver1 and stopping server..."(set_color normal)
+    _run ssh robert@homeserver1 "sudo systemctl stop podman-minecraft-family.service"
+end
+
+function mc-start
+    echo (set_color --italics)"connecting to homeserver1 and stopping server..."(set_color normal)
+    _run ssh robert@homeserver1 "sudo systemctl start podman-minecraft-family.service"
+end
+
+function mc-logs
+    echo (set_color --italics)"connecting to homeserver1 and stopping server..."(set_color normal)
+    _run ssh robert@homeserver1 "journalctl -xefu podman-minecraft-family.service"
 end
 
 function check-applied -d "Check if the currently applied configuration needs to be updated"
@@ -110,7 +125,7 @@ end
 function macbook-air -a verb
     set jobs 8
 
-    if test $this_host = "macbook-air"; and pmset -g batt | grep -q "Battery Power"
+    if test $this_host = macbook-air; and pmset -g batt | grep -q "Battery Power"
         echo (set_color --dim --italics)"on battery power, testing connection to macmini..."(set_color normal)
         if timeout 3 nix store info --store ssh-ng://robert@macmini &>/dev/null
             echo (set_color --dim --italics)"delegating to macmini..."(set_color normal)

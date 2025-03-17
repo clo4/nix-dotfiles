@@ -61,7 +61,7 @@ in
       OPS = "clo4_";
 
       # Performance settings
-      MEMORY = "8G";
+      MEMORY = "6G";
       USE_AIKAR_FLAGS = "TRUE";
 
       # Auto-pause configuration
@@ -76,6 +76,30 @@ in
       # Disable unnecessary watchdog timers
       MAX_TICK_TIME = "-1";
       WATCHDOG = "-1";
+
+      MODRINTH_PROJECTS = ''
+        fabric-api
+        distanthorizons:beta
+        ferrite-core
+        lithium
+        modernfix
+        appleskin
+        c2me-fabric
+        scalablelux
+        noisium
+        lmd
+        almanac
+        netherportalfix
+        balm
+        no-shield-delay
+        geophilic
+        ksyxis
+        continents
+        datapack:detect-afk
+        datapack:pause-day-cycle
+        datapack:afk-sleep
+        datapack:no-free-deaths
+      '';
     };
 
     volumes = [

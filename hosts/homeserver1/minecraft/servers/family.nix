@@ -78,27 +78,30 @@ in
       WATCHDOG = "-1";
 
       MODRINTH_PROJECTS = ''
-        fabric-api
-        distanthorizons:beta
-        ferrite-core
-        lithium
-        modernfix
-        appleskin
-        c2me-fabric
-        scalablelux
-        noisium
-        lmd
         almanac
-        netherportalfix
+        appleskin
         balm
-        no-shield-delay
+        blossomlib
+        blossomtpa
+        blossomwarps
+        c2me-fabric
+        continents
+        datapack:afk-sleep
+        datapack:detect-afk
+        datapack:no-free-deaths
+        datapack:pause-day-cycle
+        distanthorizons:beta
+        fabric-api
+        ferrite-core
         geophilic
         ksyxis
-        continents
-        datapack:detect-afk
-        datapack:pause-day-cycle
-        datapack:afk-sleep
-        datapack:no-free-deaths
+        lithium
+        lmd
+        modernfix
+        netherportalfix
+        no-shield-delay
+        noisium
+        scalablelux
       '';
     };
 

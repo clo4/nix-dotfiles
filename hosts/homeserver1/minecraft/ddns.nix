@@ -6,10 +6,7 @@
 # has changed.
 {
   config,
-  lib,
-  pkgs,
   perSystem,
-  flake,
   ...
 }:
 {

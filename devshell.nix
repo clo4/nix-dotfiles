@@ -14,6 +14,7 @@ pkgs.mkShellNoCC {
       perSystem.self.run
       pkgs.nixos-rebuild
       pkgs.nixos-anywhere
+      pkgs.nixd
       pkgs.age
       pkgs.deno
       # All this stuff is for developing the ddns client

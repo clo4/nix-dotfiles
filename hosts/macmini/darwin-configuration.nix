@@ -97,6 +97,8 @@
   services.tailscale.enable = true;
   services.openssh.enable = true;
 
+  # Good example for how to disable SSH password authentication with nix-darwin.
+  # I want to use the builtin macOS SSH server, but with declarative config.
   environment.etc."ssh/sshd_config.d/999-disable-password-auth.conf".text = ''
     PermitRootLogin no
     PasswordAuthentication no

@@ -84,6 +84,7 @@ in
         blossomwarps
         c2me-fabric
         continents
+        convenient-mobgriefing
         datapack:afk-sleep
         datapack:detect-afk
         datapack:no-free-deaths

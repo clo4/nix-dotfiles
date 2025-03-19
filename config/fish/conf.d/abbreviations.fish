@@ -10,6 +10,7 @@ abbr -a fm "fzf --multi |"
 abbr -a rmf "rm -rf"
 abbr -a md "mkdir -p"
 abbr -a cmv "command -v"
+abbr -a rm trash
 
 abbr -a r run
 

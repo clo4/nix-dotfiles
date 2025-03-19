@@ -9,5 +9,5 @@ let
 in
 {
   "hosts/homeserver1/tailscale-homeserver1.age".publicKeys = [ system-homeserver1 ] ++ robert;
-  "hosts/homeserver1/tinycfddnsclient-config.age".publicKeys = [ system-homeserver1 ] ++ robert;
+  "hosts/homeserver1/clouddns-config.json.age".publicKeys = [ system-homeserver1 ] ++ robert;
 }

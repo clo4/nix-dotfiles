@@ -66,6 +66,29 @@
         "type": "github"
       }
     },
+    "clouddns": {
+      "inputs": {
+        "blueprint": [
+          "blueprint"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1742395751,
+        "narHash": "sha256-DZtZ3m32T1k4kRFxtkL/sRkPIy9XaVfIlHi/7XWHM0Q=",
+        "owner": "clo4",
+        "repo": "clouddns",
+        "rev": "212756d11527baf4f4d3388e8acb3ba04ef267fe",
+        "type": "github"
+      },
+      "original": {
+        "owner": "clo4",
+        "repo": "clouddns",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1741481578,
@@ -276,6 +299,7 @@
       "inputs": {
         "agenix": "agenix",
         "blueprint": "blueprint",
+        "clouddns": "clouddns",
         "crane": "crane",
         "disko": "disko",
         "helix": "helix",

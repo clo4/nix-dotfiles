@@ -1,58 +1,50 @@
-# This uses a custom DDNS client written in Go explicitly for Cloudflare DNS.
-# It's capable of updating multiple records at once, but I only use it to
-# update one since I use SRV records to point at the target host.
-#
-# The client caches the current IP to prevent unnecessary requests if nothing
-# has changed.
 {
   config,
   perSystem,
   ...
 }:
 {
-  age.secrets.tinycfddnsclient-config = {
-    file = ../tinycfddnsclient-config.age;
-    owner = "tinycfddnsclient";
-    group = "tinycfddnsclient";
+  age.secrets.clouddns-config = {
+    file = ../clouddns-config.json.age;
+    owner = "clouddns";
+    group = "clouddns";
     mode = "400";
   };
 
-  users.users.tinycfddnsclient = {
-    description = "System user for tinycfddnsclient";
+  users.users.clouddns = {
+    description = "System user for clouddns";
     isSystemUser = true;
-    group = "tinycfddnsclient";
+    group = "clouddns";
   };
 
-  users.groups.tinycfddnsclient = { };
+  users.groups.clouddns = { };
 
-  systemd.services.tinycfddnsclient = {
+  systemd.services.clouddns = {
     description = "Update Cloudflare DNS records with the current IP address";
     after = [ "network-online.target" ];
     wants = [ "network-online.target" ];
 
     serviceConfig = {
       Type = "oneshot";
-      # This service can't use PrivateTmp because it's a oneshot that writes stateful
-      # data to the tmp as a cache. This data doesn't need to persist across reboots.
       NoNewPrivileges = true;
       PrivateDevices = true;
       MemoryDenyWriteExecute = true;
-      User = "tinycfddnsclient";
-      Group = "tinycfddnsclient";
+      User = "clouddns";
+      Group = "clouddns";
       Environment = [
-        "DDNS_CONFIG_PATH=${config.age.secrets.tinycfddnsclient-config.path}"
+        "DDNS_CONFIG_PATH=${config.age.secrets.clouddns-config.path}"
         "DDNS_CACHE_PATH=/var/tmp"
       ];
-      ExecStart = "${perSystem.self.tinycfddnsclient}/bin/tinycfddnsclient";
+      ExecStart = "${perSystem.clouddns.default}/bin/clouddns";
     };
   };
 
-  systemd.timers.tinycfddnsclient = {
-    description = "Timer for Tiny Cloudflare DDNS Client";
+  systemd.timers.clouddns = {
+    description = "Timer for clouddns";
     wantedBy = [ "timers.target" ];
 
     timerConfig = {
-      OnBootSec = "10s";
+      OnBootSec = "1m";
       OnCalendar = "*:0/20";
     };
   };

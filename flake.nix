@@ -34,6 +34,10 @@
     agenix.inputs.nixpkgs.follows = "nixpkgs";
     agenix.inputs.darwin.follows = "nix-darwin";
     agenix.inputs.home-manager.follows = "home-manager";
+
+    clouddns.url = "github:clo4/clouddns";
+    clouddns.inputs.nixpkgs.follows = "nixpkgs";
+    clouddns.inputs.blueprint.follows = "blueprint";
   };
 
   outputs = inputs: inputs.blueprint { inherit inputs; };

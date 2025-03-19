@@ -3,7 +3,6 @@
 {
   pkgs,
   perSystem,
-  system,
   inputs,
   lib,
   config,
@@ -62,6 +61,10 @@ in
 
   fonts.fontconfig.enable = !pkgs.stdenv.isDarwin;
 
+  # The 'my.config.directory' option is configured on each system to be the
+  # directory that this repository is cloned into.
+  # TODO: Default to absolute path of this flake - will require changing the
+  # module to use the absolute path instead of the relative path.
   my.config.force = true;
   my.config.source = {
     ".config/ghostty/config" = "config/ghostty/config";

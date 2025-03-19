@@ -100,6 +100,7 @@ in
         no-shield-delay
         noisium
         scalablelux
+        sit!
       '';
     };
 

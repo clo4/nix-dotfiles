@@ -59,7 +59,8 @@ I keep finding yaks to shave.
 - I built a simple DDNS client for Cloudflare to keep my DNS record up to date
   with my home internet's IP address. It's a simple Go program, it compiles
   quickly, it caches IP to minimise useless updates. The credentials are stored
-  encrypted with Agenix.
+  encrypted with Agenix. It's been moved into its own repository:
+  [clo4/clouddns](https://github.com/clo4/clouddns)
 
 More of my custom things will be documented in the future.
 

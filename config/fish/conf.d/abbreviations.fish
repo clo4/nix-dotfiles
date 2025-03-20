@@ -11,6 +11,7 @@ abbr -a rmf "rm -rf"
 abbr -a md "mkdir -p"
 abbr -a cmv "command -v"
 abbr -a rm trash
+abbr -a j jj
 
 abbr -a r run
 

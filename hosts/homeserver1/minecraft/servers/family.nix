@@ -41,7 +41,17 @@ in
     # and route them to the right port based on the address the client was
     # connected to. This way, the client connects right to the desired server
     # instance.
-    ports = [ "25580:25565" ];
+    ports = [
+      # Minecraft server, using SRV record so clients connect to the right port.
+      # This also has the advantage that the server scanners don't see the server,
+      # since it's not hosted on the default port.
+      "25580:25565"
+      # UDP is used for server queries
+      "25580:25565/udp"
+      # Simple voice chat. It has to be configured in the mod settings to use
+      # this port.
+      "24480:24480/udp"
+    ];
 
     # Launched by root, then changed to minecraft-family:minecraft-family.
     # Because the user has been set, it's also respected inside the container.
@@ -85,6 +95,7 @@ in
         c2me-fabric
         continents
         convenient-mobgriefing
+        clumps
         datapack:afk-sleep
         datapack:detect-afk
         datapack:no-free-deaths
@@ -92,15 +103,19 @@ in
         distanthorizons:beta
         fabric-api
         ferrite-core
+        forge-config-api-port
         geophilic
         ksyxis
         lithium
+        leaves-be-gone
         lmd
         modernfix
         netherportalfix
         no-shield-delay
         noisium
+        puzzles-lib
         scalablelux
+        simple-voice-chat:beta
         sit!
       '';
     };

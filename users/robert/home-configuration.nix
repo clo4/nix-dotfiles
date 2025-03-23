@@ -66,21 +66,32 @@ in
   # TODO: Default to absolute path of this flake - will require changing the
   # module to use the absolute path instead of the relative path.
   my.config.force = true;
-  my.config.source = {
-    ".config/ghostty/config" = "config/ghostty/config";
-    ".config/ghostty/macos-config" = lib.mkIf pkgs.stdenv.isDarwin "config/ghostty/macos-config";
-    ".config/ghostty/linux-config" = lib.mkIf pkgs.stdenv.isLinux "config/ghostty/linux-config";
+  my.config.source =
+    let
+      ghosttyOsConfig =
+        if pkgs.stdenv.isDarwin then "config/ghostty/os-config-macos" else "config/ghostty/os-config-linux";
+      jjConfigDir = if pkgs.stdenv.isDarwin then "Library/Application Support/jj" else ".config/jj";
+    in
+    {
+      ".config/ghostty/config" = "config/ghostty/config";
+      ".config/ghostty/os-config" = ghosttyOsConfig;
 
-    ".config/kitty" = "config/kitty";
-    ".config/helix" = "config/helix";
-    ".config/tmux" = "config/tmux";
-    ".config/git" = "config/git";
-    ".config/zed" = "config/zed";
-    ".config/fish" = "config/fish";
-    ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";
-    ".zshenv" = "config/zsh/home_zshenv";
-    ".config/zsh" = "config/zsh";
-  };
+      ".config/kitty" = "config/kitty";
+
+      ".config/helix" = "config/helix";
+
+      ".config/tmux" = "config/tmux";
+
+      ".config/git" = "config/git";
+      ${jjConfigDir} = "config/jj";
+
+      ".config/zed" = "config/zed";
+      ".config/fish" = "config/fish";
+      ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";
+
+      ".zshenv" = "config/zsh/home_zshenv";
+      ".config/zsh" = "config/zsh";
+    };
 
   # This needs to be in a known location so it can be sourced regardless
   # of whether we're in standalone HM or as a system module.

@@ -8,6 +8,5 @@ window-theme = auto
 theme = GruvboxDark
 auto-update-channel = tip
 
-# These config files will only exist on the platform they are named after.
-config-file = ?macos-config
-config-file = ?linux-config
+# This file will be linked to the appropriate os-config file depending on the current platform
+config-file = os-config

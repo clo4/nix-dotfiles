@@ -63,13 +63,18 @@ in
 
   my.config.source =
     let
-      ghosttyOsConfig =
-        if pkgs.stdenv.isDarwin then "config/ghostty/os-config-macos" else "config/ghostty/os-config-linux";
-      jjConfigDir = if pkgs.stdenv.isDarwin then "Library/Application Support/jj" else ".config/jj";
+      # Some tools prefer to place their configuration in the correct directory
+      # for the platform. On Linux, that's XDG_CONFIG_HOME, which defaults to
+      # ~/.config if unset. On macOS, the configuration directory is
+      # '~/Library/Application Support'.
+      # Unfortunately, this isn't common - most tools simply use ~/.config
+      # regardless of platform conventions.
+      platformConfig = if pkgs.stdenv.isDarwin then "Library/Application Support" else ".config";
     in
     {
       ".config/ghostty/config" = "config/ghostty/config";
-      ".config/ghostty/os-config" = ghosttyOsConfig;
+      ".config/ghostty/os-config" =
+        if pkgs.stdenv.isDarwin then "config/ghostty/os-config-macos" else "config/ghostty/os-config-linux";
 
       ".config/kitty" = "config/kitty";
 
@@ -78,7 +83,7 @@ in
       ".config/tmux" = "config/tmux";
 
       ".config/git" = "config/git";
-      ${jjConfigDir} = "config/jj";
+      "${platformConfig}/jj" = "config/jj";
 
       ".config/zed" = "config/zed";
       ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";

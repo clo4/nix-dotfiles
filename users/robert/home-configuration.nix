@@ -117,12 +117,8 @@ in
 
   # My change to helix-cogs generates a 'steel-language-server' directory,
   # and since steel doesn't care if the directories are nested, it's possible
-  # to use it directly. Using recursive in case I want to add any modules
-  # manually later on.
-  home.file.".local/share/steel" = {
-    source = perSystem.helix.helix-cogs;
-    recursive = true;
-  };
+  # to use it directly.
+  home.file.".local/share/steel".source = perSystem.helix.helix-cogs;
   home.sessionVariables.STEEL_HOME = "$HOME/.local/share/steel";
   home.sessionVariables.STEEL_LSP_HOME = "$HOME/.local/share/steel/steel-language-server";
 

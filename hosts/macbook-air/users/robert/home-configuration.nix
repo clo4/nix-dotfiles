@@ -1,6 +1,7 @@
 {
   pkgs,
   flake,
+  config,
   ...
 }:
 {
@@ -8,7 +9,7 @@
 
   home.stateVersion = "24.05";
 
-  my.config.directory = ".config/nix-dotfiles";
+  my.config.directory = "${config.home.homeDirectory}/.config/nix-dotfiles";
 
   # Config fails to build without this.
   nix.package = pkgs.nix;

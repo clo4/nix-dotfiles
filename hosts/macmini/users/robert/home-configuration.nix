@@ -1,5 +1,6 @@
 {
   flake,
+  config,
   ...
 }:
 {
@@ -13,5 +14,5 @@
     FISH_GREETING_CHECK_SUDO_TOUCHID = "1";
   };
 
-  my.config.directory = "Developer/nix-dotfiles";
+  my.config.directory = "${config.home.homeDirectory}/Developer/nix-dotfiles";
 }

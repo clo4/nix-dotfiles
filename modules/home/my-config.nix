@@ -3,25 +3,27 @@
   pkgs,
   config,
   lib,
+  flake,
   ...
 }:
 let
   inherit (lib) types;
   cfg = config.my.config;
-  home = config.home.homeDirectory;
   mkConfigSymlink =
-    relativePath: config.lib.file.mkOutOfStoreSymlink "${home}/${cfg.directory}/${relativePath}";
+    relativePath: config.lib.file.mkOutOfStoreSymlink "${cfg.directory}/${relativePath}";
 in
 {
   options.my.config = {
     directory = lib.mkOption {
-      default = lib.null;
-      type = types.nullOr types.str;
+      default = flake;
+      type = types.path;
       description = ''
         Path to the directory that the configuration will be linked to.
-        This directory is relative to your $HOME. For example, if your
-        configuration lives in ~/.dotfiles, you would use ".dotfiles"
-        as the value.
+        This is an absolute path on the system, which will be the flake's
+        path in the store if not specified.
+      '';
+      example = lib.literalExpression ''
+        ''${config.home.homeDirectory}/.config/system-configuration
       '';
     };
 
@@ -37,7 +39,7 @@ in
     };
 
     force = lib.mkOption {
-      default = false;
+      default = true;
       type = types.bool;
       description = ''
         Whether the configuration links should override whatever exists already.
@@ -45,8 +47,7 @@ in
     };
   };
 
-  # TODO: This could become an assert - if source != { }, assert sourceDirectory != null
-  config = lib.mkIf (cfg.directory != null && cfg.source != { }) {
+  config = lib.mkIf (cfg.source != { }) {
     home.file =
       let
         nonNull = lib.filterAttrs (n: v: v != null) cfg.source;

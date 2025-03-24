@@ -61,11 +61,6 @@ in
 
   fonts.fontconfig.enable = !pkgs.stdenv.isDarwin;
 
-  # The 'my.config.directory' option is configured on each system to be the
-  # directory that this repository is cloned into.
-  # TODO: Default to absolute path of this flake - will require changing the
-  # module to use the absolute path instead of the relative path.
-  my.config.force = true;
   my.config.source =
     let
       ghosttyOsConfig =
@@ -86,8 +81,17 @@ in
       ${jjConfigDir} = "config/jj";
 
       ".config/zed" = "config/zed";
-      ".config/fish" = "config/fish";
       ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";
+
+      # Fish can't just link the config directory because if the flake directory
+      # is used as my.config.directory (which is only true on new home manager
+      # systems during bootstrapping) then it will try to write to the fish_variables
+      # file repeatedly and fail each time, spamming the terminal with errors.
+      # It's better to link each of the directories individually to avoid this.
+      ".config/fish/conf.d" = "config/fish/conf.d";
+      ".config/fish/functions" = "config/fish/functions";
+      ".config/fish/completions" = "config/fish/completions";
+      ".config/fish/config.fish" = "config/fish/config.fish";
 
       ".zshenv" = "config/zsh/home_zshenv";
       ".config/zsh" = "config/zsh";
@@ -126,7 +130,7 @@ in
     })
   ];
   home.sessionVariables.NIX_CONFIG_REV = flake.rev or flake.dirtyRev;
-  home.sessionVariables.NIX_CONFIG_DIR = "${config.home.homeDirectory}/${config.my.config.directory}";
+  home.sessionVariables.NIX_CONFIG_DIR = config.my.config.directory;
   home.sessionVariables.NIX_CONFIG_LAST_MODIFIED = builtins.toString flake.lastModified;
 
   nix.registry = {

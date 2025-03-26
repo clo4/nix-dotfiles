@@ -4,7 +4,6 @@
   pkgs,
   perSystem,
   inputs,
-  lib,
   config,
   flake,
   ...
@@ -74,7 +73,10 @@ in
     {
       ".config/ghostty/config" = "config/ghostty/config";
       ".config/ghostty/os-config" =
-        if pkgs.stdenv.isDarwin then "config/ghostty/os-config-macos" else "config/ghostty/os-config-linux";
+        if pkgs.stdenv.isDarwin then
+          "config/ghostty/os-config-darwin"
+        else
+          "config/ghostty/os-config-linux";
 
       ".config/kitty" = "config/kitty";
 

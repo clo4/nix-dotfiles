@@ -35,25 +35,25 @@
     requires = [ "network.target" ];
   };
 
-  systemd.services.vrising-restart = {
-    description = "Restart V-Rising Server";
-    requires = [ "podman-vrising.service" ];
-    after = [ "podman-vrising.service" ];
-    script = ''
-      ${pkgs.systemd}/bin/systemctl restart podman-vrising.service
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "root";
-    };
-  };
+  # systemd.services.vrising-restart = {
+  #   description = "Restart V-Rising Server";
+  #   requires = [ "podman-vrising.service" ];
+  #   after = [ "podman-vrising.service" ];
+  #   script = ''
+  #     ${pkgs.systemd}/bin/systemctl restart podman-vrising.service
+  #   '';
+  #   serviceConfig = {
+  #     Type = "oneshot";
+  #     User = "root";
+  #   };
+  # };
 
-  systemd.timers.vrising-restart = {
-    description = "Timer for daily Minecraft server restart";
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "04:00:00";
-      Unit = "vrising-restart.service";
-    };
-  };
+  # systemd.timers.vrising-restart = {
+  #   description = "Timer for daily Minecraft server restart";
+  #   wantedBy = [ "timers.target" ];
+  #   timerConfig = {
+  #     OnCalendar = "04:00:00";
+  #     Unit = "vrising-restart.service";
+  #   };
+  # };
 }

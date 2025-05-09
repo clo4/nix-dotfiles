@@ -7,6 +7,10 @@ window-padding-x = 6
 window-padding-y = 4
 keybind = clear
 
+# On my Mac, I use native 4k (no scaling) which results in almost unreadable
+# text at the default size.
+font-size = 16
+
 # All keybinds are "command-first" - if it's possible to bind just using
 # command, that should be the preference. Nothing in the terminal will use
 # command, so it's safe, and simpler is easier to remember + use.
@@ -40,12 +44,14 @@ keybind = command+equal=equalize_splits
 # Some things are implemented by the GUI toolkit, e.g. control+tab
 # ---
 keybind = command+t=new_tab
+keybind = command+n=new_window
 keybind = command+w=close_surface
 keybind = command+shift+w=close_window
 keybind = command+q=quit
 keybind = command+c=copy_to_clipboard
 keybind = command+v=paste_from_clipboard
 keybind = command+shift+v=paste_from_selection
+keybind = command+p=toggle_command_palette
 
 
 # Misc functionality

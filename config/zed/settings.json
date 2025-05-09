@@ -2,12 +2,12 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "theme": "Gruvbox Dark",
+  "theme": "JetBrains New Dark",
   "vim_mode": true,
   "buffer_font_family": "RobotoMono Nerd Font",
   "ui_font_family": "RobotoMono Nerd Font",
-  "ui_font_size": 12,
-  "buffer_font_size": 12,
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
   "languages": {
     "Nix": {
       "tab_size": 2

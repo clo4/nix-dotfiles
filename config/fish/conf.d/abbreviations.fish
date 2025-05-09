@@ -12,6 +12,10 @@ abbr -a md "mkdir -p"
 abbr -a cmv "command -v"
 abbr -a rm trash
 abbr -a j jj
+abbr -a p pnpm
+abbr -a pr "pnpm run"
+abbr -a pa "pnpm add"
+abbr -a pi "pnpm install"
 
 abbr -a r run
 

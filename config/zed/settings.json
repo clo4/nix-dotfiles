@@ -1,8 +1,9 @@
 {
+  "icon_theme": "JetBrains New UI Icons (Dark)",
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "theme": "JetBrains New Dark",
+  "theme": "Fleet Dark",
   "vim_mode": true,
   "buffer_font_family": "RobotoMono Nerd Font",
   "ui_font_family": "RobotoMono Nerd Font",

@@ -22,7 +22,8 @@ in
 
   home.packages = [
     perSystem.helix.helix
-    perSystem.helix.helix-cogs
+    # perSystem.helix.helix-cogs
+    # steelWithLsp
     perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
     pkgs.curl
@@ -52,7 +53,6 @@ in
     pkgs.vim
     pkgs.wget
     pkgs.zoxide
-    steelWithLsp
 
     # Fonts
     pkgs.nerd-fonts.roboto-mono
@@ -117,12 +117,12 @@ in
   home.file.".config/direnv/lib/nix-direnv.sh".source =
     "${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
 
-  # My change to helix-cogs generates a 'steel-language-server' directory,
-  # and since steel doesn't care if the directories are nested, it's possible
-  # to use it directly.
-  home.file.".local/share/steel".source = perSystem.helix.helix-cogs;
-  home.sessionVariables.STEEL_HOME = "$HOME/.local/share/steel";
-  home.sessionVariables.STEEL_LSP_HOME = "$HOME/.local/share/steel/steel-language-server";
+  # # My change to helix-cogs generates a 'steel-language-server' directory,
+  # # and since steel doesn't care if the directories are nested, it's possible
+  # # to use it directly.
+  # home.file.".local/share/steel".source = perSystem.helix.helix-cogs;
+  # home.sessionVariables.STEEL_HOME = "$HOME/.local/share/steel";
+  # home.sessionVariables.STEEL_LSP_HOME = "$HOME/.local/share/steel/steel-language-server";
 
   my.programs.fish.plugins = [
     (pkgs.fetchFromGitHub {

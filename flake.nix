@@ -11,18 +11,20 @@
     nix-darwin.url = "github:LnL7/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
-    helix.url = "github:clo4/helix/helix-cogs-steel-language-server";
+    # helix.url = "github:clo4/helix/helix-cogs-steel-language-server";
+    # helix.inputs.nixpkgs.follows = "nixpkgs";
+    # helix.inputs.crane.follows = "crane";
+    # crane.url = "github:ipetkov/crane";
+    # steel.url = "github:mattwparas/steel";
+    # steel.inputs.nixpkgs.follows = "nixpkgs";
+
+    helix.url = "github:helix-editor/helix";
     helix.inputs.nixpkgs.follows = "nixpkgs";
-    helix.inputs.crane.follows = "crane";
-    crane.url = "github:ipetkov/crane";
-    steel.url = "github:mattwparas/steel";
-    steel.inputs.nixpkgs.follows = "nixpkgs";
 
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
-    nix-homebrew.inputs.nixpkgs.follows = "nixpkgs";
 
     disko.url = "github:nix-community/disko";
     disko.inputs.nixpkgs.follows = "nixpkgs";

@@ -119,7 +119,7 @@ function homeserver1 -a verb
 end
 
 function macmini -a verb
-    _run darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
+    _run sudo darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
 end
 
 function macbook-air -a verb

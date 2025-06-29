@@ -42,6 +42,7 @@
   networking.hostName = "macmini";
 
   system.stateVersion = 6;
+  system.primaryUser = "robert";
 
   home-manager.backupFileExtension = "hm-backup";
 

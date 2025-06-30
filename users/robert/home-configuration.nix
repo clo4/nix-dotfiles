@@ -144,6 +144,10 @@ in
   xdg.dataFile."nvim/nix-plugin-sources".source = pkgs.linkFarm "nvim-plugins" (
     (import "${flake}/config/nvim/plugins.nix") args
   );
+  # This is the canonical way to reference the directory. The fact that it's
+  # in the XDG data directory is an implementation detail - the environment
+  # variable specifies the actual location of the plugins.
+  home.sessionVariables.NIX_NVIM_PLUGIN_DIR = "${config.xdg.dataHome}/nvim/nix-plugin-sources";
 
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;

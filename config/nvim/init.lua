@@ -1,5 +1,6 @@
+local plugin_root = vim.env.NIX_NVIM_PLUGIN_DIR
 local function plugin_path(name)
-  return vim.fn.stdpath("data") .. "/nix-plugin-sources/" .. name
+  return plugin_root .. "/" .. name
 end
 
 vim.opt.rtp:prepend(plugin_path("lazy.nvim"))

@@ -7,7 +7,7 @@
   config,
   flake,
   ...
-}:
+}@args:
 let
   steelWithLsp = perSystem.steel.default.overrideAttrs (oldAttrs: {
     cargoBuildFlags = "-p cargo-steel-lib -p steel-interpreter -p steel-language-server";
@@ -82,6 +82,8 @@ in
 
       ".config/helix" = "config/helix";
 
+      ".config/nvim" = "config/nvim";
+
       ".config/tmux" = "config/tmux";
 
       ".config/git" = "config/git";
@@ -135,6 +137,13 @@ in
   home.sessionVariables.NIX_CONFIG_REV = flake.rev or flake.dirtyRev;
   home.sessionVariables.NIX_CONFIG_DIR = config.my.config.directory;
   home.sessionVariables.NIX_CONFIG_LAST_MODIFIED = builtins.toString flake.lastModified;
+
+  # Keeping the plugin version definitions local to the neovim configuration
+  # helps keep this file smaller, and it's a logical place to put it. I
+  # expect that file to grow increasingly large over time.
+  xdg.dataFile."nvim/nix-plugin-sources".source = pkgs.linkFarm "nvim-plugins" (
+    (import "${flake}/config/nvim/plugins.nix") args
+  );
 
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;

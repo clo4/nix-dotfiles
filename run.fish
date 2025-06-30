@@ -21,6 +21,14 @@ function _run
     $argv
 end
 
+function _require
+    for program in $argv
+        if not command -vq $program
+            echo "Required program '$program' is missing. Ensure it is in your environment, then try again."
+        end
+    end
+end
+
 #
 # --- Commands
 #
@@ -123,6 +131,8 @@ function macmini -a verb
 end
 
 function macbook-air -a verb
+    _require pmset timeout home-manager
+
     set jobs 8
 
     if test $this_host = macbook-air; and pmset -g batt | grep -q "Battery Power"
@@ -136,6 +146,11 @@ function macbook-air -a verb
     end
 
     _run home-manager $verb --flake ".#$USER@macbook-air" --max-jobs $jobs $argv[2..]
+end
+
+function legacy -a verb
+    _require home-manager
+    _run home-manager $verb --flake ".#$USER@legacy" --max-jobs 8 $argv[2..]
 end
 
 # The logic below defines the commands used to build/switch configurations for
@@ -152,6 +167,11 @@ for host in $hosts
 
     for verb in $verbs
         echo "function $verb-$host -d '$verb the configuration for $host'; _$host $verb \$argv; end" | source
+        # This line is visually confusing. Essentially, if there is a config
+        # for the current $hostname, we create an alias for it so I can refer
+        # to it as "host" rather than the actual hostname. It's easier to type
+        # and remember, since most of the time I'll want to build the config
+        # for the system I'm using at the time, regardless of what it is.
         test $this_host = $host; and alias $verb-host $verb-$host
     end
 end

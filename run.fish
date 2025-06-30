@@ -127,7 +127,11 @@ function homeserver1 -a verb
 end
 
 function macmini -a verb
-    _run sudo darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
+    set maybe_sudo
+    if test $verb = switch
+        set maybe_sudo sudo
+    end
+    _run $maybe_sudo darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
 end
 
 function macbook-air -a verb

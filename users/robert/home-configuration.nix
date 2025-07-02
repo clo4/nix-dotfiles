@@ -12,12 +12,31 @@ let
   steelWithLsp = perSystem.steel.default.overrideAttrs (oldAttrs: {
     cargoBuildFlags = "-p cargo-steel-lib -p steel-interpreter -p steel-language-server";
   });
+
+  neovimWithDependencies = pkgs.symlinkJoin {
+    name = "neovim-with-dependencies";
+    paths = [ pkgs.neovim ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/nvim \
+        --prefix PATH : ${
+          pkgs.lib.makeBinPath [
+            pkgs.curl
+            pkgs.tree-sitter
+            pkgs.ripgrep
+          ]
+        }
+    '';
+  };
 in
 {
   imports = [
     inputs.self.homeModules.my-config
     inputs.self.homeModules.my-programs-fish
+    inputs.self.homeModules.my-programs-neovim
     ./darwin.nix
+
+    "${flake}/config/nvim/plugins.nix"
   ];
 
   home.packages = [
@@ -41,7 +60,7 @@ in
     pkgs.jujutsu
     pkgs.just
     pkgs.lazygit
-    pkgs.neovim
+    neovimWithDependencies
     pkgs.nix-direnv
     pkgs.nix-output-monitor
     pkgs.nixfmt-rfc-style
@@ -137,17 +156,6 @@ in
   home.sessionVariables.NIX_CONFIG_REV = flake.rev or flake.dirtyRev;
   home.sessionVariables.NIX_CONFIG_DIR = config.my.config.directory;
   home.sessionVariables.NIX_CONFIG_LAST_MODIFIED = builtins.toString flake.lastModified;
-
-  # Keeping the plugin version definitions local to the neovim configuration
-  # helps keep this file smaller, and it's a logical place to put it. I
-  # expect that file to grow increasingly large over time.
-  xdg.dataFile."nvim/nix-plugin-sources".source = pkgs.linkFarm "nvim-plugins" (
-    (import "${flake}/config/nvim/plugins.nix") args
-  );
-  # This is the canonical way to reference the directory. The fact that it's
-  # in the XDG data directory is an implementation detail - the environment
-  # variable specifies the actual location of the plugins.
-  home.sessionVariables.NIX_NVIM_PLUGIN_DIR = "${config.xdg.dataHome}/nvim/nix-plugin-sources";
 
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;

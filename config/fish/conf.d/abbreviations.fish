@@ -17,6 +17,7 @@ abbr -a p pnpm
 abbr -a pr "pnpm run"
 abbr -a pa "pnpm add"
 abbr -a pi "pnpm install"
+abbr -a x npx
 
 abbr -a r run
 

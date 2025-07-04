@@ -8,8 +8,9 @@
     NSWindowShouldDragOnGesture = true;
     InitialKeyRepeat = 15;
     KeyRepeat = 2;
-    # Enables using the function keys as the F<number> key instead of OS controls
-    "com.apple.keyboard.fnState" = true;
+    # Explicitly enabling media keys because the media keycodes themselves are
+    # used for some shortcuts
+    "com.apple.keyboard.fnState" = false;
   };
 
   system.defaults.dock.autohide = true;

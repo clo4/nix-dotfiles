@@ -18,6 +18,10 @@
     home = "/Users/robert";
   };
 
+  # This needs to be reapplied after each system update. My Fish configuration
+  # will warn about this if it detects the line it adds to sudo_local is absent.
+  security.pam.services.sudo_local.touchIdAuth = true;
+
   networking.hostName = "work-macbookpro";
 
   system.stateVersion = 6;

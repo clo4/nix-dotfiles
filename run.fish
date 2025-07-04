@@ -134,6 +134,14 @@ function macmini -a verb
     _run $maybe_sudo darwin-rebuild $verb --flake .#macmini --max-jobs 8 $argv[2..]
 end
 
+function work-macbookpro -a verb
+    set maybe_sudo
+    if test $verb = switch
+        set maybe_sudo sudo
+    end
+    _run $maybe_sudo darwin-rebuild $verb --flake .#work-macbookpro $argv[2..]
+end
+
 function macbook-air -a verb
     _require pmset timeout home-manager
 

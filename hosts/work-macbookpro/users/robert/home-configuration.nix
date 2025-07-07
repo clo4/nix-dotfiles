@@ -37,7 +37,7 @@
     pkgs.mkcert
     pkgs.python3
     pkgs.serverless
-
+    pkgs.nss_latest
     pkgs.ngrok
   ];
 

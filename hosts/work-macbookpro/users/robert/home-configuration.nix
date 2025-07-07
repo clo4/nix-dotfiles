@@ -2,14 +2,23 @@
   flake,
   config,
   pkgs,
+  inputs,
   ...
 }:
 {
   home.stateVersion = "24.11";
 
-  imports = [ "${flake}/users/robert/home-configuration.nix" ];
+  imports = [
+    "${flake}/users/robert/home-configuration.nix"
+    inputs.agenix.homeManagerModules.default
+  ];
 
   my.config.directory = "${config.home.homeDirectory}/Developer/clo4/nix-dotfiles";
+
+  age.secrets.work-gitconfig = {
+    file = ./work-gitconfig.age;
+    path = "$HOME/Developer/Work/.gitconfig";
+  };
 
   home.sessionVariables = {
     FISH_GREETING_CHECK_SUDO_TOUCHID = "1";

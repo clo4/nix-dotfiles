@@ -9,3 +9,6 @@
     name = "clo4"
 [alias]
 	root = rev-parse --show-toplevel
+
+[includeIf "gitdir:~/Developer/Work/**"]
+	path = ~/Developer/Work/.gitconfig

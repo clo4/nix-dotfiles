@@ -8,3 +8,4 @@ result-*
 .flake
 .pkgs
 .jj
+/.envrc

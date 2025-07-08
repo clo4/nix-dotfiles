@@ -65,6 +65,13 @@ abbr -a cot "cargo test"
 abbr -a coa "cargo add"
 abbr -a coc "cargo check"
 
+abbr -a d docker
+abbr -a dp "docker ps"
+abbr -a dc "docker compose"
+abbr -a dcu "docker compose up"
+abbr -a dcud "docker compose up --detach"
+abbr -a dcs "docker compose stop"
+
 abbr -a g lazygit
 abbr -a ",a" "git add"
 abbr -a ",ap" "git add --patch"

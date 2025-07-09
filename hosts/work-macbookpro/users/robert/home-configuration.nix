@@ -39,6 +39,7 @@
     pkgs.serverless
     pkgs.nss_latest
     pkgs.ngrok
+    pkgs.vtsls
   ];
 
   my.programs.fish.plugins = [

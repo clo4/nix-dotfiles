@@ -61,3 +61,9 @@ keybind = page_up=scroll_page_fractional:-0.5
 keybind = page_down=scroll_page_fractional:0.5
 # The s can be a mnemonic for scrollback or search
 keybind = command+shift+s=write_scrollback_file:paste
+
+
+# Quick terminal settings
+quick-terminal-animation-duration = 0
+quick-terminal-position = right
+keybind = global:command+shift+option+control+grave_accent=toggle_quick_terminal

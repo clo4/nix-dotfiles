@@ -41,17 +41,4 @@
     pkgs.ngrok
     pkgs.vtsls
   ];
-
-  my.programs.fish.plugins = [
-    (pkgs.fetchFromGitHub {
-      owner = "jorgebucaran";
-      repo = "nvm.fish";
-      rev = "846f1f20b2d1d0a99e344f250493c41a450f9448"; # as of 2025-07-04
-      hash = "sha256-u3qhoYBDZ0zBHbD+arDxLMM8XoLQlNI+S84wnM3nDzg=";
-    })
-  ];
-
-  home.sessionVariables = {
-    nvm_arch = "x64";
-  };
 }

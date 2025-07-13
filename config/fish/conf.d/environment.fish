@@ -43,8 +43,8 @@ end
 set -x FZF_CTRL_T_COMMAND "fd --type file --strip-cwd-prefix"
 set -x FZF_ALT_C_COMMAND "fd --type directory --strip-cwd-prefix"
 
-set -g skip_trash_directories .git node_modules target
-set -g skip_trash_files
+set -g skip_trash_directories .git node_modules target .direnv dist build result
+set -g skip_trash_files .DS_Store
 
 # Something has gone wrong if the first item in these paths is not the
 # user configuration directories, but *if* it isn't, correct it so that

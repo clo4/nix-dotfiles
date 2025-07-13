@@ -2,6 +2,7 @@
   flake,
   inputs,
   config,
+  pkgs,
   ...
 }:
 {
@@ -32,6 +33,7 @@
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = [ ];
   boot.supportedFilesystems = [ "btrfs" ];
   boot.initrd.supportedFilesystems = [ "btrfs" ];

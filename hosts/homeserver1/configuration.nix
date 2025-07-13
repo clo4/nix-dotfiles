@@ -64,9 +64,6 @@
     authKeyFile = config.age.secrets.tailscale-homeserver1.path;
     openFirewall = true;
     extraUpFlags = [
-      # I don't remember why I have this here, but it's carried over from my
-      # VPS setup, and I'm too afraid to change it in case it breaks something.
-      "--accept-dns=false"
     ];
   };
 

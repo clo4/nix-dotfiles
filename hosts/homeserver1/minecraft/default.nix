@@ -2,7 +2,6 @@
 {
   imports = [
     ./servers/family.nix
-    ./ddns.nix
   ];
   assertions = [
     {

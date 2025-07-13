@@ -14,6 +14,7 @@
     inputs.srvos.nixosModules.mixins-systemd-boot
 
     ./disko.nix
+    ./clouddns.nix
     # ./minecraft
     # ./vrising.nix
   ];

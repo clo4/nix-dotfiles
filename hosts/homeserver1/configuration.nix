@@ -13,8 +13,8 @@
     inputs.srvos.nixosModules.mixins-systemd-boot
 
     ./disko.nix
-    ./minecraft
-    ./vrising.nix
+    # ./minecraft
+    # ./vrising.nix
   ];
 
   system.stateVersion = "24.11";

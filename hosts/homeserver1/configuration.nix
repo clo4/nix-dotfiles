@@ -64,6 +64,8 @@
     authKeyFile = config.age.secrets.tailscale-homeserver1.path;
     openFirewall = true;
     extraUpFlags = [
+      "--advertise-exit-node"
+      "--exit-node-allow-lan-access"
     ];
   };
 

@@ -19,12 +19,14 @@ abbr -a pa "pnpm add"
 abbr -a pi "pnpm install"
 abbr -a px pnpx
 abbr -a nx "npx nx"
+abbr -a nxr "npx nx run"
 
 abbr -a r run
 
 if set -q IS_DARWIN
-    abbr -a pb pbcopy
-    abbr -a pbp pbpaste
+    abbr -a p pbcopy
+    abbr -a pp pbpaste
+    abbr -a b brew
 end
 
 abbr -a n nix

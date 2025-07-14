@@ -17,6 +17,9 @@
 
   age.secrets.work-gitconfig = {
     file = ./work-gitconfig.age;
+    # This can't be inside my ~/.config/git directory because the entire
+    # directory is symlinked non-recursively, and we need to symlink the
+    # decrypted copy of this file to this path at login-time.
     path = "$HOME/Developer/Work/.gitconfig";
   };
 
@@ -40,5 +43,8 @@
     pkgs.nss_latest
     pkgs.ngrok
     pkgs.vtsls
+    pkgs.mongosh
+    pkgs.typos
+    pkgs.typos-lsp
   ];
 }

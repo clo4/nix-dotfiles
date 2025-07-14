@@ -46,5 +46,6 @@
     pkgs.mongosh
     pkgs.typos
     pkgs.typos-lsp
+    pkgs.glow
   ];
 }

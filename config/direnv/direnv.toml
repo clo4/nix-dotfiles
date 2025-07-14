@@ -4,6 +4,4 @@ strict_env = true
 warn_timeout = 0
 
 [whitelist]
-# All projects namespaced under my username should be automatically allowed
-# because I implicitly trust myself. Possibly too much.
-prefix = ["~/Developer/clo4"]
+prefix = ["~/Developer/clo4", "~/Developer/Work"]

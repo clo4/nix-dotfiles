@@ -9,6 +9,7 @@ function ls --wraps ls
 
     set cmd eza --long --group-directories-first --sort=Name --follow-symlinks --git --almost-all
     if path is -d .git
+        and not path is -d node_modules
         $cmd --total-size $argv
     else
         $cmd $argv

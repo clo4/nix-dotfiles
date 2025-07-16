@@ -6,7 +6,7 @@ function nix --wraps nix
         and not contains -- --help $argv
         switch $argv[1]
             case develop
-                announce nix develop --command (status fish-path) $argv[2..]
+                announce nix develop $argv[2..] --command (status fish-path)
             case shell
                 # eelco has stated that IN_NIX_SHELL will not be added to 'nix shell'
                 # because its behavior differs from 'nix-shell' and 'nix develop', but

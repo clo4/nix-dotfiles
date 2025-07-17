@@ -14,12 +14,12 @@
 # since the spawned and exec'd fish shell will inherit
 # the variables.
 #
-# NOTE: this doesn't handle `nix shell` at all becuase
+# NOTE: this doesn't handle `nix shell` at all because
 # it's difficult to determine if the current shell was
 # directly invoked by it. Instead, I use a wrapper function
 # in Fish that appends `--command $(status fish-path)`.
 
-if [[ -o interactive ]]; then
+if [[ -o interactive && ! ( "$TERM_PROGRAM" = "WarpTerminal" ) ]]; then
   found_fish=0
   if type fish >/dev/null; then
     ppid=$$
@@ -52,7 +52,7 @@ fi
 typeset -U path cdpath fpath manpath
 
 for profile in ${(z)NIX_PROFILES}; do
-    fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
+  fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
 done
 
 HISTFILE=$HOME/.local/share/zsh/.zsh_history

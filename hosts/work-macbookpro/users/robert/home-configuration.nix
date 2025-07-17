@@ -47,5 +47,6 @@
     pkgs.typos
     pkgs.typos-lsp
     pkgs.glow
+    pkgs.deno
   ];
 }

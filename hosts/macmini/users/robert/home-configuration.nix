@@ -14,5 +14,5 @@
     FISH_GREETING_CHECK_SUDO_TOUCHID = "1";
   };
 
-  my.config.directory = "${config.home.homeDirectory}/Developer/nix-dotfiles";
+  my.config.directory = "${config.home.homeDirectory}/Developer/clo4/nix-dotfiles";
 }

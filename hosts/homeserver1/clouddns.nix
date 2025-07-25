@@ -5,7 +5,7 @@
 }:
 {
   age.secrets.clouddns-config = {
-    file = ../clouddns-config.json.age;
+    file = ./clouddns-config.json.age;
     owner = "clouddns";
     group = "clouddns";
     mode = "400";

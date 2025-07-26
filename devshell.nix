@@ -18,24 +18,16 @@ pkgs.mkShellNoCC {
       pkgs.taplo
       pkgs.age
       pkgs.deno
-      # All this stuff is for developing the ddns client
-      pkgs.go
-      pkgs.gopls
-      pkgs.go-tools
-      pkgs.gotools
-      pkgs.golangci-lint
-      pkgs.clang
     ]
     ++ pkgs.lib.optional pkgs.stdenv.isDarwin [
       perSystem.nix-darwin.default
     ];
-  buildInputs =
-    [ ]
-    ++ pkgs.lib.optional pkgs.stdenv.isDarwin [
-      pkgs.clang
-      pkgs.darwin.cctools # I've been burned in the past by not having this
-      pkgs.darwin.apple_sdk.frameworks.CoreFoundation
-    ];
+  # buildInputs =
+  #   [ ]
+  #   ++ pkgs.lib.optional pkgs.stdenv.isDarwin [
+  #     pkgs.clang
+  #     pkgs.darwin.cctools # I've been burned in the past by not having this
+  #   ];
   shellHook = ''
     export IN_NIX_CONFIG_DEVSHELL=1
   '';

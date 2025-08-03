@@ -57,6 +57,7 @@ abbr -a tl "tmux list-sessions"
 
 abbr -a ts tailscale
 abbr -a tsd tailscaled
+abbr -a tss "tailscale status"
 abbr -a tf terraform # not installed globally, used in projects
 
 abbr -a co cargo

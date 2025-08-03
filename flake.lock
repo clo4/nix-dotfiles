@@ -76,11 +76,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1742395751,
-        "narHash": "sha256-DZtZ3m32T1k4kRFxtkL/sRkPIy9XaVfIlHi/7XWHM0Q=",
+        "lastModified": 1754186948,
+        "narHash": "sha256-Iuu0ZTyZcPBGN1P8n8s70uNLONGm1XBLEEmUoouZfQM=",
         "owner": "clo4",
         "repo": "clouddns",
-        "rev": "212756d11527baf4f4d3388e8acb3ba04ef267fe",
+        "rev": "074c4096fbf842383190d10c4f47b44b34b366f4",
         "type": "github"
       },
       "original": {

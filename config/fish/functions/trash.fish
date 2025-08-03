@@ -21,6 +21,10 @@ function trash
                     or test (count (command ls -A $target)) -eq 0
                 end
             end
+            or begin
+                path is -x -- $target
+                and test (head -c 2 $target) != "#!"
+            end
             set -a rm_rf_targets $target
         else
             set -a trash_targets $target

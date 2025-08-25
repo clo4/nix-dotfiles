@@ -9,3 +9,5 @@ result-*
 .pkgs
 .jj
 /.envrc
+
+**/.claude/settings.local.json

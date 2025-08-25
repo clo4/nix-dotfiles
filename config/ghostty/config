@@ -10,3 +10,4 @@ auto-update-channel = tip
 
 # This file will be linked to the appropriate os-config file depending on the current platform
 config-file = os-config
+keybind = shift+enter=text:\n

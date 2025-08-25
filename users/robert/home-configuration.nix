@@ -46,6 +46,7 @@ in
     perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
     pkgs.curl
+    pkgs.claude-code
     pkgs.direnv
     pkgs.eza
     pkgs.fd

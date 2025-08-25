@@ -9,6 +9,7 @@ abbr -a f "fzf |"
 abbr -a fm "fzf --multi |"
 abbr -a rmf "rm -rf"
 abbr -a md "mkdir -p"
+abbr -a c cp
 abbr -a cmv "command -v"
 abbr -a rm trash
 abbr -a j jj

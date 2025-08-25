@@ -1,3 +1,3 @@
 function shell
-    nix shell nixpkgs#$argv
+    NIXPKGS_ALLOW_UNFREE=1 nix shell --impure nixpkgs#$argv
 end

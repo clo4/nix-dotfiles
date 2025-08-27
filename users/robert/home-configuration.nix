@@ -2,6 +2,7 @@
 # host's `robert` user.
 {
   pkgs,
+  pkgs',
   perSystem,
   inputs,
   config,
@@ -34,6 +35,7 @@ in
     inputs.self.homeModules.my-config
     inputs.self.homeModules.my-programs-fish
     inputs.self.homeModules.my-programs-neovim
+    inputs.self.modules.common.nixpkgs-unstable
     ./darwin.nix
 
     "${flake}/config/nvim/plugins.nix"
@@ -46,7 +48,9 @@ in
     perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
     pkgs.curl
-    pkgs.claude-code
+    pkgs'.claude-code
+    pkgs'.codex
+    pkgs.gh
     pkgs.direnv
     pkgs.eza
     pkgs.fd

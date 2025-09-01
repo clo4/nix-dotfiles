@@ -50,6 +50,7 @@ in
     pkgs.curl
     pkgs'.claude-code
     pkgs'.codex
+    pkgs'.stripe-cli
     pkgs.gh
     pkgs.direnv
     pkgs.eza

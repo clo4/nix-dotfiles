@@ -30,6 +30,14 @@ if set -q IS_DARWIN
     abbr -a b brew
 end
 
+abbr -a gb "go build"
+abbr -a gb. "go build ./..."
+abbr -a gf "go fmt"
+abbr -a gf. "go fmt ./..."
+abbr -a gt "go test"
+abbr -a gt. "go test ./..."
+abbr -a glint "golangci-lint run"
+
 abbr -a n nix
 abbr -a nxi nix
 abbr -a nd "nix develop"

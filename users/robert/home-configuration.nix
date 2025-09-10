@@ -51,6 +51,7 @@ in
     pkgs'.claude-code
     pkgs'.codex
     pkgs'.stripe-cli
+    pkgs.gemini-cli # nixos-unstable currently has the latest version but nixpkgs-unstable doesn't
     pkgs.gh
     pkgs.direnv
     pkgs.eza
@@ -165,6 +166,7 @@ in
 
   nix.registry = {
     nixpkgs.flake = inputs.nixpkgs;
+    nixpkgs-unstable.flake = inputs.nixpkgs-unstable;
     blueprint.flake = inputs.blueprint;
     home-manager.flake = inputs.home-manager;
     nix-darwin.flake = inputs.nix-darwin;

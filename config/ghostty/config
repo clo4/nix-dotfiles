@@ -5,7 +5,7 @@ font-size = 12
 window-height = 60
 window-width = 170
 window-theme = auto
-theme = GruvboxDark
+theme = Gruvbox Dark
 auto-update-channel = tip
 
 # This file will be linked to the appropriate os-config file depending on the current platform

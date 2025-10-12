@@ -26,6 +26,10 @@ set -x SQLITE_HISTORY $HOME/.local/share/sqlite3/sqlite_history
 set -l sqlite_history_dir (path dirname $SQLITE_HISTORY)
 test -d $sqlite_history_dir; or mkdir -p $sqlite_history_dir
 
+if test -d $HOME/.local/bin; and not contains -- $HOME/.local/bin $PATH
+    set --append fish_user_paths $HOME/.local/bin
+end
+
 # Homebrew should be available, but I don't want anything installed by
 # it to take precendence over anything installed by Nix.
 if test -d /opt/homebrew/bin; and not contains -- /opt/homebrew/bin $PATH

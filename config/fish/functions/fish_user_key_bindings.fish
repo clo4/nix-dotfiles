@@ -20,7 +20,7 @@ function fish_user_key_bindings
     # This isn't bound by default because of the fzf keybindings.
     bind ctrl-r history-pager
 
-    bind enter _execute_no_rm
+    command -q trash && bind enter _execute_no_rm
 end
 
 function _fzf_git_status_modified

@@ -165,6 +165,15 @@ function legacy -a verb
     _run home-manager $verb --flake ".#$USER@legacy" --max-jobs 8 $argv[2..]
 end
 
+function pc3 -a verb
+    _require home-manager
+    set jobs 8
+    if test $this_host = pc3
+        set jobs 32
+    end
+    _run home-manager $verb --flake ".#$USER@pc3" --max-jobs $jobs $argv[2..]
+end
+
 # The logic below defines the commands used to build/switch configurations for
 # the hosts above. This requires some amount of metaprogramming, which Fish has
 # decent support for.

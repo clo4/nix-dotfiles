@@ -3,9 +3,11 @@ command = /bin/sh -c "/bin/wait4path /nix/store && exec -l $SHELL"
 auto-update-channel = tip
 
 macos-option-as-alt = true
+macos-titlebar-style = tabs
 
 window-padding-x = 6
 window-padding-y = 4
+
 keybind = clear
 
 # On my Mac, I use native 4k (no scaling) which results in almost unreadable
@@ -66,4 +68,5 @@ keybind = command+shift+s=write_scrollback_file:paste
 # Quick terminal settings
 quick-terminal-animation-duration = 0
 quick-terminal-position = right
+quick-terminal-size = 50%
 keybind = global:command+shift+option+control+grave_accent=toggle_quick_terminal

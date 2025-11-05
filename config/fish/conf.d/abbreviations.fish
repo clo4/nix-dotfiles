@@ -108,3 +108,5 @@ abbr -a ",sw" "git switch"
 abbr -a ",sc" "git switch -c"
 abbr -a ",b" "git branch"
 abbr -a ",l" "git log"
+
+abbr -a yay paru

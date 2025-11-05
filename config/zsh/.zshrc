@@ -29,6 +29,7 @@ if [[ -o interactive && ! ( "$TERM_PROGRAM" = "WarpTerminal" ) ]]; then
         break
       fi
       ppid=$(ps -o ppid= -p $ppid)
+      ppid=${ppid##*[[:space:]]}  # Strip leading whitespace
     done
     if [[ $found_fish -eq 0 ]]; then
       SHELL=$(command -v fish)

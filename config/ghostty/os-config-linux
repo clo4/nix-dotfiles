@@ -2,5 +2,6 @@ window-padding-x = 6
 window-padding-y = 4
 
 font-size = 8
-gtk-toolbar-style = flat
+gtk-toolbar-style = raised-border
 gtk-titlebar-style = tabs
+gtk-wide-tabs = false

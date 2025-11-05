@@ -36,8 +36,6 @@
 
   home.packages = [
     pkgs.awscli2
-    pkgs.pm2
-    pkgs.mkcert
     pkgs.python3
     pkgs.serverless
     pkgs.nss_latest

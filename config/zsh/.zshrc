@@ -24,7 +24,7 @@ if [[ -o interactive && ! ( "$TERM_PROGRAM" = "WarpTerminal" ) ]]; then
   if type fish >/dev/null; then
     ppid=$$
     while [[ $ppid -gt 1 ]]; do
-      if [[ $(ps -o comm= -p $ppid) =~ /fish$ ]]; then
+      if [[ $(ps -o comm= -p $ppid) =~ fish$ ]]; then
         found_fish=1
         break
       fi

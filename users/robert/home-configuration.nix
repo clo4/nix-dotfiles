@@ -48,10 +48,7 @@ in
     perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
     pkgs.curl
-    pkgs'.claude-code
-    pkgs'.codex
     pkgs'.stripe-cli
-    pkgs.gemini-cli # nixos-unstable currently has the latest version but nixpkgs-unstable doesn't
     pkgs.gh
     pkgs.direnv
     pkgs.eza

@@ -91,6 +91,7 @@ up = "move_line_up"
 D = "hsplit"
 d = "vsplit"
 u = ":reset-diff-change"
+B = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
 
 [keys.normal.space.w]
 S = ["hsplit_new", "file_picker"]

@@ -112,7 +112,13 @@ in
       ".config/git" = "config/git";
       "${platformConfig}/jj" = "config/jj";
 
-      ".config/zed" = "config/zed";
+      # I'm only syncing the keymap because the settings file changes so often and per
+      # system that it's not worth the hassle to even sync it. There's nothing worth
+      # syncing there anyway. This is the kind of place that traditional "cloud" sync
+      # is better than using a VCS
+      ".config/zed/keymap.json" = "config/zed/keymap.json";
+      # ".config/zed/settings.json" = "config/zed/settings.json";
+
       ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";
 
       # Fish can't just link the config directory because if the flake directory

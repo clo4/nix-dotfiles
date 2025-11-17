@@ -22,4 +22,15 @@
     file = ./gitconfig.age;
     path = "$HOME/Repos/Work/.gitconfig";
   };
+
+  home.packages = [
+    pkgs.awscli2
+    pkgs.python3
+    pkgs.vtsls
+    pkgs.typos
+    pkgs.typos-lsp
+
+    # Useful for quick scripts and the REPL
+    pkgs.deno
+  ];
 }

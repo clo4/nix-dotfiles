@@ -16,7 +16,18 @@
   users.users.robert = {
     description = "Robert";
     home = "/Users/robert";
+    openssh.authorizedKeys.keyFiles = [
+      "${flake}/hosts/pc3/users/work/id_ed25519.pub"
+    ];
   };
+
+  services.openssh.enable = true;
+  environment.etc."ssh/sshd_config.d/999-disable-password-auth.conf".text = ''
+    PermitRootLogin no
+    PasswordAuthentication no
+    KbdInteractiveAuthentication no
+    UsePAM no
+  '';
 
   # This needs to be reapplied after each system update. My Fish configuration
   # will warn about this if it detects the line it adds to sudo_local is absent.

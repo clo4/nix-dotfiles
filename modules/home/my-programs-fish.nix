@@ -107,11 +107,12 @@ in
           package:
           pkgs.runCommand "${getName package}-fish-completions"
             {
-              srcs =
-                [ package ]
-                ++ lib.filter (p: p != null) (
-                  builtins.map (outName: package.${outName} or null) config.home.extraOutputsToInstall
-                );
+              srcs = [
+                package
+              ]
+              ++ lib.filter (p: p != null) (
+                builtins.map (outName: package.${outName} or null) config.home.extraOutputsToInstall
+              );
               nativeBuildInputs = [ pkgs.python3 ];
               buildInputs = [ pkgs.fish ];
               preferLocalBuild = true;

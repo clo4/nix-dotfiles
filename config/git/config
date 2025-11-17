@@ -12,3 +12,6 @@
 
 [includeIf "gitdir:~/Developer/Work/**"]
 	path = ~/Developer/Work/.gitconfig
+
+[includeIf "gitdir:~/Repos/Work/**"]
+	path = ~/Repos/Work/.gitconfig

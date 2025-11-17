@@ -4,4 +4,4 @@ strict_env = true
 warn_timeout = 0
 
 [whitelist]
-prefix = ["~/Developer/clo4", "~/Developer/Work", "~/Repositories"]
+prefix = ["~/Developer/clo4", "~/Developer/Work", "~/Repos"]

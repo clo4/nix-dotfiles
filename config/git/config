@@ -7,6 +7,7 @@
 [user]
     email = robert@clo4.net
     name = "clo4"
+
 [alias]
 	root = rev-parse --show-toplevel
 
@@ -15,11 +16,15 @@
 
 [includeIf "gitdir:~/Repos/Work/**"]
 	path = ~/Repos/Work/.gitconfig
+
 [core]
 	pager = delta
+
 [interactive]
 	diffFilter = delta --color-only
+
 [delta]
 	navigate = true
+
 [merge]
 	conflictStyle = zdiff3

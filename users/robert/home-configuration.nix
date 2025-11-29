@@ -132,8 +132,14 @@ in
       ".config/fish/completions" = "config/fish/completions";
       ".config/fish/config.fish" = "config/fish/config.fish";
 
+      # There needs to be two zshenv files because when the top-level
+      # zshenv is executed, it would not normally execute the zshenv in the ZDOTDIR.
       ".zshenv" = "config/zsh/home_zshenv";
       ".config/zsh" = "config/zsh";
+
+      # Allows imperative NPM package installation and management, low friction way
+      # to install and manage things like Claude Code
+      ".npmrc" = "config/npm/npmrc";
     };
 
   # This needs to be in a known location so it can be sourced regardless

@@ -50,6 +50,7 @@ in
     pkgs.curl
     pkgs'.stripe-cli
     pkgs.gh
+    pkgs.delta
     pkgs.direnv
     pkgs.eza
     pkgs.fd

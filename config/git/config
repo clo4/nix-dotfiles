@@ -15,3 +15,11 @@
 
 [includeIf "gitdir:~/Repos/Work/**"]
 	path = ~/Repos/Work/.gitconfig
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+[merge]
+	conflictStyle = zdiff3

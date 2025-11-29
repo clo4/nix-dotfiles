@@ -1,4 +1,6 @@
 {
+  "ui_font_size": 14.0,
+  "buffer_font_size": 14.0,
   "buffer_font_weight": 400.0,
   "ui_font_weight": 390.0,
   "icon_theme": "JetBrains New UI Icons (Dark)",

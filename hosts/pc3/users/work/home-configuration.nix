@@ -24,6 +24,6 @@
   };
 
   my.config.source = {
-    ".config/zed/settings.json" = "config/zed/hosts/pc3/settings.json";
+    ".config/zed" = "config/zed/hosts/pc3";
   };
 }

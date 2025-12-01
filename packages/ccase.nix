@@ -9,7 +9,6 @@ pkgs.rustPlatform.buildRustPackage {
     hash = "sha256-TQJkvANms/5Mzh1J4qsEYOrlML17dVv7MYEoN4Z/gm0=";
   };
   cargoHash = "sha256-RLjwLr1IF1T3QR5t8i2dGEWs72YY49Ib1l8QlaFkcqg=";
-  useFetchCargoVendor = true;
 
   meta = {
     description = "Command line interface to convert strings into any case";

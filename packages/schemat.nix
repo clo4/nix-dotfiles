@@ -14,7 +14,6 @@ pkgs.rustPlatform.buildRustPackage {
   # toolchain, but it works for now. Might need to use rust-overlay?
   RUSTC_BOOTSTRAP = true;
 
-  useFetchCargoVendor = true;
   cargoHash = "sha256-ZKy+voOLROK1S5YD8b8i5/pXZXnQn2ZBarFsUjYThPY=";
 
   meta = {

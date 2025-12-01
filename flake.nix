@@ -42,5 +42,10 @@
     clouddns.inputs.blueprint.follows = "blueprint";
   };
 
-  outputs = inputs: inputs.blueprint { inherit inputs; };
+  outputs =
+    inputs:
+    inputs.blueprint {
+      inherit inputs;
+      nixpkgs.config.allowUnfree = true;
+    };
 }

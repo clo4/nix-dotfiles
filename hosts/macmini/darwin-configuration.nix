@@ -78,7 +78,6 @@
   ];
   nix.settings.trusted-users = [ "@admin" ];
   nix.channel.enable = false;
-  nixpkgs.config.allowUnfree = true;
 
   nix.distributedBuilds = true;
   nix.buildMachines = [

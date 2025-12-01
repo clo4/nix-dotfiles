@@ -21,6 +21,7 @@ abbr -a pi "pnpm install"
 abbr -a px pnpx
 abbr -a nx "npx nx"
 abbr -a nxr "npx nx run"
+abbr -a nrsl "npm run start-local"
 
 abbr -a r run
 

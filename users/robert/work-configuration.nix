@@ -29,7 +29,7 @@
   home.packages = [
     pkgs.awscli2
     pkgs.python3
-    pkgs.serverless
+    # pkgs.serverless
     pkgs.nss_latest
     pkgs.ngrok
     pkgs.vtsls

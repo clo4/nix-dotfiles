@@ -11,5 +11,13 @@
   "vim_mode": true,
   "buffer_font_family": "RobotoMono Nerd Font",
   "ui_font_family": "RobotoMono Nerd Font",
-  "format_on_save": "off"
+  "format_on_save": "off",
+  "languages": {
+    "Go": {
+      "format_on_save": "on"
+    },
+    "Go Mod": {
+      "format_on_save": "on"
+    }
+  }
 }

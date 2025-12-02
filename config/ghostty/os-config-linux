@@ -5,3 +5,20 @@ font-size = 8
 gtk-toolbar-style = raised-border
 gtk-titlebar-style = tabs
 gtk-wide-tabs = false
+
+
+# I'm trying to reserve ctrl+shift for window or tab-level stuff,
+# and use ctrl+alt for surfaces.
+
+keybind = ctrl+shift+r=prompt_surface_title
+keybind = ctrl+shift+comma=reload_config
+
+keybind = ctrl+alt+d=new_split:right
+keybind = ctrl+shift+d=new_split:down
+
+keybind = ctrl+alt+w=close_surface
+
+keybind = page_up=scroll_page_fractional:-0.5
+keybind = page_down=scroll_page_fractional:0.5
+
+keybind = ctrl+alt+s=write_scrollback_file:paste

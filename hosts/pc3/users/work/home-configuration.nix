@@ -1,5 +1,6 @@
 {
   pkgs,
+  perSystem,
   flake,
   config,
   inputs,
@@ -26,4 +27,8 @@
   my.config.source = {
     ".config/zed" = "config/zed/hosts/pc3";
   };
+
+  home.packages = [
+    perSystem.winapps.winapps
+  ];
 }

@@ -30,5 +30,6 @@
 
   home.packages = [
     perSystem.winapps.winapps
+    pkgs.systemd-lsp
   ];
 }

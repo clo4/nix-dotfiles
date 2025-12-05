@@ -16,4 +16,8 @@
   my.config.source = {
     ".config/zed" = "config/zed/hosts/pc3";
   };
+
+  home.packages = [
+    pkgs.systemd-lsp
+  ];
 }

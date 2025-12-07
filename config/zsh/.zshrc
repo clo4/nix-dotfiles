@@ -32,8 +32,8 @@ if [[ -o interactive && ! ( "$TERM_PROGRAM" = "WarpTerminal" ) ]]; then
       ppid=${ppid##*[[:space:]]}  # Strip leading whitespace
     done
     if [[ $found_fish -eq 0 ]]; then
-      SHELL=$(command -v fish)
-      exec "$SHELL" -l
+      local shell=$(command -v fish)
+      exec -l "$shell" -l
     fi
   else
     echo

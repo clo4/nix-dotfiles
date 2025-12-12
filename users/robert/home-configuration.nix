@@ -148,13 +148,6 @@ in
   home.file.".config/direnv/lib/nix-direnv.sh".source =
     "${pkgs.nix-direnv}/share/nix-direnv/direnvrc";
 
-  # # My change to helix-cogs generates a 'steel-language-server' directory,
-  # # and since steel doesn't care if the directories are nested, it's possible
-  # # to use it directly.
-  # home.file.".local/share/steel".source = perSystem.helix.helix-cogs;
-  # home.sessionVariables.STEEL_HOME = "$HOME/.local/share/steel";
-  # home.sessionVariables.STEEL_LSP_HOME = "$HOME/.local/share/steel/steel-language-server";
-
   my.programs.fish.plugins = [
     (pkgs.fetchFromGitHub {
       owner = "IlanCosman";
@@ -162,13 +155,8 @@ in
       rev = "44c521ab292f0eb659a9e2e1b6f83f5f0595fcbd"; # as of 2025-01-01
       hash = "sha256-85iU1QzcZmZYGhK30/ZaKwJNLTsx+j3w6St8bFiQWxc=";
     })
-    # (pkgs.fetchFromGitHub {
-    #   owner = "jorgebucaran";
-    #   repo = "nvm.fish";
-    #   rev = "846f1f20b2d1d0a99e344f250493c41a450f9448"; # as of 2025-01-01
-    #   hash = "sha256-u3qhoYBDZ0zBHbD+arDxLMM8XoLQlNI+S84wnM3nDzg=";
-    # })
   ];
+
   home.sessionVariables.NIX_CONFIG_REV = flake.rev or flake.dirtyRev;
   home.sessionVariables.NIX_CONFIG_DIR = config.my.config.directory;
   home.sessionVariables.NIX_CONFIG_LAST_MODIFIED = builtins.toString flake.lastModified;

@@ -1,0 +1,24 @@
+output "Samsung Electric Company S90D 0x01000E00" {
+    mode "3840x2160@120.000"
+    scale 2
+}
+
+input {
+    touchpad {
+        natural-scroll
+
+        // I'm using a Magic Trackpad, which seems to scroll exactly twice as fast as is reasonable by default.
+        scroll-factor 0.5
+    }
+
+    mouse {
+        accel-profile "flat"
+        accel-speed -0.2
+    }
+}
+
+// Testing if this will help with the occasional flicker I get
+debug {
+    wait-for-frame-completion-before-queueing
+    keep-max-bpc-unchanged
+}

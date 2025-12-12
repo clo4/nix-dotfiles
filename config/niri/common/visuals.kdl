@@ -1,0 +1,56 @@
+window-rule {
+    geometry-corner-radius 6
+    clip-to-geometry true
+    tiled-state true
+    draw-border-with-background false
+}
+
+layout {
+    gaps 4
+
+    always-center-single-column
+
+    default-column-width {
+        proportion 0.7
+    }
+
+    preset-column-widths {
+        proportion 0.5
+        proportion 0.7
+    }
+
+    focus-ring {
+        off
+    }
+
+    // I actually really like the subtle border around windows that Windows 11 adds.
+    // It might be one of the very few design choices they've made that I like.
+    border {
+        on
+        width 1
+        active-color "#ffffff50"
+        inactive-color "#ffffff33"
+        urgent-color "#ff8e1544"
+    }
+}
+
+overview {
+    backdrop-color "#000"
+
+    // since the background is black, no point rendering the shadow
+    workspace-shadow {
+        off
+    }
+}
+
+prefer-no-csd
+
+animations {
+    slowdown 0.5
+}
+
+recent-windows {
+    highlight {
+        corner-radius 6
+    }
+}

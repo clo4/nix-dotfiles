@@ -1,0 +1,9 @@
+input {
+    keyboard {
+        xkb {
+            layout "us,us(colemak_dh)"
+        }
+
+        numlock
+    }
+}

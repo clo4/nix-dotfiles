@@ -1,0 +1,3 @@
+include "common/config.kdl"
+include "host/config.kdl"
+include "private.kdl"

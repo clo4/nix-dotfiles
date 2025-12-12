@@ -1,0 +1,38 @@
+// dms is being managed by systemd:
+//   systemctl --user add-wants niri.service dms
+// So, the following line is no longer necessary:
+// spawn-at-startup "dms" "run"
+
+// spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
+
+layer-rule {
+    match namespace="^wallpaper$"
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="^notifications$"
+    block-out-from "screencast"
+}
+
+hotkey-overlay {
+    skip-at-startup
+}
+
+cursor {
+    hide-when-typing
+}
+
+screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+environment {
+    XDG_SESSION_TYPE "wayland"
+    XDG_CURRENT_DESKTOP "niri"
+
+    ELECTRON_OZONE_PLATFORM_HINT "auto"
+
+    QT_QPA_PLATFORM "wayland"
+    QT_WAYLAND_DISABLE_WINDOWDECORATION "1"
+    QT_QPA_PLATFORMTHEME "gtk3"
+    QT_QPA_PLATFORMTHEME_QT6 "gtk3"
+}

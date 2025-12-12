@@ -27,4 +27,5 @@ in
   ]
   ++ robert;
   "hosts/pc3/users/work/gitconfig.age".publicKeys = robert;
+  "config/niri/private.kdl".publicKeys = robert;
 }

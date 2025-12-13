@@ -10,6 +10,7 @@ window-rule {
 
 window-rule {
     match app-id="^firefox$"
+    match app-id="^code$"
     default-column-width {
         proportion 1.0
     }

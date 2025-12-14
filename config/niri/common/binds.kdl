@@ -17,13 +17,13 @@ binds {
 
     // Audio control
     Mod+WheelScrollUp cooldown-ms=20 {
-        spawn "dms" "ipc" "call" "audio" "increment" "3";
+        spawn "dms" "ipc" "call" "audio" "increment" "6";
     }
     XF86AudioRaiseVolume allow-when-locked=true {
         spawn "dms" "ipc" "call" "audio" "increment" "3";
     }
     Mod+WheelScrollDown cooldown-ms=20 {
-        spawn "dms" "ipc" "call" "audio" "decrement" "3";
+        spawn "dms" "ipc" "call" "audio" "decrement" "6";
     }
     XF86AudioLowerVolume allow-when-locked=true {
         spawn "dms" "ipc" "call" "audio" "decrement" "3";
@@ -49,18 +49,15 @@ binds {
         spawn "dms" "ipc" "call" "mpris" "pause";
     }
 
-    XF86MonBrightnessUp allow-when-locked=true {
-       spawn "dms" "ipc" "call" "brightness" "increment" "5" "";
-    }
-    XF86MonBrightnessDown allow-when-locked=true {
-       spawn "dms" "ipc" "call" "brightness" "decrement" "5" "";
-    }
-
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     Mod+B hotkey-overlay-title="Open Browser: Firefox" { spawn "firefox"; }
     Mod+E hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
-    Mod+T hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty" "+new-window"; }
+    Mod+T hotkey-overlay-title="Open Terminal: Foot" { spawn "foot"; }
+    Mod+Ctrl+Alt+Shift+Grave hotkey-overlay-title="Open Terminal: Foot" { spawn "foot"; }
+
+    // Mod+T hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty" "+new-window"; }
+    // Mod+Ctrl+Alt+Shift+Grave hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty" "+new-window"; }
 
     Mod+Return { maximize-column; }
     Mod+Ctrl+Return { maximize-window-to-edges; }
@@ -126,9 +123,8 @@ binds {
     Mod+Ctrl+C { center-visible-columns; }
 
     Mod+Minus { set-column-width "-10%"; }
-    Mod+Equal { set-column-width "+10%"; }
-
     Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     Mod+Ctrl+V { toggle-window-floating; }

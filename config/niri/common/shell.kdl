@@ -21,6 +21,7 @@ hotkey-overlay {
 
 cursor {
     hide-when-typing
+    xcursor-size 24
 }
 
 screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"

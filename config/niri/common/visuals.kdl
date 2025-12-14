@@ -6,7 +6,11 @@ window-rule {
 }
 
 layout {
-    gaps 4
+    gaps 6
+
+    empty-workspace-above-first
+
+    // default-column-display "tabbed"
 
     always-center-single-column
 
@@ -19,18 +23,20 @@ layout {
         proportion 0.7
     }
 
-    focus-ring {
-        off
-    }
-
-    // I actually really like the subtle border around windows that Windows 11 adds.
-    // It might be one of the very few design choices they've made that I like.
     border {
         on
         width 1
-        active-color "#ffffff50"
-        inactive-color "#ffffff33"
-        urgent-color "#ff8e1544"
+        active-color "#ffffff40"
+        inactive-color "#ffffff2a"
+    }
+
+    // This adds a little more contrast around the active window. I can't fully
+    // replicate the macOS look of a light border surrounded by a darker one,
+    // but this gets close enough
+    focus-ring {
+        on
+        width 1
+        active-color "#00000050"
     }
 }
 
@@ -46,7 +52,7 @@ overview {
 prefer-no-csd
 
 animations {
-    slowdown 0.5
+    slowdown 0.3
 }
 
 recent-windows {

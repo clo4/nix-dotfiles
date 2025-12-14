@@ -1,34 +1,67 @@
-window-rule {
-    match app-id=r#"^org\.wezfurlong\.wezterm$"#
-    default-column-width {}
-}
+workspace "media"
+workspace "games"
 
 window-rule {
+    // These display media, the media should dictate how wide the column should be
     match app-id="^org.gnome.(Loupe|Showtime)$"
+
     default-column-width {}
 }
 
+// I use the following apps in full-width, pretty much exclusively
 window-rule {
     match app-id="^firefox$"
     match app-id="^code$"
+    match app-id="^spotify$"
+    
     default-column-width {
         proportion 1.0
     }
-    // opacity 0.5
+}
+
+// Foot windows are really cheap to spawn, so I don't want them to take up too much space
+window-rule {
+    match app-id="^foot$"
+    default-column-width {
+        proportion 0.5
+    }
 }
 
 window-rule {
     match app-id="^firefox$" title="^Picture-in-Picture$"
     open-floating true
+    default-floating-position x=10 y=10 relative-to="bottom-right"
 }
 
 window-rule {
     match app-id=r#"^org\.keepassxc\.KeePassXC$"#
     match app-id=r#"^org\.gnome\.World\.Secrets$"#
-    // match app-id=r#"^com\.onepassword\.OnePassword$"#
+    match app-id=r#"^1password$"#
 
     block-out-from "screen-capture"
 
     // Use this instead if you want them visible on third-party screenshot tools.
     // block-out-from "screencast"
+}
+
+window-rule {
+    match app-id="^spotify$"
+    open-on-workspace "media"
+}
+
+window-rule {
+    match app-id="^com.discordapp.Discord$"
+    open-on-workspace "games"
+}
+
+window-rule {
+    match app-id="^steam$"
+    open-on-workspace "games"
+    border {
+        off
+    }
+    focus-ring {
+        off
+    }
+    clip-to-geometry false
 }

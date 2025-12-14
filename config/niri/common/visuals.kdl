@@ -5,6 +5,28 @@ window-rule {
     draw-border-with-background false
 }
 
+window-rule {
+    match is-floating=true
+
+    geometry-corner-radius 4
+
+    shadow {
+        on
+        spread -2
+        softness 32
+        offset x=0 y=0
+        color "#000000b0"
+        inactive-color "#00000040"
+    }
+
+    border {
+        on
+        width 0.5
+        active-color "#ffffffa0"
+        inactive-color "#ffffff60"
+    }
+}
+
 layout {
     gaps 6
 

@@ -6,7 +6,7 @@ window-rule {
 }
 
 layout {
-    gaps 8
+    gaps 6
 
     empty-workspace-above-first
 
@@ -35,16 +35,17 @@ layout {
 
     border {
         on
-        width 1
-        active-color "#ffffff60"
-        inactive-color "#ffffff2a"
+        width 0.5
+        active-color "#ffffff90"
+        inactive-color "#ffffff6a"
     }
     shadow {
         on
         softness 0
-        spread 1
+        spread 0.5
         offset x=0 y=0
-        color "00000050"
+        color "000000a0"
+        inactive-color "00000080"
     }
     focus-ring {
         off

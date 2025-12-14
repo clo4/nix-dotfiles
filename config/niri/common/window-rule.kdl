@@ -8,6 +8,26 @@ window-rule {
     default-column-width {}
 }
 
+// Indicate screencasted windows with red colors.
+window-rule {
+    match is-window-cast-target=true
+
+    focus-ring {
+        off
+    }
+
+    border {
+        width 4
+        active-color "#7bff44aa"
+        inactive-color "#4f9b05aa"
+    }
+
+    tab-indicator {
+        active-color "#4f9b05"
+        inactive-color "#4f9b05"
+    }
+}
+
 // I use the following apps in full-width, pretty much exclusively
 window-rule {
     match app-id="^firefox$"
@@ -19,18 +39,13 @@ window-rule {
     }
 }
 
-// Foot windows are really cheap to spawn, so I don't want them to take up too much space
-window-rule {
-    match app-id="^foot$"
-    default-column-width {
-        proportion 0.5
-    }
-}
-
 window-rule {
     match app-id="^firefox$" title="^Picture-in-Picture$"
+
     open-floating true
     default-floating-position x=10 y=10 relative-to="bottom-right"
+    default-column-width { fixed 480; }
+    default-window-height { fixed 270; }
 }
 
 window-rule {
@@ -52,11 +67,17 @@ window-rule {
 window-rule {
     match app-id="^com.discordapp.Discord$"
     open-on-workspace "games"
+    default-column-width {
+        proportion 0.8
+    }
 }
 
 window-rule {
     match app-id="^steam$"
     open-on-workspace "games"
+    default-column-width {
+        proportion 0.8
+    }
     border {
         off
     }

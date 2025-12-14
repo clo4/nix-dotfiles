@@ -1,47 +1,58 @@
 window-rule {
-    geometry-corner-radius 6
+    geometry-corner-radius 8
     clip-to-geometry true
     tiled-state true
     draw-border-with-background false
 }
 
 layout {
-    gaps 6
+    gaps 8
 
     empty-workspace-above-first
 
-    // default-column-display "tabbed"
-
     always-center-single-column
 
-    default-column-width {
-        proportion 0.7
+    default-column-display "tabbed"
+    tab-indicator {
+        hide-when-single-tab
+        // place-within-column
+        length total-proportion=0.3
+        gap -6
+        width 3
+        corner-radius 6
+        active-color "#ffffffc0"
+        inactive-color "#ffffff80"
+        gaps-between-tabs 6
     }
 
+    default-column-width {
+        proportion 0.4
+    }
     preset-column-widths {
-        proportion 0.5
-        proportion 0.7
+        proportion 0.4
+        proportion 0.6
     }
 
     border {
         on
         width 1
-        active-color "#ffffff40"
+        active-color "#ffffff60"
         inactive-color "#ffffff2a"
     }
-
-    // This adds a little more contrast around the active window. I can't fully
-    // replicate the macOS look of a light border surrounded by a darker one,
-    // but this gets close enough
-    focus-ring {
+    shadow {
         on
-        width 1
-        active-color "#00000050"
+        softness 0
+        spread 1
+        offset x=0 y=0
+        color "00000050"
+    }
+    focus-ring {
+        off
     }
 }
 
 overview {
-    backdrop-color "#000"
+    backdrop-color "#000000"
 
     // since the background is black, no point rendering the shadow
     workspace-shadow {

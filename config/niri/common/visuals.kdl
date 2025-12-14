@@ -8,7 +8,7 @@ window-rule {
 window-rule {
     match is-floating=true
 
-    geometry-corner-radius 4
+    geometry-corner-radius 16
 
     shadow {
         on
@@ -55,10 +55,17 @@ layout {
         proportion 0.6
     }
 
+    focus-ring {
+        on
+        active-color "#4e9ecd"
+        inactive-color "#eeeeee"
+        width 1
+    }
     border {
         on
         width 0.5
-        active-color "#ffffff90"
+        // active-color "#ffffff90"
+        active-color "#4e9ecd"
         inactive-color "#ffffff6a"
     }
     shadow {
@@ -68,9 +75,6 @@ layout {
         offset x=0 y=0
         color "000000a0"
         inactive-color "00000080"
-    }
-    focus-ring {
-        off
     }
 }
 

@@ -44,7 +44,7 @@ if set -q SSH_CLIENT; or set -q SSH_TTY
     set -x BROWSER echo
 end
 
-set -x FZF_CTRL_T_COMMAND "fd --type file --strip-cwd-prefix"
+set -x FZF_CTRL_T_COMMAND "fd --type file --strip-cwd-prefix --follow"
 set -x FZF_ALT_C_COMMAND "fd --type directory --strip-cwd-prefix"
 
 set -g skip_trash_directories .git node_modules target .direnv .nx venv .venv dist result build

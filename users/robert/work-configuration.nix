@@ -38,5 +38,6 @@
     pkgs.glow
     pkgs.deno
     pkgs._1password-cli
+    pkgs.mongodb-tools
   ];
 }

@@ -5,6 +5,8 @@
 
 // spawn-sh-at-startup "/usr/lib/polkit-kde-authentication-agent-1"
 
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
+
 layer-rule {
     match namespace="^wallpaper$"
     place-within-backdrop true

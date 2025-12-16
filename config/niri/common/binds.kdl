@@ -65,30 +65,46 @@ binds {
 
     Mod+Q repeat=false { close-window; }
 
+    // Regular directional keybinds just move the focus around the current workspace.
     Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-or-workspace-down; }
-    Mod+Up    { focus-window-or-workspace-up; }
+    Mod+Down { focus-window-down; }
+    Mod+Up { focus-window-up; }
     Mod+Right { focus-column-right; }
 
-    Mod+Ctrl+Left  { move-column-left; }
-    Mod+Ctrl+Down { move-window-down-or-to-workspace-down; }
-    Mod+Ctrl+Up   { move-window-up-or-to-workspace-up; }
-    Mod+Ctrl+Right { move-column-right; }
+    Mod+Next  { focus-workspace-down; }
+    Mod+Prior { focus-workspace-up; }
 
+    // Control is the "window" modifier. Adding in control moves the window instead of the focus.
+    Mod+Ctrl+Left  { move-column-left; }
+    Mod+Ctrl+Down { move-window-down; }
+    Mod+Ctrl+Up { move-window-up; }
+    Mod+Ctrl+Right { move-column-right; }
+    
+    Mod+Ctrl+Next { move-column-to-workspace-down; }
+    Mod+Ctrl+Prior { move-column-to-workspace-up; }
+
+
+    // Home and end naturally move focus or window to the start or end of the list.
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
     Mod+Ctrl+Home { move-column-to-first; }
     Mod+Ctrl+End  { move-column-to-last; }
 
+    // Shift is the "monitor" modifier. Adding in shift changes the movement from the current
+    // monitor to the other monitors.
     Mod+Shift+Left  { focus-monitor-left; }
     Mod+Shift+Down  { focus-monitor-down; }
     Mod+Shift+Up    { focus-monitor-up; }
     Mod+Shift+Right { focus-monitor-right; }
 
-    Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
-    Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
-    Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
-    Mod+Shift+Ctrl+Right { move-column-to-monitor-right; }
+    // Naturally, shift and control move the column to another monitor, instead
+    // of moving the focus to another monitor.
+    Mod+Shift+Ctrl+Left   { move-column-to-monitor-left; }
+    Mod+Shift+Ctrl+Down   { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Next   { move-column-to-monitor-down; }
+    Mod+Shift+Ctrl+Up     { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Prior  { move-column-to-monitor-up; }
+    Mod+Shift+Ctrl+Right  { move-column-to-monitor-right; }
 
     Mod+1 { focus-workspace 1; }
     Mod+2 { focus-workspace 2; }
@@ -109,11 +125,11 @@ binds {
     Mod+Ctrl+8 { move-column-to-workspace 8; }
     Mod+Ctrl+9 { move-column-to-workspace 9; }
 
-    Mod+BracketLeft  { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Alt+Ctrl+Left  { consume-or-expel-window-left; }
+    Mod+Alt+Ctrl+Right { consume-or-expel-window-right; }
 
-    Mod+Comma  { consume-window-into-column; }
-    Mod+Period { expel-window-from-column; }
+    Mod+BracketLeft  { consume-window-into-column; }
+    Mod+BracketRight { expel-window-from-column; }
 
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }

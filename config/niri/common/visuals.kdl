@@ -38,13 +38,13 @@ layout {
     tab-indicator {
         hide-when-single-tab
         // place-within-column
-        length total-proportion=0.3
+        length total-proportion=0.5
         gap -6
         width 3
         corner-radius 6
         active-color "#ffffffc0"
         inactive-color "#ffffff80"
-        gaps-between-tabs 6
+        gaps-between-tabs 12
     }
 
     default-column-width {

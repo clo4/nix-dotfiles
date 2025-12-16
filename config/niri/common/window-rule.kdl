@@ -16,11 +16,6 @@ window-rule {
     default-floating-position x=30 y=30 relative-to="top-right"
 }
 
-window-rule {
-    match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
-    default-floating-position x=0 y=0 relative-to="bottom-right"
-}
-
 // Indicate screencasted windows with red colors.
 window-rule {
     match is-window-cast-target=true
@@ -82,16 +77,24 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^steam$"
+    match app-id=r#"^steam$"#
+    exclude title=r#"^notificationtoasts_\d+_desktop$"#
     open-on-workspace "games"
-
     default-column-width {
         proportion 0.8
     }
-
     shadow { off; }
     border { off; }
     focus-ring { off; }
-
     clip-to-geometry false
 }
+
+window-rule {
+    match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
+    shadow { off; }
+    border { off; }
+    focus-ring { off; }
+    clip-to-geometry false
+    default-floating-position x=0 y=0 relative-to="bottom-right"
+}
+

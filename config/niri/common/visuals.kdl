@@ -48,7 +48,7 @@ layout {
     }
 
     default-column-width {
-        proportion 0.4
+        proportion 0.6
     }
     preset-column-widths {
         proportion 0.4
@@ -56,22 +56,25 @@ layout {
     }
 
     focus-ring {
-        on
-        active-color "#4e9ecd"
-        inactive-color "#eeeeee"
-        width 1
+        off
     }
+    // focus-ring {
+    //     on
+    //     active-color "#6ebeffaa"
+    //     inactive-color "#eeeeeeaa"
+    //     width 0.5
+    // }
     border {
         on
-        width 0.5
+        width 1
         // active-color "#ffffff90"
-        active-color "#4e9ecd"
+        active-color "#6ebeffaa"
         inactive-color "#ffffff6a"
     }
     shadow {
         on
         softness 0
-        spread 0.5
+        spread 1
         offset x=0 y=0
         color "000000a0"
         inactive-color "00000080"

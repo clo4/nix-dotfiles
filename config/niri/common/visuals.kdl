@@ -1,5 +1,5 @@
 window-rule {
-    geometry-corner-radius 8
+    geometry-corner-radius 12
     clip-to-geometry true
     tiled-state true
     draw-border-with-background false
@@ -58,26 +58,19 @@ layout {
     focus-ring {
         off
     }
-    // focus-ring {
-    //     on
-    //     active-color "#6ebeffaa"
-    //     inactive-color "#eeeeeeaa"
-    //     width 0.5
-    // }
     border {
         on
         width 1
-        // active-color "#ffffff90"
-        active-color "#6ebeffaa"
-        inactive-color "#ffffff6a"
+        active-color "#5da8dc"
+        inactive-color "#77777b"
     }
     shadow {
         on
         softness 0
-        spread 1
+        spread 0.5
         offset x=0 y=0
-        color "000000a0"
-        inactive-color "00000080"
+        color "000000c0"
+        inactive-color "000000a0"
     }
 }
 

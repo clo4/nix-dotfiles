@@ -1,11 +1,24 @@
-workspace "media"
 workspace "games"
 
 window-rule {
     // These display media, the media should dictate how wide the column should be
-    match app-id="^org.gnome.(Loupe|Showtime)$"
-
+    match app-id=r#"^org\.gnome\.(Loupe|Showtime)$"#
+    default-column-display "normal"
     default-column-width {}
+}
+
+window-rule {
+    match app-id=r#"^XEyes$"#
+
+    default-column-width { fixed 340; }
+    default-window-height { fixed 240; }
+    open-floating true
+    default-floating-position x=30 y=30 relative-to="top-right"
+}
+
+window-rule {
+    match app-id=r#"^steam$"# title=r#"^notificationtoasts_\d+_desktop$"#
+    default-floating-position x=0 y=0 relative-to="bottom-right"
 }
 
 // Indicate screencasted windows with red colors.
@@ -30,9 +43,9 @@ window-rule {
 
 // I use the following apps in full-width, pretty much exclusively
 window-rule {
-    match app-id="^firefox$"
-    match app-id="^code$"
-    match app-id="^spotify$"
+    match app-id=r#"^firefox$"#
+    match app-id=r#"^code$"#
+    match app-id=r#"^spotify$"#
     
     default-column-width {
         proportion 1.0
@@ -40,7 +53,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^firefox$" title="^Picture-in-Picture$"
+    match app-id=r#"^firefox$"# title=r#"^Picture-in-Picture$"#
 
     open-floating true
     geometry-corner-radius 4
@@ -61,12 +74,7 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^spotify$"
-    open-on-workspace "media"
-}
-
-window-rule {
-    match app-id="^com.discordapp.Discord$"
+    match app-id=r#"^com\.discordapp\.Discord$"#
     open-on-workspace "games"
     default-column-width {
         proportion 0.8
@@ -76,14 +84,14 @@ window-rule {
 window-rule {
     match app-id="^steam$"
     open-on-workspace "games"
+
     default-column-width {
         proportion 0.8
     }
-    border {
-        off
-    }
-    focus-ring {
-        off
-    }
+
+    shadow { off; }
+    border { off; }
+    focus-ring { off; }
+
     clip-to-geometry false
 }

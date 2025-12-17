@@ -12,10 +12,10 @@ window-rule {
 
     shadow {
         on
-        spread -2
-        softness 32
-        offset x=0 y=0
-        color "#000000b0"
+        spread -6
+        softness 48
+        offset x=0 y=8
+        color "#00000090"
         inactive-color "#00000040"
     }
 
@@ -24,6 +24,15 @@ window-rule {
         width 0.5
         active-color "#ffffffa0"
         inactive-color "#ffffff60"
+    }
+}
+
+window-rule {
+    match is-floating=true is-active=true
+
+    shadow {
+        spread -8
+        softness 32
     }
 }
 

@@ -57,10 +57,13 @@ window-rule {
     match app-id=r#"^firefox$"# title=r#"^Picture-in-Picture$"#
 
     open-floating true
-    geometry-corner-radius 4
-    default-floating-position x=10 y=10 relative-to="bottom-right"
+    geometry-corner-radius 8
+    default-floating-position x=12 y=12 relative-to="bottom-right"
     default-column-width { fixed 480; }
     default-window-height { fixed 270; }
+    border {
+        inactive-color "#ffffff40"
+    }
 }
 
 window-rule {

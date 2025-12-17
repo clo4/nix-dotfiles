@@ -81,6 +81,8 @@ layout {
         color "000000c0"
         inactive-color "000000a0"
     }
+
+    background-color "#000000"
 }
 
 overview {

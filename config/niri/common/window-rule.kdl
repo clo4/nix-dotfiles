@@ -8,6 +8,12 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"^org\.gnome\.Calculator$"#
+    open-floating true
+    default-floating-position x=100 y=0 relative-to="right"
+}
+
+window-rule {
     match app-id=r#"^XEyes$"#
 
     default-column-width { fixed 340; }

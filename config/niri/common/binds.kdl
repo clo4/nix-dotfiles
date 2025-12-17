@@ -1,52 +1,59 @@
 binds {
+    // Mod+Space hotkey-overlay-title="Application Launcher" {
+    //     spawn "dms" "ipc" "call" "spotlight" "toggle";
+    // }
     Mod+Space hotkey-overlay-title="Application Launcher" {
-        spawn "dms" "ipc" "call" "spotlight" "toggle";
+        spawn "vicinae" "toggle"
+    }
+
+    Mod+Ctrl+Space hotkey-overlay-title="Emoji Picker" {
+        spawn "vicinae" "vicinae://extensions/vicinae/vicinae/search-emojis"
     }
 
     Mod+V hotkey-overlay-title="Clipboard Manager" {
-        spawn "dms" "ipc" "call" "clipboard" "toggle";
+        spawn "vicinae" "vicinae://extensions/vicinae/clipboard/history"
     }
 
     Mod+N hotkey-overlay-title="Notification Center" {
-        spawn "dms" "ipc" "call" "notifications" "toggle";
+        spawn "dms" "ipc" "call" "notifications" "toggle"
     }
 
     Mod+X hotkey-overlay-title="Power Menu" {
-        spawn "dms" "ipc" "call" "powermenu" "open";
+        spawn "dms" "ipc" "call" "powermenu" "open"
     }
 
     // Audio control
     Mod+WheelScrollUp cooldown-ms=20 {
-        spawn "dms" "ipc" "call" "audio" "increment" "6";
+        spawn "dms" "ipc" "call" "audio" "increment" "6"
     }
     XF86AudioRaiseVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "increment" "3";
+        spawn "dms" "ipc" "call" "audio" "increment" "3"
     }
     Mod+WheelScrollDown cooldown-ms=20 {
-        spawn "dms" "ipc" "call" "audio" "decrement" "6";
+        spawn "dms" "ipc" "call" "audio" "decrement" "6"
     }
     XF86AudioLowerVolume allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "decrement" "3";
+        spawn "dms" "ipc" "call" "audio" "decrement" "3"
     }
     XF86AudioMute allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "mute";
+        spawn "dms" "ipc" "call" "audio" "mute"
     }
     XF86AudioMicMute allow-when-locked=true {
-        spawn "dms" "ipc" "call" "audio" "micmute";
+        spawn "dms" "ipc" "call" "audio" "micmute"
     }
 
     // Media player
     XF86AudioNext allow-when-locked=true {
-        spawn "dms" "ipc" "call" "mpris" "next";
+        spawn "dms" "ipc" "call" "mpris" "next"
     }
     XF86AudioPrev allow-when-locked=true {
-        spawn "dms" "ipc" "call" "mpris" "previous";
+        spawn "dms" "ipc" "call" "mpris" "previous"
     }
     XF86AudioPlay allow-when-locked=true {
-        spawn "dms" "ipc" "call" "mpris" "playPause";
+        spawn "dms" "ipc" "call" "mpris" "playPause"
     }
     XF86AudioPause allow-when-locked=true {
-        spawn "dms" "ipc" "call" "mpris" "pause";
+        spawn "dms" "ipc" "call" "mpris" "pause"
     }
 
     Mod+Shift+Slash { show-hotkey-overlay; }

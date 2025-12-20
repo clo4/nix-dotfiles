@@ -1,5 +1,5 @@
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 8
     clip-to-geometry true
     tiled-state true
     draw-border-with-background false
@@ -57,7 +57,7 @@ layout {
     }
 
     default-column-width {
-        proportion 0.6
+        proportion 0.5
     }
     preset-column-widths {
         proportion 0.4
@@ -70,7 +70,7 @@ layout {
     border {
         on
         width 1
-        active-color "#5da8dc"
+        active-color "#83a8c3"
         inactive-color "#77777b"
     }
     shadow {
@@ -78,8 +78,8 @@ layout {
         softness 0
         spread 0.5
         offset x=0 y=0
-        color "000000c0"
-        inactive-color "000000a0"
+        color "000000ff"
+        inactive-color "000000f0"
     }
 
     background-color "#000000"

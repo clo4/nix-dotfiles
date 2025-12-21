@@ -48,12 +48,12 @@ layout {
         hide-when-single-tab
         // place-within-column
         length total-proportion=0.5
-        gap -6
-        width 3
-        corner-radius 6
-        active-color "#ffffffc0"
-        inactive-color "#ffffff80"
-        gaps-between-tabs 12
+        gap -5
+        width 2
+        corner-radius 8
+        active-color "#ffffff80"
+        inactive-color "#ffffff50"
+        gaps-between-tabs 6
     }
 
     default-column-width {

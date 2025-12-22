@@ -70,8 +70,8 @@ layout {
     border {
         on
         width 1
-        active-color "#83a8c3"
-        inactive-color "#77777b"
+        active-color "#b5c8d6a0"
+        inactive-color "#77777ba0"
     }
     shadow {
         on

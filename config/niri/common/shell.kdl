@@ -42,3 +42,7 @@ environment {
 
     _JAVA_AWT_WM_NONREPARENTING "1"
 }
+
+debug {
+    honor-xdg-activation-with-invalid-serial
+}

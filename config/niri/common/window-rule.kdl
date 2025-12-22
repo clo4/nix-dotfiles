@@ -47,6 +47,8 @@ window-rule {
     match app-id=r#"^firefox$"#
     match app-id=r#"^code$"#
     match app-id=r#"^spotify$"#
+    // Yes, I occasionally use the real, full-fat, full-tracking Chrome.
+    match app-id=r#"^google-chrome$"#
     
     default-column-width {
         proportion 1.0

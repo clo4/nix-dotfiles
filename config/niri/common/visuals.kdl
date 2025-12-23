@@ -8,19 +8,22 @@ window-rule {
 window-rule {
     match is-floating=true
 
-    geometry-corner-radius 16
+    clip-to-geometry false
+    geometry-corner-radius 0
+    tiled-state false
 
     shadow {
         on
+        // off
         spread -6
         softness 48
         offset x=0 y=8
-        color "#00000090"
+        color "#000000a0"
         inactive-color "#00000040"
     }
 
     border {
-        on
+        off
         width 0.5
         active-color "#ffffffa0"
         inactive-color "#ffffff60"

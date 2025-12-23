@@ -90,7 +90,6 @@ binds {
     Mod+Ctrl+Next { move-column-to-workspace-down; }
     Mod+Ctrl+Prior { move-column-to-workspace-up; }
 
-
     // Home and end naturally move focus or window to the start or end of the list.
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
@@ -137,6 +136,11 @@ binds {
 
     Mod+BracketLeft  { consume-window-into-column; }
     Mod+BracketRight { expel-window-from-column; }
+
+    Mod+Ctrl+Shift+Alt+Up { move-workspace-up; }
+    Mod+Ctrl+Shift+Alt+Prior { move-workspace-up; }
+    Mod+Ctrl+Shift+Alt+Down { move-workspace-down; }
+    Mod+Ctrl+Shift+Alt+Next { move-workspace-down; }
 
     Mod+R { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }

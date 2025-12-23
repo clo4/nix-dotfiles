@@ -14,6 +14,12 @@ window-rule {
 }
 
 window-rule {
+    match app-id=r#"^com.vixalien.sticky$"#
+    open-floating true
+    default-floating-position x=40 y=40 relative-to="top-right"
+}
+
+window-rule {
     match app-id=r#"^XEyes$"#
 
     default-column-width { fixed 340; }
@@ -79,12 +85,20 @@ window-rule {
     // block-out-from "screencast"
 }
 
+// Often want to have these applications open with another app visible in the
+// same workspace, but close enough to full screen that I can focus.
 window-rule {
+    match app-id=r#"^com.slack.Slack$"#
+    match app-id=r#"^MongoDB Compass$"#
     match app-id=r#"^com\.discordapp\.Discord$"#
-    open-on-workspace "games"
     default-column-width {
         proportion 0.8
     }
+}
+
+window-rule {
+    open-on-workspace "games"
+    match app-id=r#"^com\.discordapp\.Discord$"#
 }
 
 window-rule {

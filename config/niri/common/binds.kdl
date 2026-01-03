@@ -7,7 +7,7 @@ binds {
     }
 
     Mod+Ctrl+Space hotkey-overlay-title="Emoji Picker" {
-        spawn "vicinae" "vicinae://extensions/vicinae/vicinae/search-emojis"
+        spawn "vicinae" "vicinae://extensions/vicinae/core/search-emojis"
     }
 
     Mod+V hotkey-overlay-title="Clipboard Manager" {

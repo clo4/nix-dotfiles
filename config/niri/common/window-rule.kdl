@@ -1,5 +1,3 @@
-workspace "games"
-
 window-rule {
     // These display media, the media should dictate how wide the column should be
     match app-id=r#"^org\.gnome\.(Loupe|Showtime)$"#
@@ -97,14 +95,12 @@ window-rule {
 }
 
 window-rule {
-    open-on-workspace "games"
     match app-id=r#"^com\.discordapp\.Discord$"#
 }
 
 window-rule {
     match app-id=r#"^steam$"#
     exclude title=r#"^notificationtoasts_\d+_desktop$"#
-    open-on-workspace "games"
     default-column-width {
         proportion 0.8
     }

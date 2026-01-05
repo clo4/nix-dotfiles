@@ -119,3 +119,15 @@ window-rule {
     default-floating-position x=0 y=0 relative-to="bottom-right"
 }
 
+window-rule {
+    match app-id=r#"^Minecraft"#
+    shadow { off; }
+    border { off; }
+    focus-ring { off; }
+    clip-to-geometry false
+    default-column-width {
+        proportion 1.0
+    }
+    open-fullscreen true
+}
+

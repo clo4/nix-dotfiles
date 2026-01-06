@@ -152,8 +152,9 @@ in
     (pkgs.fetchFromGitHub {
       owner = "IlanCosman";
       repo = "tide";
-      rev = "44c521ab292f0eb659a9e2e1b6f83f5f0595fcbd"; # as of 2025-01-01
-      hash = "sha256-85iU1QzcZmZYGhK30/ZaKwJNLTsx+j3w6St8bFiQWxc=";
+      # TODO: Update this once the changes for fish 4.3 are merged
+      rev = "fcda500d2c2996e25456fb46cd1a5532b3157b16"; # as of 2026-01-06
+      hash = "sha256-dzYEYC1bYP0rWpmz0fmBFwskxWYuKBMTssMELXXz5H0=";
     })
   ];
 

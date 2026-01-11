@@ -16,7 +16,7 @@
     ./disko.nix
     ./clouddns.nix
     # ./minecraft
-    # ./vrising.nix
+    ./vrising.nix
   ];
 
   system.stateVersion = "24.11";
@@ -100,6 +100,8 @@
 
       "${flake}/hosts/macmini/id_ed25519.pub"
       "${flake}/hosts/macmini/users/robert/id_ed25519.pub"
+
+      "${flake}/hosts/pc3/users/robert/id_ed25519.pub"
     ];
   };
 }

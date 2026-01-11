@@ -1,33 +1,29 @@
 window-rule {
-    geometry-corner-radius 8
+    match is-floating=false
+    geometry-corner-radius 4
     clip-to-geometry true
     tiled-state true
-    draw-border-with-background false
+//     draw-border-with-background false
 }
 
 window-rule {
     match is-floating=true
 
     clip-to-geometry false
-    geometry-corner-radius 0
     tiled-state false
-
-    shadow {
-        on
-        // off
-        spread -6
-        softness 48
-        offset x=0 y=8
-        color "#000000a0"
-        inactive-color "#00000040"
-    }
-
-    border {
+    focus-ring {
         off
-        width 0.5
-        active-color "#ffffffa0"
-        inactive-color "#ffffff60"
     }
+
+    // shadow {
+    //     on
+        // off
+        // spread -6
+        // softness 48
+        // offset x=0 y=8
+        // color "#000000a0"
+        // inactive-color "#00000040"
+    // }
 }
 
 window-rule {
@@ -68,18 +64,18 @@ layout {
     }
 
     focus-ring {
-        off
+        width 1.5
+        active-color "#ffffff30"
+        inactive-color "#77777b30"
     }
     border {
-        on
+        // on
         width 1
-        active-color "#b5c8d6a0"
-        inactive-color "#77777ba0"
     }
     shadow {
-        on
+        // on
         softness 0
-        spread 0.5
+        spread 1
         offset x=0 y=0
         color "000000ff"
         inactive-color "000000f0"

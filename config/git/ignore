@@ -11,3 +11,4 @@ result-*
 /.envrc
 
 **/.claude/settings.local.json
+.worktrees

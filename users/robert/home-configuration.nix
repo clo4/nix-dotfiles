@@ -45,6 +45,7 @@ in
     perSystem.helix.helix
     # perSystem.helix.helix-cogs
     # steelWithLsp
+    perSystem.self.if-not-in-fish
     perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
     pkgs.curl

@@ -20,22 +20,9 @@
 # in Fish that appends `--command $(status fish-path)`.
 
 if [[ -o interactive && ! ( "$TERM_PROGRAM" = "WarpTerminal" ) ]]; then
-  found_fish=0
-  if type fish >/dev/null; then
-    ppid=$$
-    while [[ $ppid -gt 1 ]]; do
-      if [[ $(ps -o comm= -p $ppid) =~ fish$ ]]; then
-        found_fish=1
-        break
-      fi
-      ppid=$(ps -o ppid= -p $ppid)
-      ppid=${ppid##*[[:space:]]}  # Strip leading whitespace
-    done
-    if [[ $found_fish -eq 0 ]]; then
-      local shell=$(command -v fish)
-      exec -l "$shell" -l
-    fi
-  else
+  if type if-not-in-fish >/dev/null && type fish >/dev/null && if-not-in-fish; then
+    exec fish -l
+  elif ! type fish >/dev/null; then
     echo
     echo "  WARNING: fish not found in PATH - falling back to zsh"
     echo

@@ -3,13 +3,18 @@
 # to be faster to type.
 abbr -a - "cd -"
 abbr -a .. "cd .."
-abbr -a cpr "cp -r"
+if not set -q IS_DARWIN
+    abbr -a cpr "cp -a --reflink=auto"
+    abbr -a cp "cp -a --reflink=auto"
+else
+    abbr -a cpr "cp -ac"
+    abbr -a cp "cp -ac"
+end
 abbr -a % "xargs -I % --"
 abbr -a f "fzf |"
 abbr -a fm "fzf --multi |"
 abbr -a rmf "rm -rf"
 abbr -a md "mkdir -p"
-abbr -a c cp
 abbr -a cmv "command -v"
 command -q trash; and abbr -a rm trash
 abbr -a j jj

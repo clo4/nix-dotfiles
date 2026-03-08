@@ -20,6 +20,8 @@
   my.config.source = {
     ".config/zed" = "config/zed/hosts/pc3";
 
+    ".config/foot/foot.ini" = "config/foot/foot.ini";
+
     ".config/niri/config.kdl" = "config/niri/config.kdl";
     ".config/niri/common" = "config/niri/common";
     ".config/niri/host" = "config/niri/hosts/pc3";

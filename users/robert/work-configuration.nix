@@ -30,14 +30,12 @@
     pkgs.awscli2
     pkgs.python3
     pkgs.nss_latest
-    pkgs.ngrok
     pkgs.vtsls
     pkgs.mongosh
     pkgs.typos
     pkgs.typos-lsp
     pkgs.glow
     pkgs.deno
-    pkgs._1password-cli
     pkgs.mongodb-tools
   ];
 }

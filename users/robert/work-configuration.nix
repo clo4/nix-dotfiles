@@ -2,6 +2,7 @@
   flake,
   config,
   pkgs,
+  perSystem,
   inputs,
   ...
 }:
@@ -37,5 +38,6 @@
     pkgs.glow
     pkgs.deno
     pkgs.mongodb-tools
+    perSystem.self.rollbar-mcp-server
   ];
 }

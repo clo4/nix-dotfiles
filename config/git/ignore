@@ -9,6 +9,9 @@ result-*
 .pkgs
 .jj
 /.envrc
+.vscode
+.projectlocal
+.env*
 
 **/.claude/settings.local.json
 .worktrees

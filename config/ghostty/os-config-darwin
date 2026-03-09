@@ -63,6 +63,7 @@ keybind = page_up=scroll_page_fractional:-0.5
 keybind = page_down=scroll_page_fractional:0.5
 # The s can be a mnemonic for scrollback or search
 keybind = command+shift+s=write_scrollback_file:paste
+keybind = command+shift+r=prompt_surface_title
 
 
 # Quick terminal settings

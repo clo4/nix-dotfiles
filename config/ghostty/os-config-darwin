@@ -1,6 +1,6 @@
 command = /bin/sh -c "/bin/wait4path /nix/store && exec -l $SHELL"
 
-auto-update-channel = tip
+# auto-update-channel = tip
 
 macos-option-as-alt = true
 macos-titlebar-style = tabs
@@ -54,16 +54,21 @@ keybind = command+q=quit
 keybind = command+c=copy_to_clipboard
 keybind = command+v=paste_from_clipboard
 keybind = command+shift+v=paste_from_selection
-keybind = command+p=toggle_command_palette
 
 
 # Misc functionality
 # ---
 keybind = page_up=scroll_page_fractional:-0.5
 keybind = page_down=scroll_page_fractional:0.5
-# The s can be a mnemonic for scrollback or search
-keybind = command+shift+s=write_scrollback_file:paste
-keybind = command+shift+r=prompt_surface_title
+
+# The s can be a mnemonic for scrollback
+keybind = command+s=write_scrollback_file:paste
+keybind = command+r=prompt_surface_title
+
+keybind = command+p=toggle_command_palette
+keybind = command+shift+p=toggle_command_palette
+keybind = command+f=start_search
+keybind = command+shift+f=search_selection
 
 
 # Quick terminal settings

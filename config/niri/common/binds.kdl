@@ -60,8 +60,8 @@ binds {
 
     Mod+B hotkey-overlay-title="Open Browser: Firefox" { spawn "firefox"; }
     Mod+E hotkey-overlay-title="File Manager: Nautilus" { spawn "nautilus"; }
-    Mod+T hotkey-overlay-title="Open Terminal: Foot" { spawn "foot"; }
-    Mod+Ctrl+Alt+Shift+Grave hotkey-overlay-title="Open Terminal: Foot" { spawn "foot"; }
+    Mod+T hotkey-overlay-title="Open Terminal" { spawn "ghostty +new-window"; }
+    Mod+Ctrl+Alt+Shift+Grave hotkey-overlay-title="Open Terminal" { spawn "ghostty +new-window"; }
 
     // Mod+T hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty" "+new-window"; }
     // Mod+Ctrl+Alt+Shift+Grave hotkey-overlay-title="Open Terminal: Ghostty" { spawn "ghostty" "+new-window"; }

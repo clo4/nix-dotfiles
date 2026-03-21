@@ -15,13 +15,20 @@ quit-after-last-window-closed = false
 keybind = ctrl+shift+r=prompt_surface_title
 keybind = ctrl+shift+comma=reload_config
 
+keybind = ctrl+alt+t=new_tab
 keybind = ctrl+alt+enter=toggle_split_zoom
-keybind = ctrl+alt+d=new_split:right
-keybind = ctrl+shift+d=new_split:down
+# keybind = ctrl+alt+d=new_split:right
+# keybind = ctrl+shift+d=new_split:down
+
 keybind = ctrl+alt+left=goto_split:left
 keybind = ctrl+alt+right=goto_split:right
 keybind = ctrl+alt+down=goto_split:down
 keybind = ctrl+alt+up=goto_split:up
+
+keybind = ctrl+alt+shift+left=new_split:left
+keybind = ctrl+alt+shift+right=new_split:right
+keybind = ctrl+alt+shift+down=new_split:down
+keybind = ctrl+alt+shift+up=new_split:up
 
 keybind = ctrl+alt+w=close_surface
 

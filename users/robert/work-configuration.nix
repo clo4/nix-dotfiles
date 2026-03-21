@@ -39,6 +39,5 @@
     pkgs.deno
     pkgs.mongodb-tools
     perSystem.self.rollbar-mcp-server
-    pkgs.mise
   ];
 }

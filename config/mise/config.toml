@@ -1,6 +1,9 @@
 [settings]
-idiomatic_version_file_enable_tools = ["node"]
+idiomatic_version_file_enable_tools = ["node", "python"]
 
 [tools]
 node = "latest"
 rust = "latest"
+python = "latest"
+uv = "latest"
+go = "latest"

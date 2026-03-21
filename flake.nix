@@ -40,9 +40,6 @@
     clouddns.url = "github:clo4/clouddns";
     clouddns.inputs.nixpkgs.follows = "nixpkgs";
     clouddns.inputs.blueprint.follows = "blueprint";
-
-    winapps.url = "github:winapps-org/winapps";
-    winapps.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

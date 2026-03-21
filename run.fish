@@ -1,6 +1,6 @@
 # @fish-lsp-disable 2002 4004
 
-# If the devshell isn't active, the functiond defined in this file cannot be
+# If the devshell isn't active, the functions defined in this file cannot be
 # used, so ensure that the dev environment is always active.
 if not set -q IN_NIX_CONFIG_DEVSHELL
     alias devshell "nix develop"

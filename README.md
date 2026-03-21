@@ -45,6 +45,8 @@ To build or switch the current system, run `run switch-host` or `run build-host`
 
 `run` works from any shell within the dev environment, but is intended for use within Fish.
 
+My workflow is that each user/machine remains checked out on a branch unique to it, e.g. `robert@pc3`, `robert@work-macbookpro`. These branches will accumulate local changes to the config until I'm ready to create some commits, push them to the remote, and merge them back into `main`. The `main` branch will occasionally be merged back into each user/machine branch. This allows the configuration for each to evolve separately, while still giving me the power to maintain a shared configuration.
+
 ### Bootstrapping homeserver1
 
 This isn't in `run.fish` because it has to be run on the target system itself or over SSH.

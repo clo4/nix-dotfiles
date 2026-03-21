@@ -20,7 +20,7 @@ function fish_user_key_bindings
     # This isn't bound by default because of the fzf keybindings.
     bind ctrl-r history-pager
 
-    command -q trash && bind enter _execute_no_rm
+    # command -q trash && bind enter _execute_no_rm
 end
 
 function _fzf_git_status_modified
@@ -29,14 +29,14 @@ function _fzf_git_status_modified
     commandline -f repaint
 end
 
-function _execute_no_rm
-    if string match --quiet "rm *" -- (commandline)
-        echo
-        echo " $(set_color --background red --bold) ERROR $(set_color normal) Interactive usage of 'rm' is disabled. Use 'trash' to prevent data loss."
-        echo "         (if you $(set_color --italics)need$(set_color normal) to run 'rm', use 'command rm' instead)"
-        commandline ""
-        commandline -f repaint
-    else
-        commandline -f execute
-    end
-end
+# function _execute_no_rm
+#     if string match --quiet "rm *" -- (commandline)
+#         echo
+#         echo " $(set_color --background red --bold) ERROR $(set_color normal) Interactive usage of 'rm' is disabled. Use 'trash' to prevent data loss."
+#         echo "         (if you $(set_color --italics)need$(set_color normal) to run 'rm', use 'command rm' instead)"
+#         commandline ""
+#         commandline -f repaint
+#     else
+#         commandline -f execute
+#     end
+# end

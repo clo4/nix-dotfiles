@@ -15,6 +15,7 @@ quit-after-last-window-closed = false
 keybind = ctrl+shift+r=prompt_surface_title
 keybind = ctrl+shift+comma=reload_config
 
+keybind = ctrl+alt+t=new_tab
 keybind = ctrl+alt+enter=toggle_split_zoom
 keybind = ctrl+alt+d=new_split:right
 keybind = ctrl+shift+d=new_split:down

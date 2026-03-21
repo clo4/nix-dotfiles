@@ -1,4 +1,8 @@
 {
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
   "ui_font_size": 14.0,
   "buffer_font_size": 14.0,
   "buffer_font_weight": 400.0,
@@ -7,7 +11,7 @@
   "features": {
     "edit_prediction_provider": "zed"
   },
-  "theme": "Fleet Dark",
+  "theme": "One Dark",
   "vim_mode": true,
   "buffer_font_family": "RobotoMono Nerd Font",
   "ui_font_family": "RobotoMono Nerd Font",

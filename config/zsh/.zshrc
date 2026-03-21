@@ -20,7 +20,7 @@
 # in Fish that appends `--command $(status fish-path)`.
 
 if [[ -o interactive && ! ( "$TERM_PROGRAM" = "WarpTerminal" ) ]]; then
-  if type if-not-in-fish >/dev/null && type fish >/dev/null && if-not-in-fish; then
+  if type has-ancestor >/dev/null && type fish >/dev/null && ! has-ancestor fish; then
     exec fish -l
   elif ! type fish >/dev/null; then
     echo

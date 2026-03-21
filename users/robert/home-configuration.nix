@@ -50,7 +50,7 @@ in
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
 
     neovimWithDependencies
-    pkgs.ast-gre
+    pkgs.ast-grep
     pkgs.curl
     pkgs.delta
     pkgs.direnv

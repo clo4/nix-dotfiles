@@ -16,6 +16,7 @@
   my.config.directory = "${config.home.homeDirectory}/Developer/clo4/nix-dotfiles";
   my.config.source = {
     ".config/zed" = "config/zed/hosts/work-macbookpro";
+    ".config/mise" = "config/mise";
   };
 
   age.secrets.work-gitconfig = {

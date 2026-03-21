@@ -36,6 +36,11 @@ if test -d /opt/homebrew/bin; and not contains -- /opt/homebrew/bin $PATH
     set --append PATH /opt/homebrew/bin
 end
 
+# Mise needs to be at the front of the PATH
+if test -d $HOME/.local/share/mise/shims; and not contains -- $HOME/.local/share/mise/shims $PATH
+    set --prepend PATH $HOME/.local/share/mise/shims
+end
+
 # Fish comes with some builtin aliases for ls, which we don't want.
 # Instead, `l` is an abbreviation defined in the abbreviations.fish file.
 functions -e la ll

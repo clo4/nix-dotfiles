@@ -27,7 +27,9 @@ Unfortunately, I keep finding yaks to shave.
 ## Hosts
 
 - `pc3`
-  - My main dev machine. It's a Linux system running CachyOS. Ryzen 9 9950X3D, Radeon RX 7900XTX, 64GB RAM (purchased right before the RAM shortage, I don't have that kind of money to throw around!)
+  - My personal computer. It's a Linux system running CachyOS. Ryzen 9 9950X3D, Radeon RX 7900XTX, 64GB RAM (purchased right before the RAM shortage, I don't have that kind of money to throw around!)
+- `work-macbookpro`
+  - My work machine. Not particularly interesting, but the configuration has to be a little more pragmatic than ideal, just to have things be simple. (MacBook Pro, M3 Pro)
 - `macmini`
   - No longer being used, previously this was my main system. (Mac mini, M1)
 - `macbook-air`
@@ -39,7 +41,7 @@ Unfortunately, I keep finding yaks to shave.
 
 The dev environment includes a custom command runner called `run`: Fish functions in `run.fish`, invoked with `run`. Run it with no arguments to see available commands.
 
-To build or switch the current system, run `run switch-host` or `run build-host`, replacing `host` with the actual host name from the `hosts` directory. Switching `homeserver1` when not on the server will apply the configuration remotely.
+To build or switch the current system, run `run switch-host` or `run build-host`, optionally replacing `host` with the actual host name from the `hosts` directory for a specific configuration. Switching `homeserver1` when not on the server will apply the configuration remotely, and the server will build itself if reachable via SSH and the current host is not on a Linux system.
 
 `run` works from any shell within the dev environment, but is intended for use within Fish.
 

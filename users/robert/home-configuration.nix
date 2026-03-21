@@ -48,9 +48,10 @@ in
     perSystem.self.if-not-in-fish
     perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
+
+    neovimWithDependencies
+    pkgs.ast-gre
     pkgs.curl
-    pkgs'.stripe-cli
-    pkgs.gh
     pkgs.delta
     pkgs.direnv
     pkgs.eza
@@ -58,6 +59,7 @@ in
     pkgs.fish
     pkgs.fish-lsp
     pkgs.fzf
+    pkgs.gh
     pkgs.git
     pkgs.git-open
     pkgs.gum
@@ -66,19 +68,18 @@ in
     pkgs.jujutsu
     pkgs.just
     pkgs.lazygit
-    neovimWithDependencies
     pkgs.nix-direnv
-    pkgs.nix-output-monitor
     pkgs.nixfmt-rfc-style
+    pkgs.nix-output-monitor
     pkgs.nushell
     pkgs.ripgrep
+    pkgs.stripe-cli
     pkgs.tealdeer
     pkgs.tmux
     pkgs.tree
     pkgs.vim
     pkgs.wget
     pkgs.zoxide
-
     # Fonts
     pkgs.nerd-fonts.roboto-mono
   ];

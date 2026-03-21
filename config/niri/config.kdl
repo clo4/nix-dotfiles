@@ -1,3 +1,5 @@
 include "common/config.kdl"
 include "host/config.kdl"
 include "private.kdl"
+include "dms/binds.kdl"
+include "dms/cursor.kdl"

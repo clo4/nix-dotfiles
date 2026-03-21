@@ -1,5 +1,5 @@
-// if-not-in-fish: Exits 0 if no ancestor process is fish, 1 otherwise.
-// Used as a guard: `if-not-in-fish && exec fish -l`
+// has-ancestor: Exits 0 if any ancestor process matches the given name, 1 otherwise.
+// Used as a guard: `has-ancestor fish || exec fish -l`
 //
 // Linux: reads /proc/<pid>/comm and /proc/<pid>/stat
 // macOS: uses sysctl KERN_PROC
@@ -12,9 +12,9 @@
 #include <sys/sysctl.h>
 #endif
 
-// Check if `pid` is fish and get its parent in a single lookup.
-// Returns the parent PID, 0 if pid is fish, or -1 on error.
-static pid_t check_and_get_ppid(pid_t pid) {
+// Check if `pid` matches `name` and get its parent in a single lookup.
+// Returns the parent PID, 0 if pid matches name, or -1 on error.
+static pid_t check_and_get_ppid(pid_t pid, const char *name) {
 #ifdef __linux__
     // Read comm to check the process name.
     char path[64];
@@ -32,11 +32,11 @@ static pid_t check_and_get_ppid(pid_t pid) {
     fclose(f);
 
     comm[strcspn(comm, "\n")] = '\0';
-    if (strcmp(comm, "fish") == 0) {
+    if (strcmp(comm, name) == 0) {
         return 0;
     }
 
-    // Not fish, read stat for the parent PID.
+    // Not a match, read stat for the parent PID.
     // Format: pid (comm) state ppid ...
     snprintf(path, sizeof(path), "/proc/%d/stat", (int)pid);
     f = fopen(path, "r");
@@ -57,7 +57,7 @@ static pid_t check_and_get_ppid(pid_t pid) {
     if (!close_paren) {
         return -1;
     }
-    
+
     char state;
     pid_t ppid;
     if (sscanf(close_paren + 1, " %c %d", &state, &ppid) != 2) {
@@ -68,14 +68,15 @@ static pid_t check_and_get_ppid(pid_t pid) {
 
 #elif defined(__APPLE__)
     int mib[4] = {CTL_KERN, KERN_PROC, KERN_PROC_PID, (int)pid};
-        struct kinfo_proc info;
+    struct kinfo_proc info;
     size_t size = sizeof(info);
 
     if (sysctl(mib, 4, &info, &size, NULL, 0) != 0) {
         return -1;
     }
 
-    if (strcmp(info.kp_proc.p_comm, "fish") == 0) {
+    // Note: p_comm is truncated to MAXCOMLEN (16) characters on macOS.
+    if (strcmp(info.kp_proc.p_comm, name) == 0) {
         return 0;
     }
 
@@ -83,19 +84,28 @@ static pid_t check_and_get_ppid(pid_t pid) {
 
 #else
     (void)pid;
+    (void)name;
     return -1;
 #endif
 }
 
-int main(void) {
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "usage: %s <name>\n", argv[0]);
+        return 2;
+    }
+
+    const char *name = argv[1];
+
     // Walk the process tree from our parent upward.
-    // On any error, assume we're in fish to avoid an infinite loop.
+    // On any error, assume the ancestor exists to avoid an infinite loop.
     pid_t pid = getppid();
     while (pid > 1) {
-        pid = check_and_get_ppid(pid);
+        pid = check_and_get_ppid(pid, name);
         if (pid <= 0) {
-            return 1;
+            // pid == 0: found; pid < 0: error (assume ancestor exists to be safe)
+            return 0;
         }
     }
-    return 0;
+    return 1;
 }

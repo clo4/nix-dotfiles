@@ -16,7 +16,7 @@ abbr -a fm "fzf --multi |"
 abbr -a rmf "rm -rf"
 abbr -a md "mkdir -p"
 abbr -a cmv "command -v"
-command -q trash; and abbr -a rm trash
+# command -q trash; and abbr -a rm trash
 abbr -a j jj
 abbr -a fns functions
 abbr -a p pnpm

@@ -45,12 +45,13 @@ in
     perSystem.helix.helix
     # perSystem.helix.helix-cogs
     # steelWithLsp
-    perSystem.self.if-not-in-fish
+    perSystem.self.has-ancestor
     perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
+
+    neovimWithDependencies
+    pkgs.ast-grep
     pkgs.curl
-    pkgs'.stripe-cli
-    pkgs.gh
     pkgs.delta
     pkgs.direnv
     pkgs.eza
@@ -58,6 +59,7 @@ in
     pkgs.fish
     pkgs.fish-lsp
     pkgs.fzf
+    pkgs.gh
     pkgs.git
     pkgs.git-open
     pkgs.gum
@@ -66,19 +68,20 @@ in
     pkgs.jujutsu
     pkgs.just
     pkgs.lazygit
+    pkgs.mise
     neovimWithDependencies
     pkgs.nix-direnv
-    pkgs.nix-output-monitor
     pkgs.nixfmt-rfc-style
+    pkgs.nix-output-monitor
     pkgs.nushell
     pkgs.ripgrep
+    pkgs.stripe-cli
     pkgs.tealdeer
     pkgs.tmux
     pkgs.tree
     pkgs.vim
     pkgs.wget
     pkgs.zoxide
-
     # Fonts
     pkgs.nerd-fonts.roboto-mono
   ];
@@ -115,6 +118,8 @@ in
       "${platformConfig}/jj" = "config/jj";
 
       ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";
+
+      ".config/mise" = "config/mise";
 
       # Fish can't just link the config directory because if the flake directory
       # is used as my.config.directory (which is only true on new home manager

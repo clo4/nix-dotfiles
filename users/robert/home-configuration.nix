@@ -68,6 +68,8 @@ in
     pkgs.jujutsu
     pkgs.just
     pkgs.lazygit
+    pkgs.mise
+    neovimWithDependencies
     pkgs.nix-direnv
     pkgs.nixfmt-rfc-style
     pkgs.nix-output-monitor
@@ -116,6 +118,8 @@ in
       "${platformConfig}/jj" = "config/jj";
 
       ".config/direnv/direnv.toml" = "config/direnv/direnv.toml";
+
+      ".config/mise" = "config/mise";
 
       # Fish can't just link the config directory because if the flake directory
       # is used as my.config.directory (which is only true on new home manager

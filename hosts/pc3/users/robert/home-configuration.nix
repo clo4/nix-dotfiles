@@ -16,7 +16,7 @@
   # Config fails to build without this.
   nix.package = pkgs.nix;
 
-  my.config.directory = "${config.home.homeDirectory}/Developer/clo4/nix-dotfiles";
+  my.config.directory = "${config.home.homeDirectory}/Projects/clo4/nix-dotfiles";
   my.config.source = {
     ".config/zed" = "config/zed/hosts/pc3";
 

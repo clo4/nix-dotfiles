@@ -41,6 +41,11 @@ if test -d $HOME/.local/share/mise/shims; and not contains -- $HOME/.local/share
     set --prepend PATH $HOME/.local/share/mise/shims
 end
 
+# The default init for lmstudio appends to the PATH so we do the same
+if test -d $HOME/.lmstudio/bin; and not contains -- $HOME/.lmstudio/bin $PATH
+    set --append PATH $HOME/.lmstudio/bin
+end
+
 # Fish comes with some builtin aliases for ls, which we don't want.
 # Instead, `l` is an abbreviation defined in the abbreviations.fish file.
 functions -e la ll

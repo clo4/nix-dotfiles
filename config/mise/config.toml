@@ -1,6 +1,9 @@
 [settings]
 idiomatic_version_file_enable_tools = ["node", "python"]
 
+[settings.python]
+compile = true
+
 [tools]
 node = "latest"
 rust = "latest"

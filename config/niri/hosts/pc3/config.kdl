@@ -1,7 +1,7 @@
-output "Samsung Electric Company S90D 0x01000E00" {
-    mode "3840x2160@120.000"
-    scale 2
-}
+// output "Samsung Electric Company S90D 0x01000E00" {
+//     mode "3840x2160@120.000"
+//     scale 2
+// }
 
 output "Dell Inc. DELL S3222DGM 8P9MKK3" {
     mode "2560x1440@165.080"

@@ -1,6 +1,7 @@
 # General shell helpers.
 # These are commands that I type enough that I need them
 # to be faster to type.
+abbr -a d cd
 abbr -a - "cd -"
 abbr -a .. "cd .."
 if not set -q IS_DARWIN
@@ -83,7 +84,7 @@ abbr -a cot "cargo test"
 abbr -a coa "cargo add"
 abbr -a coc "cargo check"
 
-abbr -a d docker
+# abbr -a d docker
 abbr -a dp "docker ps"
 abbr -a dc "docker compose"
 abbr -a dcu "docker compose up"

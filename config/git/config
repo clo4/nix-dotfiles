@@ -3,6 +3,7 @@
 
 [push]
     autoSetupRemote = true
+	default = current
 
 [user]
     email = robert@clo4.net

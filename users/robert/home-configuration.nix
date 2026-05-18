@@ -48,6 +48,7 @@ in
     perSystem.self.has-ancestor
     # perSystem.self.schemat
     perSystem.self.ccase # Case conversion used in my Helix keybindings (TODO: port to scheme plugin?)
+    perSystem.self.comview
 
     neovimWithDependencies
     pkgs.ast-grep

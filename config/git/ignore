@@ -15,3 +15,4 @@ result-*
 
 **/.claude/settings.local.json
 .worktrees
+.comview

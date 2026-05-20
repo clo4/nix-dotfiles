@@ -29,3 +29,5 @@
 
 [merge]
 	conflictStyle = zdiff3
+[branch]
+	autoSetupMerge = simple

@@ -36,6 +36,11 @@ if test -d /opt/homebrew/bin; and not contains -- /opt/homebrew/bin $PATH
     set --append PATH /opt/homebrew/bin
 end
 
+# If deno is installing binaries to its own directory, include that in the path
+if test -d $HOME/.deno/bin; and not contains -- $HOME/.deno/bin $PATH
+    set --prepend PATH $HOME/.deno/bin
+end
+
 # Mise needs to be at the front of the PATH
 if test -d $HOME/.local/share/mise/shims; and not contains -- $HOME/.local/share/mise/shims $PATH
     set --prepend PATH $HOME/.local/share/mise/shims

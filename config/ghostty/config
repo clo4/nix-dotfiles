@@ -6,7 +6,7 @@ window-height = 60
 window-width = 170
 window-theme = auto
 theme = Gruvbox Dark
-auto-update-channel = tip
+auto-update-channel = stable
 
 # This file will be linked to the appropriate os-config file depending on the current platform
 config-file = os-config

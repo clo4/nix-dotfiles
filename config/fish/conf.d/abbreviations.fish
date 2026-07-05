@@ -117,3 +117,5 @@ abbr -a ",b" "git branch"
 abbr -a ",l" "git log"
 
 abbr -a yay paru
+
+abbr -a cl claude

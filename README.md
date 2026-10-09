@@ -1,6 +1,7 @@
 # clo4's configuration
 
-> This repository is not really maintained at the moment. I've stopped using Nix for almost everything except my work machine, and even that is being phased out. Nix is great, and it solves the problems it tries to solve excellently, but but I found myself growing increasingly irritated by the numerous problems it creates. I still recommend this as a reference for how to structure a multi-user, multi-machine NixOS & Home Manager setup.
+> This repository is not really maintained at the moment. I've stopped using Nix for almost everything except my work machine, and even that is being phased out. Nix is great, and it solves the problems it tries to solve excellently, but I've found myself growing increasingly irritated by the numerous problems it creates. I still recommend this as a reference for how to structure a multi-user, multi-machine NixOS & Home Manager setup, and I still recommend Nix where it makes sense.<br>
+> Additionally, I also don't have much faith in Nix as a project. This comes from a place of love (I *want* to have faith in it!), but the in-fighting, drama, finances, and lack of movement don't fill me with confidence.
 
 This is my dead-simple configuration, released to the public domain. Take inspiration if you're getting stuck configuring your own Nix flake setup. I currently actively maintain my nix-darwin and standalone Home Manager configurations, but supporting NixOS or WSL would be as simple as adding another entry to the `hosts` directory.
 
